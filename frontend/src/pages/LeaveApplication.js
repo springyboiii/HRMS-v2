@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from '../components/Navbar';
+import Axios from 'axios';
 
 
 
@@ -15,13 +16,13 @@ import Footer from '../components/Footer';
 function LeaveApplication(props) {
 
 
-  // const [leave,setLeave]=useState({
-  //   startDate:null,
-  //   duration:null,
-  //   type:null,
-  //   description:null,
-  //   file:null,
-  //   });
+  const [leave,setLeave]=useState({
+    startDate:null,
+    duration:null,
+    type:null,
+    description:null,
+    file:null,
+    });
 
 
   const [startDate, setStartDate] = useState(null);
@@ -40,6 +41,7 @@ function LeaveApplication(props) {
         setDuration(value);
     }
     if (id === "type") {
+      
         setType(value);
     }
     if (id === "description") {
@@ -51,23 +53,29 @@ function LeaveApplication(props) {
     // const target = e.target;
     // var value = target.value;
     // const name = target.name;
-    
+    setLeave({ ...leave, [e.target.name]: e.target.value })
 
-    // setLeave({
-    // [id]: value
-    // });
+   
 
     }  
+    
 
 
 
-function handleSubmit(event) {
+const handleSubmit= (event)=> {
 
-  props.handleSubmit(startDate,duration,type,description,file);
+  // props.handleSubmit(startDate,duration,type,description,file);
   // console.log(name, nic, source, paysheet, income,year,tin);
-  alert(`The name you entered was: ${type}`);
+  Axios.post("http://localhost:3001/api/insert",{
+    startDate:startDate,
+    duration:duration,
+  }).then(() => {
+    alert('success');
+  })
 
-  event.preventDefault();
+  alert(`The name you entered was: ${duration}`);
+
+  // event.preventDefault();
 }
 
 
