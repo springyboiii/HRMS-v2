@@ -40,12 +40,12 @@ function ViewLeave(props) {
 
             {arr.map((leave_arr) =>
               <tr>
-                <td>{leave_arr.id}</td>
+                <td>{leave_arr.leave_id}</td>
                 <td>{leave_arr.start_date}</td>
                 <td>{leave_arr.duration}</td>
                 <td>{leave_arr.type}</td>
                 <td>{leave_arr.description}</td>
-                <td>{leave_arr.file}</td>
+                <td>{leave_arr.document}</td>
 
                 </tr>
             )};
