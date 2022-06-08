@@ -22,6 +22,7 @@ function App(props) {
   const [leaves, setLeave] = useState([]);
   const [employees, setEmployees] = useState(props.employees);
 
+  
 
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/get").then((response) => {
