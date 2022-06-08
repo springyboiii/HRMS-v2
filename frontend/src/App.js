@@ -16,11 +16,19 @@ import ViewLeave from './pages/ViewLeave';
 import Login from "./pages/Login";
 import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
+import Axios from 'axios';
 
 function App(props) {
   const [leaves, setLeave] = useState(props.data);
   const [employees, setEmployees] = useState(props.employees);
-  function addLeave(start_Date,duration,type,description,file) {
+
+  const addLeave = (start_Date,duration,type,description,file) => {
+    Axios.post("http://localhost:3001/api/insert",{
+      startDate:start_Date,
+      duration:duration,
+    }).then(() => {
+      alert('success');
+    })
     switch (type){
       case "1":
         type="Annual Leave";
@@ -53,6 +61,9 @@ function App(props) {
       supervisor_id:321,
       file:file,
     }]);
+
+   
+
   }
   const EditEmployeeDetails=(id)=>{
     setEmployees(employees.filter((employee)=> employee.id !== id));
