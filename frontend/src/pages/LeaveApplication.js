@@ -66,12 +66,17 @@ const handleSubmit= (event)=> {
 
   props.handleSubmit(startDate,duration,type,description,file);
   // console.log(name, nic, source, paysheet, income,year,tin);
-  // Axios.post("http://localhost:3001/",{
-  //   startDate:startDate,
-  //   duration:duration,
-  // }).then(() => {
-  //   alert('success');
-  // })
+  Axios.post("http://localhost:3001/api/insert",{
+    startDate:startDate,
+    duration:duration,
+    description:description,
+    type:type,
+    employee_id:1001,
+    supervisor_id:1002,
+    document:file
+  }).then(() => {
+    alert('success');
+  })
 
   // alert(`The name you entered was: ${startDate}`);
 

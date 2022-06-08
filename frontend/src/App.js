@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SupervisorApproveLeave from './components/SupervisorApproveLeave';
 import HomeDummy from './pages/HomeDummy';
 import LeaveConfigure from './pages/LeaveConfigure';
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import EditEmployee from "./pages/EditEmployee";
 
 import Home from './pages/Home';
@@ -19,16 +19,24 @@ import SelectEmployee from "./components/SelectEmployee";
 import Axios from 'axios';
 
 function App(props) {
-  const [leaves, setLeave] = useState(props.data);
+  const [leaves, setLeave] = useState([]);
   const [employees, setEmployees] = useState(props.employees);
 
+  
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/get").then((response) => {
+      setLeave(response.data);
+    });
+  },[]);
+
   const addLeave = (start_Date,duration,type,description,file) => {
-    Axios.post("http://localhost:3001/api/insert",{
-      startDate:start_Date,
-      duration:duration,
-    }).then(() => {
-      alert('success');
-    })
+    // Axios.post("http://localhost:3001/api/insert",{
+    //   startDate:start_Date,
+    //   duration:duration,
+    // }).then(() => {
+    //   alert('success');
+    // })
     switch (type){
       case "1":
         type="Annual Leave";
