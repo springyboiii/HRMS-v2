@@ -64,18 +64,18 @@ function LeaveApplication(props) {
 
 const handleSubmit= (event)=> {
 
-  // props.handleSubmit(startDate,duration,type,description,file);
+  props.handleSubmit(startDate,duration,type,description,file);
   // console.log(name, nic, source, paysheet, income,year,tin);
-  Axios.post("http://localhost:3001/api/insert",{
-    startDate:startDate,
-    duration:duration,
-  }).then(() => {
-    alert('success');
-  })
+  // Axios.post("http://localhost:3001/",{
+  //   startDate:startDate,
+  //   duration:duration,
+  // }).then(() => {
+  //   alert('success');
+  // })
 
-  alert(`The name you entered was: ${duration}`);
+  // alert(`The name you entered was: ${startDate}`);
 
-  // event.preventDefault();
+  event.preventDefault();
 }
 
 

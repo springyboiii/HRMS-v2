@@ -13,18 +13,26 @@ const db=mysql.createPool({
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.urlencoded({extended:true}));
 
-app.get("/api/insert",(req,res)=>{
+
+app.post("/api/insert",(req,res)=>{
 
   const startDate=req.body.startDate;
   const duration=req.body.duration;
+  // console.log(startDate);
   const stat="INSERT INTO leave_app (startDate,duration) values (?,?);";
   db.query(stat,[startDate,duration],(err,result)=>{
-    console.log(startDate);
+    if (err) {
+      console.log(err);
+    } else {
+      res.send("Values Inserted");
+
+    }
   });
+
   
 });
 
