@@ -9,7 +9,7 @@ var saltRounds=10;
 const db=mysql.createPool({
   host:"localhost",
   user:"root",
-  password:"password",
+  password:"",
   database:"hrms"
 
 });
@@ -24,6 +24,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/api/leave", (req, res) => {
 
   const stat = "SELECT * FROM leave_table where leave_status='Pending';";
+  db.query(stat, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
+
+app.get("/api/getleave", (req, res) => {
+
+  const stat = "SELECT * FROM leave_table;";
   db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
@@ -97,7 +113,8 @@ app.post("/api/insert", (req, res) => {
   const employee_id = req.body.employee_id;
 
   const supervisor_id = req.body.supervisor_id;
-  const document = req.body.document;
+  const document = req.body.file;
+  
   // console.log(startDate);
   const stat = "INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document) values (?,?,?,?,?,?,?);";
   db.query(stat, [duration, description, startDate, type, employee_id, supervisor_id, document], (err, result) => {
@@ -105,7 +122,7 @@ app.post("/api/insert", (req, res) => {
       console.log(err);
 
     } else {
-      res.send("Values Inserted");
+      // console.log(req.file.filename)
     }})
 //     }
 //   });
