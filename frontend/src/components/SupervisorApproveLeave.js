@@ -4,8 +4,6 @@ import Navbar from '../components/Navbar';
 
 import Footer from '../components/Footer';
 import Button from "react-bootstrap/Button";
-import addImg from "../images/edit-icon-pencil-icon-sign-up-icon-vector-30669569.jpg";
-import Date from 'react';
 
 
 
@@ -40,7 +38,6 @@ function SupervisorApproveLeave(props) {
               <th>Start Day of Absence</th>
               <th>Description</th>
               <th>Type</th>
-              
               <th>Employee ID</th>
               <th>Status</th>
             </tr>
@@ -49,7 +46,7 @@ function SupervisorApproveLeave(props) {
 
           {arr.map((leave,index) => (
             
-              <tr  data-index={index} key={index}>
+              <tr  data-index={index} >
                 <td>{leave.leave_id}</td>
                 <td>{leave.duration}</td>
                 <td>{dateFormatter(leave.start_date)}</td>
