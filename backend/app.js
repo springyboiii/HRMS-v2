@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const db=mysql.createPool({
   host:"localhost",
   user:"root",
-  password:"",
+  password:"root",
   database:"hrms"
 });
 
@@ -34,29 +34,29 @@ app.get("/api/get",(req,res)=>{
 });
 
 
-app.post("/api/insert",(req,res)=>{
+// app.post("/api/insert",(req,res)=>{
 
-  const startDate=req.body.startDate;
-  const duration=req.body.duration;
-  const description=req.body.description;
-  const type=req.body.type;
-  const employee_id=req.body.employee_id;
+//   const startDate=req.body.startDate;
+//   const duration=req.body.duration;
+//   const description=req.body.description;
+//   const type=req.body.type;
+//   const employee_id=req.body.employee_id;
 
-  const supervisor_id=req.body.supervisor_id;
-  const document=req.body.document;
-  // console.log(startDate);
-  const stat="INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document) values (?,?,?,?,?,?,?);";
-  db.query(stat,[duration,description,startDate,type,employee_id,supervisor_id,document],(err,result)=>{
-    if (err) {
-      console.log(err);
-    } else {
-      res.send("Values Inserted");
+//   const supervisor_id=req.body.supervisor_id;
+//   const document=req.body.document;
+//   // console.log(startDate);
+//   const stat="INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document) values (?,?,?,?,?,?,?);";
+//   db.query(stat,[duration,description,startDate,type,employee_id,supervisor_id,document],(err,result)=>{
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.send("Values Inserted");
 
-    }
-  });
+//     }
+//   });
 
   
-});
+// });
 
 app.listen(3001,()=>{
   console.log("running on port 3001");

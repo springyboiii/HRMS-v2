@@ -16,6 +16,7 @@ import ViewLeave from './pages/ViewLeave';
 import Login from "./pages/Login";
 import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
+import ViewLeavesTable from "./components/viewLeavesTable";
 import Axios from 'axios';
 
 function App(props) {
@@ -27,6 +28,7 @@ function App(props) {
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/get").then((response) => {
       setLeave(response.data);
+      console.log("hi");
     });
   },[]);
 
@@ -100,6 +102,8 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+          <Route path="/viewLeavesTable" element={<ViewLeavesTable />} />
+
 
 
         </Routes>
