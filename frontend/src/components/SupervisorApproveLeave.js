@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from "react-bootstrap/Button";
 import addImg from "../images/edit-icon-pencil-icon-sign-up-icon-vector-30669569.jpg";
+import Date from 'react';
 
 
 
@@ -14,22 +15,23 @@ function SupervisorApproveLeave(props) {
   const arr = props.leaves;
   console.log(arr);
 
-
+  const dateFormatter = (date) => {
+    return date.split("T")[0]
+} 
 
   return (
     <div>
       <Navbar />
 
- 
-
       <div style={{
         display: 'flex',
         margin: 'auto',
-        width: 700,
-        padding: 30
+        width: 1500,
+        padding: 30,
+        textAlign: 'center'
       }}>
 
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="dark" >
           <thead>
             <tr>
               <th>Leave ID</th>
@@ -50,7 +52,7 @@ function SupervisorApproveLeave(props) {
               <tr  data-index={index} key={index}>
                 <td>{leave.leave_id}</td>
                 <td>{leave.duration}</td>
-                <td>{leave.start_date}</td>
+                <td>{dateFormatter(leave.start_date)}</td>
                 <td>{leave.description}</td>
                 
 
@@ -60,31 +62,19 @@ function SupervisorApproveLeave(props) {
 
                 <td style={{display: 'flex'}}>
 
-                <Button size="lg" >
+                <Button variant='success' size="lg" >
                 Accept
               </Button>
-              <Button size="lg" >
+              {''}
+              <Button  size="lg" variant="danger"  style={{marginLeft:"2px"}} >
                 Decline
               </Button>
                 </td>
                 
 
-                {/* <td>{leave.description}</td> */}
-
-                {/* <td>
-              {" "}
-              <Button size="lg" onClick={() => setOpen(true)}>
-                <img src={addImg} alt="edit" width="18" /> Edit
-              </Button>
-            </td> */}
-
+          
               </tr>
             ))}
-
-
-
-
-
 
           </tbody>
         </Table>
