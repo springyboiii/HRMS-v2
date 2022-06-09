@@ -34,7 +34,7 @@ function Home() {
     payGrade:"1",
     jobTitle:"3",
     employmentStatus:"permanent",
-    fullTime:true,
+    partTime:true,
     supervisor:false,
     salary:5000
     });
