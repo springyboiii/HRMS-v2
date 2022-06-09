@@ -26,11 +26,14 @@ function App(props) {
   
 
   useEffect(()=>{
-    Axios.get("http://localhost:3001/api/get").then((response) => {
-      setLeave(response.data);
-      console.log("hi");
+    Axios.get("http://localhost:3001/api/leave").then((response) => {
+
+      setLeave(...leaves,response.data);
+      
+      // setLeave(response.data);
     });
   },[]);
+  // console.log(leaves);
 
   const addLeave = (start_Date,duration,type,description,file) => {
     // Axios.post("http://localhost:3001/api/insert",{
@@ -60,17 +63,17 @@ function App(props) {
         break;
     }
     // setLeave([...leave, name]);
-    setLeave([...leaves,{
+    // setLeave([...leaves,{
 
-      id: 4,
-      duration: duration,
-      description: description,
-      start_date: start_Date,
-      type:type,
-      employee_id:123,
-      supervisor_id:321,
-      file:file,
-    }]);
+    //   id: 4,
+    //   duration: duration,
+    //   description: description,
+    //   start_date: start_Date,
+    //   type:type,
+    //   employee_id:123,
+    //   supervisor_id:321,
+    //   file:file,
+    // }]);
 
    
 
@@ -102,7 +105,7 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
-          <Route path="/viewLeavesTable" element={<ViewLeavesTable />} />
+          <Route path="/viewLeavesTable" element={<ViewLeavesTable leaves={leaves} />} />
 
 
 
