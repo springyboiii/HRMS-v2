@@ -3,13 +3,14 @@ var app = express();
 var mysql = require('mysql');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-// const bcrypt=require("bcrypt");
-// const saltRounds=10;
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "hrms"
+
+
+const db=mysql.createPool({
+  host:"localhost",
+  user:"root",
+  password:"root",
+  database:"hrms"
+
 });
 
 app.use(cors());
@@ -19,9 +20,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/api/get", (req, res) => {
+app.get("/api/leave", (req, res) => {
 
-  const stat = "SELECT * FROM leave_table;";
+  const stat = "SELECT * FROM leave_table where leave_status='Pending';";
   db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
@@ -38,6 +39,23 @@ app.post("/api/insertEmployee", (req, res) => {
 
   const data = req.body.employeeData
 
+// app.post("/api/insert",(req,res)=>{
+
+//   const startDate=req.body.startDate;
+//   const duration=req.body.duration;
+//   const description=req.body.description;
+//   const type=req.body.type;
+//   const employee_id=req.body.employee_id;
+
+//   const supervisor_id=req.body.supervisor_id;
+//   const document=req.body.document;
+//   // console.log(startDate);
+//   const stat="INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document) values (?,?,?,?,?,?,?);";
+//   db.query(stat,[duration,description,startDate,type,employee_id,supervisor_id,document],(err,result)=>{
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.send("Values Inserted");
   const sqlInsert = "insert into employee (first_name,last_name,address_no,address_street,ADDRESS_CITY,pay_grade,employment_status_type,is_parttime,title,is_supervisor,gender,dob,joined_date,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
   db.query(sqlInsert, [data.firstName, data.lastName, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department], (err, result) => {
     if (err) {
@@ -78,16 +96,16 @@ app.post("/api/insert", (req, res) => {
   db.query(stat, [duration, description, startDate, type, employee_id, supervisor_id, document], (err, result) => {
     if (err) {
       console.log(err);
-    } if(result.length>0){
-      res.send(credentials.username);
 
-    }
-    else {
-      res.send({message:"Values Inserted"});
+    } else {
+      res.send("Values Inserted");
+    }})
+//     }
+//   });
 
-    }
-  });
 
+  
+// });
 
 });
 

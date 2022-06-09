@@ -1,21 +1,86 @@
-// import React from 'react'
-import { useNavigate } from "react-router-dom";
-import Leaves from "./Leaves";
-import Navbar from "./Navbar";
+import React from 'react';
+import Table from 'react-bootstrap/Table';
+import Navbar from '../components/Navbar';
+
 import Footer from '../components/Footer';
+import Button from "react-bootstrap/Button";
 
-const SupervisorApproveLeave = ({ leaves }) => {
-  const navigate = useNavigate();
+
+
+
+function SupervisorApproveLeave(props) {
+
+  const arr = props.leaves;
+  console.log(arr);
+
+  const dateFormatter = (date) => {
+    return date.split("T")[0]
+} 
+
   return (
-    <>
-      
-      <Navbar /> 
-     <Leaves leaves={leaves}/>
+    <div>
+      <Navbar />
 
-      <button onClick={() => navigate(-1)}>Go Back</button>
-      <Footer />
-    </>
-  );
-};
+      <div style={{
+        display: 'flex',
+        margin: 'auto',
+        width: 1500,
+        padding: 30,
+        textAlign: 'center'
+      }}>
+
+        <Table striped bordered hover variant="dark" >
+          <thead>
+            <tr>
+              <th>Leave ID</th>
+              
+              <th>Duration</th>
+              <th>Start Day of Absence</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Employee ID</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {arr.map((leave,index) => (
+            
+              <tr  data-index={index} >
+                <td>{leave.leave_id}</td>
+                <td>{leave.duration}</td>
+                <td>{dateFormatter(leave.start_date)}</td>
+                <td>{leave.description}</td>
+                
+
+                <td>{leave.type}</td>
+
+                <td>{leave.employee_id}</td>
+
+                <td style={{display: 'flex'}}>
+
+                <Button variant='success' size="lg" >
+                Accept
+              </Button>
+              {''}
+              <Button  size="lg" variant="danger"  style={{marginLeft:"2px"}} >
+                Decline
+              </Button>
+                </td>
+                
+
+          
+              </tr>
+            ))}
+
+          </tbody>
+        </Table>
+      </div>
+      <Footer/>
+
+    </div>
+  )
+}
+
 
 export default SupervisorApproveLeave;

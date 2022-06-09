@@ -1,7 +1,6 @@
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SupervisorApproveLeave from './components/SupervisorApproveLeave';
 import HomeDummy from './pages/HomeDummy';
 import LeaveConfigure from './pages/LeaveConfigure';
 import { useState,useEffect } from "react";
@@ -17,6 +16,7 @@ import Login from "./pages/Login";
 import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
 import Axios from 'axios';
+import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 
 function App(props) {
   const [leaves, setLeave] = useState([]);
@@ -25,10 +25,14 @@ function App(props) {
   
 
   useEffect(()=>{
-    Axios.get("http://localhost:3001/api/get").then((response) => {
-      setLeave(response.data);
+    Axios.get("http://localhost:3001/api/leave").then((response) => {
+
+      setLeave(...leaves,response.data);
+      
+      // setLeave(response.data);
     });
   },[]);
+  // console.log(leaves);
 
   const addLeave = (start_Date,duration,type,description,file) => {
     // Axios.post("http://localhost:3001/api/insert",{
@@ -58,17 +62,17 @@ function App(props) {
         break;
     }
     // setLeave([...leave, name]);
-    setLeave([...leaves,{
+    // setLeave([...leaves,{
 
-      id: 4,
-      duration: duration,
-      description: description,
-      start_date: start_Date,
-      type:type,
-      employee_id:123,
-      supervisor_id:321,
-      file:file,
-    }]);
+    //   id: 4,
+    //   duration: duration,
+    //   description: description,
+    //   start_date: start_Date,
+    //   type:type,
+    //   employee_id:123,
+    //   supervisor_id:321,
+    //   file:file,
+    // }]);
 
    
 
@@ -88,7 +92,7 @@ function App(props) {
           {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomeDummy />} />
-          <Route path="/components/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={leaves}/>} />
+          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={leaves}/>} />
           <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
 
           <Route path="/EditEmployeeDetails" element={<EditEmployee  />} />
@@ -100,6 +104,7 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+
 
 
         </Routes>

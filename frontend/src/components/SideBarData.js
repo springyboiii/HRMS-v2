@@ -42,7 +42,7 @@ export const SidebarData = [
   }, 
   {
     title: 'Leave Requests',
-    path: '/../components/SupervisorApproveLeave',
+    path: '/SupervisorApproveLeave',
     // icon: <MdIcons.MdPageview />,
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'

@@ -16,9 +16,6 @@ function ViewLeave(props) {
   return (
     <div>
       <Navbar />
-
- 
-
       <div style={{
         display: 'flex',
         margin: 'auto',
