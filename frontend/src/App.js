@@ -21,26 +21,37 @@ import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 function App(props) {
   const [leaves, setLeave] = useState([]);
   const [employees, setEmployees] = useState(props.employees);
+  const [pendleaves,setPending]=useState([]);
 
   
 
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/leave").then((response) => {
 
+      setPending(...pendleaves,response.data);
+      
+      // setLeave(response.data);
+    });
+  },[]);
+
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/getleave").then((response) => {
+
       setLeave(...leaves,response.data);
       
       // setLeave(response.data);
     });
   },[]);
-  // console.log(leaves);
+  console.log(leaves);
 
   const addLeave = (start_Date,duration,type,description,file) => {
-    // Axios.post("http://localhost:3001/api/insert",{
-    //   startDate:start_Date,
-    //   duration:duration,
-    // }).then(() => {
-    //   alert('success');
-    // })
+    // Axios.get("http://localhost:3001/api/getleave").then((response) => {
+
+    //   setLeave(...leaves,response.data);
+      
+    //   // setLeave(response.data);
+    // });
     switch (type){
       case "1":
         type="Annual Leave";
@@ -62,17 +73,17 @@ function App(props) {
         break;
     }
     // setLeave([...leave, name]);
-    // setLeave([...leaves,{
+    setLeave([...leaves,{
 
-    //   id: 4,
-    //   duration: duration,
-    //   description: description,
-    //   start_date: start_Date,
-    //   type:type,
-    //   employee_id:123,
-    //   supervisor_id:321,
-    //   file:file,
-    // }]);
+      id: 4,
+      duration: duration,
+      description: description,
+      start_date: start_Date,
+      type:type,
+      employee_id:123,
+      supervisor_id:321,
+      file:file,
+    }]);
 
    
 
@@ -92,7 +103,7 @@ function App(props) {
           {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomeDummy />} />
-          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={leaves}/>} />
+          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} />
           <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
 
           <Route path="/EditEmployeeDetails" element={<EditEmployee  />} />

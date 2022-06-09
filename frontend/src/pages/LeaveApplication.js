@@ -30,6 +30,7 @@ function LeaveApplication(props) {
   const [type, setType] = useState(null);
   const [description,setDescription] = useState(null);
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
 
   const handleInputChange = (e) => {
 
@@ -48,7 +49,8 @@ function LeaveApplication(props) {
         setDescription(value);
     }
     if (id === "file") {
-        setFile(value);
+      setFile(value);
+      
     }
     // const target = e.target;
     // var value = target.value;
@@ -63,6 +65,8 @@ function LeaveApplication(props) {
 
 
 const handleSubmit= (event)=> {
+  // const data = new FormData()
+  // data.append('file', file)
 
   props.handleSubmit(startDate,duration,type,description,file);
   // console.log(name, nic, source, paysheet, income,year,tin);
@@ -73,7 +77,7 @@ const handleSubmit= (event)=> {
     type:type,
     employee_id:1001,
     supervisor_id:1002,
-    document:file
+    file:file
   }).then(() => {
     alert('success');
   })
