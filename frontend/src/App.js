@@ -1,7 +1,6 @@
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SupervisorApproveLeave from './components/SupervisorApproveLeave';
 import HomeDummy from './pages/HomeDummy';
 import LeaveConfigure from './pages/LeaveConfigure';
 import { useState,useEffect } from "react";
@@ -16,8 +15,8 @@ import ViewLeave from './pages/ViewLeave';
 import Login from "./pages/Login";
 import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
-import ViewLeavesTable from "./components/viewLeavesTable";
 import Axios from 'axios';
+import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 
 function App(props) {
   const [leaves, setLeave] = useState([]);
@@ -93,7 +92,7 @@ function App(props) {
           {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomeDummy />} />
-          <Route path="/components/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={leaves}/>} />
+          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={leaves}/>} />
           <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
 
           <Route path="/EditEmployeeDetails" element={<EditEmployee  />} />
@@ -105,7 +104,6 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
-          <Route path="/viewLeavesTable" element={<ViewLeavesTable leaves={leaves} />} />
 
 
 
