@@ -3,7 +3,8 @@ var app = express();
 var mysql = require('mysql');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-
+// const bcrypt=require("bcrypt");
+// const saltRounds=10;
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -39,8 +40,27 @@ app.post("/api/insertEmployee", (req, res) => {
 
   const sqlInsert = "insert into employee (first_name,last_name,address_no,address_street,ADDRESS_CITY,pay_grade,employment_status_type,is_parttime,title,is_supervisor,gender,dob,joined_date,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
   db.query(sqlInsert, [data.firstName, data.lastName, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department], (err, result) => {
-    console.log(err);
-  })
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }  })
+})
+app.post("/api/insertUser", (req, res) => {
+
+  const data = req.body.employeeData
+  const defaultPassword=data.email+"password";
+  // console.log(defaultPassword)
+  const sqlInsert="insert into user_table (username,password) values (?,?);"
+  db.query(sqlInsert, [data.email,defaultPassword], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send({message:"User(Email) already exists"});
+    } else {
+      res.send(data.email);
+
+    }  })
 })
 
 app.post("/api/insert", (req, res) => {
@@ -58,14 +78,40 @@ app.post("/api/insert", (req, res) => {
   db.query(stat, [duration, description, startDate, type, employee_id, supervisor_id, document], (err, result) => {
     if (err) {
       console.log(err);
-    } else {
-      res.send("Values Inserted");
+    } if(result.length>0){
+      res.send(credentials.username);
+
+    }
+    else {
+      res.send({message:"Values Inserted"});
 
     }
   });
 
 
 });
+
+app.post("/api/login",(req,res)=>{
+  const credentials=req.body.credentials;
+  // console.log(credentials)
+  const sqlSelect="SELECT * from user_table where username= ? and password = ?";
+  db.query(
+    sqlSelect,
+    [credentials.username,credentials.password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      } if(result.length>0){
+        res.send(credentials.username);
+
+      }
+      else {
+        res.send({message:"Wrong Username/Password! Recheck your credentials please"});
+      }
+    }
+  );
+})
 
 app.listen(3001, () => {
   console.log("running on port 3001");
