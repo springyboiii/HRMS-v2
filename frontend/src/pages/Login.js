@@ -2,15 +2,33 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {useForm} from "react-hook-form";
-
+import {set, useForm} from "react-hook-form";
+import Axios from 'axios';
+import { useState } from 'react';
 function Login() {
-
+  const [IsAuthenticated, setIsAuthenticated] = useState(false);
   const {register, handleSubmit, formState:{errors}} = useForm();
 
   const onSubmit = (data) =>{
-      console.log(data);
-  }
+    Axios.post("http://localhost:3001/api/login", {
+      
+      credentials:data
+      
+    }).then((response)=>{
+      console.log(response.data)
+      if (response.data.message){
+        setIsAuthenticated(false); 
+        alert(response.data.message)      
+      }else{
+        // this.props.setUsername(this.state.userName);
+        setIsAuthenticated(true)
+        // this.setState({isAuthenticated:true});
+        
+        alert("logged in")
+        //redirect somehwere
+        
+      
+      }  })}
   
   return (
     <div>
