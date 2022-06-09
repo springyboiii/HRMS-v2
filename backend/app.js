@@ -3,12 +3,13 @@ var app = express();
 var mysql = require('mysql');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-
+var bcrypt =require("bcrypt");
+var saltRounds=10;
 
 const db=mysql.createPool({
   host:"localhost",
   user:"root",
-  password:"root",
+  password:"password",
   database:"hrms"
 
 });
@@ -71,14 +72,20 @@ app.post("/api/insertUser", (req, res) => {
   const defaultPassword=data.email+"password";
   // console.log(defaultPassword)
   const sqlInsert="insert into user_table (username,password) values (?,?);"
-  db.query(sqlInsert, [data.email,defaultPassword], (err, result) => {
-    if (err) {
+  bcrypt.hash(defaultPassword,saltRounds,(err,hash)=>{
+    if(err){
       console.log(err);
-      res.send({message:"User(Email) already exists"});
-    } else {
-      res.send(data.email);
-
-    }  })
+    }
+    db.query(sqlInsert, [data.email,hash], (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send({message:"User(Email) already exists"});
+      } else {
+        res.send(data.email);
+  
+      }  })
+  })
+  
 })
 
 app.post("/api/insert", (req, res) => {
@@ -112,20 +119,28 @@ app.post("/api/insert", (req, res) => {
 app.post("/api/login",(req,res)=>{
   const credentials=req.body.credentials;
   // console.log(credentials)
-  const sqlSelect="SELECT * from user_table where username= ? and password = ?";
+  const sqlSelect="SELECT * from user_table where username= ?;";
   db.query(
     sqlSelect,
-    [credentials.username,credentials.password],
+    [credentials.username],
     (err, result) => {
       if (err) {
         console.log(err);
         return;
       } if(result.length>0){
-        res.send(credentials.username);
+        bcrypt.compare(credentials.password,result[0].password,(err,response)=>{
+          if(response){
+            res.send(result);
+          }else{
+            res.send({message:"Wrong Username/Password! Recheck your credentials please"});
+
+          }
+        })
+        // res.send(credentials.username);
 
       }
       else {
-        res.send({message:"Wrong Username/Password! Recheck your credentials please"});
+        res.send({message:"User doesn't exist"});
       }
     }
   );
