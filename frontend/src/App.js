@@ -82,7 +82,7 @@ function App(props) {
       type:type,
       employee_id:123,
       supervisor_id:321,
-      file:file,
+      document:file,
     }]);
 
    

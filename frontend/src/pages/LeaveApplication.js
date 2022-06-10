@@ -30,7 +30,9 @@ function LeaveApplication(props) {
   const [type, setType] = useState(null);
   const [description,setDescription] = useState(null);
   const [file, setFile] = useState(null);
-  const [fileName, setFileName] = useState("");
+  const [fileName,setFileName]=useState(null);
+  const [selectedFile,setSelected] = useState(null);
+
 
   const handleInputChange = (e) => {
 
@@ -50,6 +52,10 @@ function LeaveApplication(props) {
     }
     if (id === "file") {
       setFile(value);
+      setSelected(e.target.files[0]);
+      setFileName(e.target.files[0].name);
+      console.log(e.target.files[0])
+
       
     }
     // const target = e.target;
@@ -65,11 +71,22 @@ function LeaveApplication(props) {
 
 
 const handleSubmit= (event)=> {
-  // const data = new FormData()
-  // data.append('file', file)
+  const data = new FormData() 
+  var x=""
+  data.append('file', selectedFile)
+  data.append("fileName", fileName);
 
   props.handleSubmit(startDate,duration,type,description,file);
   // console.log(name, nic, source, paysheet, income,year,tin);
+
+  Axios.post("http://localhost:3001/upload", data, { 
+      // receive two    parameter endpoint url ,form data
+  }).then(
+    res => { // then print response status
+    x=res.data;
+    console.log(x);
+  }
+  )
   Axios.post("http://localhost:3001/api/insert",{
     startDate:startDate,
     duration:duration,
