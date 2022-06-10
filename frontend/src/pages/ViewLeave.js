@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Navbar from '../components/Navbar';
 
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 
 
@@ -35,6 +36,17 @@ function ViewLeave(props) {
         break;
     }
     return type;
+  }
+
+  function leaveDocument(fName){
+    if (fName!=null){
+      var path="/uploads/"+fName;
+      return (<Link to={path} target="_blank" download>Download</Link>)
+    }
+    else{
+      return null;
+    }
+    
   }
 
 
@@ -88,7 +100,7 @@ function ViewLeave(props) {
                 <td>{leave_arr.duration}</td>
                 <td>{leaveType(leave_arr.type)}</td>
                 <td>{leave_arr.description}</td>
-                <td>{leave_arr.document}</td>
+                <td>{leaveDocument(leave_arr.document)}</td>
              
 
                 </tr>
