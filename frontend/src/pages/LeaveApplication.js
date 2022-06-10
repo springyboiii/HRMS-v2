@@ -76,7 +76,7 @@ const handleSubmit= (event)=> {
   data.append('file', selectedFile)
   data.append("fileName", fileName);
 
-  props.handleSubmit(startDate,duration,type,description,file);
+  
   // console.log(name, nic, source, paysheet, income,year,tin);
 
   Axios.post("http://localhost:3001/upload", data, { 
@@ -84,9 +84,9 @@ const handleSubmit= (event)=> {
   }).then(
     res => { // then print response status
     x=res.data;
-    console.log(x);
   }
   )
+  
   Axios.post("http://localhost:3001/api/insert",{
     startDate:startDate,
     duration:duration,
@@ -94,10 +94,11 @@ const handleSubmit= (event)=> {
     type:type,
     employee_id:1001,
     supervisor_id:1002,
-    file:file
+    file:fileName
   }).then(() => {
     alert('success');
   })
+  props.handleSubmit(startDate,duration,type,description,fileName);
 
   // alert(`The name you entered was: ${startDate}`);
 
