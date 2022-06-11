@@ -10,6 +10,7 @@ import Axios from 'axios';
 
 
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 
 
@@ -113,7 +114,7 @@ const handleSubmit= (event)=> {
   return (
     <div>
 
-      <Navbar />
+      <Header />
       <div style={{
         display: 'flex',
         margin: 'auto',
