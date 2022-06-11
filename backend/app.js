@@ -11,7 +11,7 @@ var fileName = "";
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "root",
   database: "hrms2"
 
 });
@@ -50,6 +50,20 @@ app.get("/api/getleave", (req, res) => {
 
     }
   });
+});
+
+  app.get("/api/getleavesleft", (req, res) => {
+
+    const stat = "SELECT Employee_id,Firstname,Lastname,Leaves_left from employee ;";
+    db.query(stat, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+  
+      }
+    });
+  
 
 
 });

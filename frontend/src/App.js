@@ -20,6 +20,7 @@ import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 
 function App(props) {
   const [leaves, setLeave] = useState([]);
+  const [leavesLeft,setLeavesLeft]= useState([]);
   const [employees, setEmployees] = useState(props.employees);
   const [pendleaves,setPending]=useState([]);
 
@@ -29,6 +30,15 @@ function App(props) {
     Axios.get("http://localhost:3001/api/leave").then((response) => {
 
       setPending(...pendleaves,response.data);
+      
+      // setLeave(response.data);
+    });
+  },[]);
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/getleavesleft").then((response) => {
+
+      setLeavesLeft(...leavesLeft,response.data);
       
       // setLeave(response.data);
     });
@@ -114,7 +124,7 @@ function App(props) {
           <Route path='/login' element={<Login />}></Route> 
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
-          <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+          <Route path="/LeaveConfigure" element={<LeaveConfigure leavesLeft={leavesLeft} />} />
 
 
 

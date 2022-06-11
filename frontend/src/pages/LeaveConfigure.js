@@ -16,27 +16,20 @@ import Footer from '../components/Footer';
 const LeaveConfigure = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const students = [
-    {
-      'id': 100, 
-      'name': 'Kamal', 
-      'leaves': 50
-    },
-    {
-      'id': 101, 
-      'name': 'Sethu', 
-      'leaves': 50
-    },
-    {
-      'id': 102, 
-      'name': 'Fahad', 
-      'leaves': 50
-    },
-];
-
+  const leavesLeft = props.leavesLeft;  
+  console.log(leavesLeft);
    
 
-  //var openModal = () => setOpen({ open: false });
+  // const acceptRequest = (data) => {
+  //   Axios.post("http://localhost:3001/api/sendApproval", {
+  //     status: "Accepted",
+  //     leave_id: data,
+  //   }).then(() => {
+  //     window.location.reload(false);
+
+  //     // alert("Success!");
+  //   });
+  // };
   //var closeModal = () => setOpen({ open: false });
 
   return (
@@ -59,11 +52,11 @@ const LeaveConfigure = (props) => {
           </tr>
         </thead>
         <tbody>
-        {students.map((student, index) => (
-              <tr data-index={index}>
-                <td>{student.id}</td>
-                <td>{student.name}</td>
-                <td>{student.leaves}</td>
+        {leavesLeft.map((leave, index) => (
+              <tr data-index={index} key={index}>
+                <td>{leave.Employee_id}</td>
+                <td>{leave.Firstname+" "+leave.Lastname}</td>
+                <td>{leave.Leaves_left}</td>
                 <td>
               {" "}
               <Button size="lg" onClick={() => setOpen(true)}>
@@ -73,33 +66,7 @@ const LeaveConfigure = (props) => {
 
               </tr>
             ))}
-
-            
-            
-          <tr>
-            <td>103</td>
-            <td>Loki</td>
-            <td>65</td>
-            <td>
-              {" "}
-              <Button size="lg" onClick={() => setOpen(true)}>
-                <img src={addImg} alt="edit" width="18" /> Edit
-              </Button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>104</td>
-            <td>Kanag</td>
-            <td>72</td>
-            <td>
-              {" "}
-              <Button size="lg">
-                <img src={addImg} alt="edit" width="18" /> Edit
-              </Button>
-            </td>
-          </tr>
-         
+          
           
         </tbody>
       </Table>
@@ -113,6 +80,7 @@ const LeaveConfigure = (props) => {
             <Form.Label>Leaves Left</Form.Label>
             <Form.Control type="text"  />
           </Form.Group>
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setOpen(false)}>
