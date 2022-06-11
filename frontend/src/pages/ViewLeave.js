@@ -41,7 +41,7 @@ function ViewLeave(props) {
   function leaveDocument(fName){
     if (fName!=null){
       var path="/uploads/"+fName;
-      return (<Link to={path} target="_blank" download>Download</Link>)
+      return (<Link to={path} target="_blank" download>{fName}</Link>)
     }
     else{
       return null;
@@ -68,6 +68,7 @@ function ViewLeave(props) {
               <th>Type of Leave</th>
               <th>Reason</th>
               <th>Document</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -101,6 +102,7 @@ function ViewLeave(props) {
                 <td>{leaveType(leave_arr.type)}</td>
                 <td>{leave_arr.description}</td>
                 <td>{leaveDocument(leave_arr.document)}</td>
+                <td>{leave_arr.leave_status}</td>
              
 
                 </tr>

@@ -45,7 +45,7 @@ function App(props) {
   },[]);
   console.log(leaves);
 
-  const addLeave = (start_Date,duration,type,description,file) => {
+  const addLeave = (start_Date,duration,type,description,file,status) => {
     // Axios.get("http://localhost:3001/api/getleave").then((response) => {
 
     //   setLeave(...leaves,response.data);
@@ -83,6 +83,7 @@ function App(props) {
       employee_id:123,
       supervisor_id:321,
       document:file,
+      leave_status:status
     }]);
 
    
