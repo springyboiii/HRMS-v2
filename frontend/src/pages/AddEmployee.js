@@ -17,54 +17,54 @@ const AddEmployee = ({ addEmployeeDetails }) => {
 
     Axios.post('http://localhost:3001/api/insertUser', {
       employeeData: data
-    }).then((response)=>{
+    }).then((response) => {
       // alert("Voila user added")
       console.log(response.data)
-      if (response.data.message){
+      if (response.data.message) {
         alert(response.data.message);
-        return;      
-      }else{
-        
+        return;
+      } else {
+
         Axios.post('http://localhost:3001/api/insertEmployee', {
-      employeeData: data
-    }).then((response)=>{
-      console.log(response)
-      alert("Voila")
-      setEmployee(data);
-      addEmployeeDetails(data);
-      setEmployee("");
-    })
+          employeeData: data
+        }).then((response) => {
+          console.log(response)
+          alert("Voila")
+          setEmployee(data);
+          addEmployeeDetails(data);
+          setEmployee("");
+        })
         alert("Employee Added")
         //redirect somehwere
-        
-      
+
+
       }
-      
+
     })
-    ;
-    
-    
+      ;
+
+
   }
-   
-    // setEmployee({
-    //   firstname: "",
-    //   lastname: "",
-    //   email: "",
-    //   dob: "",
-    //   isFemale: null,
-    //   addressNo: "",
-    //   street: "",
-    //   city: "",
-    //   startDate: "",
-    //   department: "",
-    //   payGrade: "",
-    //   jobTitle: "",
-    //   employmentStatus: "",
-    //   partTime: null,
-    //   supervisor: null,
-    //   salary: ""
-    // })
-  
+
+  // setEmployee({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   dob: "",
+  //   isFemale: null,
+  //   addressNo: "",
+  //   street: "",
+  //   city: "",
+  //   startDate: "",
+  //   department: "",
+  //   payGrade: "",
+  //   jobTitle: "",
+  //   employmentStatus: "",
+  //   partTime: null,
+  //   supervisor: null,
+  //   salary: ""
+  // })
+
 
 
 
