@@ -14,7 +14,7 @@ function HomeDummy() {
         <Button onClick={() => navigate("/addEmployee")}>Add Employee</Button>
         <Button onClick={() => navigate("/login")}>Login</Button>
         <Button onClick={() => navigate("/LeaveConfigure")}>Leave Configuration</Button> 
-        <Button onClick={() => navigate("/components/SupervisorApproveLeave")}>Supervisor Function 1</Button> 
+        <Button onClick={() => navigate("/SupervisorApproveLeave")}>Supervisor Function 1</Button> 
         <Button onClick={() => navigate("/home")}>Dashboard</Button> 
          
       

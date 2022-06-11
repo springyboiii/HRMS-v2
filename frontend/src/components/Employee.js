@@ -12,6 +12,8 @@ import { TypeH1 } from 'react-bootstrap-icons';
 const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
   // const {register, handleSubmit, formState:{errors}} = useForm();
+  // console.log(employee)
+  console.log(employee.department_id)
 
   return (
     <div >
@@ -82,8 +84,8 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <Form.Group>
               <Form.Label>Gender</Form.Label>
               <br></br>
-              <input type="radio" name="gender" defaultValue="0" disabled={disabled} defaultChecked={!employee.isFemale} {...register("gender", { required: true })} onChange={(e) => { employee.gender = e.target.value }} /> Male
-              <input type="radio" name="gender" defaultValue="1" disabled={disabled} defaultChecked={employee.isFemale} {...register("gender", { required: true })} onChange={(e) => { employee.gender = e.target.value }} /> Female
+              <input type="radio" name="gender" defaultValue="0" disabled={disabled} defaultChecked={!employee.gender} {...register("gender", { required: true })} onChange={(e) => { employee.gender = e.target.value }} /> Male
+              <input type="radio" name="gender" defaultValue="1" disabled={disabled} defaultChecked={employee.gender} {...register("gender", { required: true })} onChange={(e) => { employee.gender = e.target.value }} /> Female
             </Form.Group>
             {errors.gender && <p className='errorMsg'>Gender is required!</p>}
           </div>
@@ -151,20 +153,20 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <Form.Group>
                 <Form.Label>Department</Form.Label>
                 <br></br>
-                <Form.Select name="department" defaultValue={employee.department} {...register("department", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
-                  <option value={"default"} disabled={disabled} onChange={(e) => { employee.department = e.target.value }}>Choose an Option</option>
+                <Form.Select name="department_id" value={employee.department_id} {...register("department_id", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
+                  <option value={"default"} disabled={disabled} onChange={(e) => { employee.department_id = e.target.value }}>Choose an Option</option>
                   <option value="1">Department 1</option>
                   <option value="2">Department 2</option>
                   <option value="3">Department 3</option>
                 </Form.Select>
               </Form.Group>
-              {errors.department && <p className='errorMsg'>Department details are required!</p>}
+              {errors.department_id && <p className='errorMsg'>Department details are required!</p>}
             </div>
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>Pay Grade</Form.Label>
                 <br></br>
-                <Form.Select name="payGrade" defaultValue={employee.payGrade} {...register("payGrade", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
+                <Form.Select name="payGrade" value={employee.payGrade} {...register("payGrade", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
                   <option value={"default"} disabled={disabled} onChange={(e) => { employee.payGrade = e.target.value }}>Choose an Option</option>
                   <option value="1">Level 1</option>
                   <option value="2">Level 2</option>
@@ -180,7 +182,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <Form.Group>
                 <Form.Label>Job Title</Form.Label>
                 <br></br>
-                <Form.Select name="jobTitle" defaultValue={employee.jobTitle} {...register("jobTitle", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
+                <Form.Select name="jobTitle" value={employee.jobTitle} {...register("jobTitle", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
                   <option value={"default"} disabled={disabled} onChange={(e) => { employee.jobTitle = e.target.value }}>Choose an Option</option>
                   <option value="1">HR Manager</option>
                   <option value="2">Accountant</option>
@@ -194,7 +196,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <Form.Group>
                 <Form.Label>Employment Status Type</Form.Label>
                 <br></br>
-                <Form.Select name="employmentStatus" defaultValue={employee.employmentStatus} {...register("employmentStatus", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
+                <Form.Select name="employmentStatus" value={employee.employmentStatus} {...register("employmentStatus", { validate: defaultValue => defaultValue !== 'default' })} disabled={disabled}>
                   <option value={"default"} disabled={disabled} onChange={(e) => { employee.employmentStatus = e.target.value }}>Choose an Option</option>
                   <option value="1">Intern</option>
                   <option value="2">Contract</option>
