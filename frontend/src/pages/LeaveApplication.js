@@ -77,6 +77,7 @@ const handleSubmit= (event)=> {
   data.append('file', selectedFile)
   data.append("fileName", fileName);
 
+
   
   // console.log(name, nic, source, paysheet, income,year,tin);
 
@@ -95,11 +96,12 @@ const handleSubmit= (event)=> {
     type:type,
     employee_id:1001,
     supervisor_id:1002,
-    file:fileName
+    file:fileName,
+    status:"Pending"
   }).then(() => {
     alert('success');
   })
-  props.handleSubmit(startDate,duration,type,description,fileName);
+  props.handleSubmit(startDate,duration,type,description,fileName,"Pending");
 
   // alert(`The name you entered was: ${startDate}`);
 
