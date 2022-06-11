@@ -166,6 +166,23 @@ app.post("/api/login", (req, res) => {
   );
 })
 
+app.post("/api/sendApproval", (req, res) => {
+
+  const status=req.body.status;
+  const leave_id=req.body.leave_id;
+  const sta = "Update leave_table set leave_status = ? where leave_id=?";
+
+  db.query(sta,[status,leave_id], (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+      res.send(result);
+      console.log(req.url);
+    }})
+
+});
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '../frontend/public/uploads')
