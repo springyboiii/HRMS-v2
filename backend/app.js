@@ -11,8 +11,8 @@ var fileName="";
 const db=mysql.createPool({
   host:"localhost",
   user:"root",
-  password:"",
-  database:"hrms"
+  password:"root",
+  database:"hrms2"
 
 });
 
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/api/leave", (req, res) => {
 
-  const stat = "SELECT * FROM leave_table where leave_status='Pending';";
+  const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=125;";
   db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
@@ -75,7 +75,7 @@ app.post("/api/insertEmployee", (req, res) => {
 //       console.log(err);
 //     } else {
 //       res.send("Values Inserted");
-  const sqlInsert = "insert into employee (first_name,last_name,address_no,address_street,ADDRESS_CITY,pay_grade,employment_status_type,is_parttime,title,is_supervisor,gender,dob,joined_date,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+  const sqlInsert = "insert into employee (first_name,last_name,address_no,address_street,ADDRESS_CITY,pay_grade,employment_status_type,is_parttime,title,is_supervisor,gender,dob,joined_date,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
   db.query(sqlInsert, [data.firstName, data.lastName, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department], (err, result) => {
     if (err) {
       console.log(err);
@@ -132,6 +132,22 @@ app.post("/api/insert", (req, res) => {
 
   
 // });
+
+});
+
+app.post("/api/sendApproval", (req, res) => {
+
+  const status=req.body.status;
+  const leave_id=req.body.leave_id;
+  const sta = "Update leave_table set leave_status = ? where leave_id=?";
+
+  db.query(sta,[status,leave_id], (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+      res.send(result);
+    }})
 
 });
 
