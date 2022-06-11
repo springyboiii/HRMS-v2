@@ -17,6 +17,7 @@ import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
+import Homepage from "./components/Homepage";
 
 function App(props) {
   const [leaves, setLeave] = useState([]);
@@ -100,7 +101,7 @@ function App(props) {
   return (
     <div >
         <Router>
-          {/* <Navbar /> */}
+          
         <Routes>
           <Route path="/" element={<HomeDummy />} />
           <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} />
@@ -115,14 +116,13 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+          <Route path="/Homepage" element={<Homepage />} />
 
 
 
         </Routes>
       </Router>
-      
-        
-         
+      {/* <Homepage/> */}
       
     </div>
   );
