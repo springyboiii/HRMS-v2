@@ -11,33 +11,46 @@ import '../components/Modal.css';
 import { ReactDOM } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Axios from "axios";
 
 
 const LeaveConfigure = (props) => {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const students = [
-    {
-      'id': 100, 
-      'name': 'Kamal', 
-      'leaves': 50
-    },
-    {
-      'id': 101, 
-      'name': 'Sethu', 
-      'leaves': 50
-    },
-    {
-      'id': 102, 
-      'name': 'Fahad', 
-      'leaves': 50
-    },
-];
+  const[emp_id,setemp_id] = useState(1);
+  const[leavesCount,setLeavesCount] = useState(1);
 
+  const leavesLeft = props.leavesLeft;  
+  console.log(leavesLeft);
    
 
-  //var openModal = () => setOpen({ open: false });
-  //var closeModal = () => setOpen({ open: false });
+
+  const editLeaves = (data,leaves) => {
+    setOpen(true);
+    setemp_id(data);
+    setLeavesCount(leaves);
+    
+  };
+
+  const saveLeaveChanges = () => {
+    setOpen(false);
+    Axios.post("http://localhost:3001/api/saveLeaveChanges", {
+      emp_id:emp_id,
+      leavesLeft: leavesCount
+    }).then(() => {
+      console.log(leavesCount)
+
+      window.location.reload(false);
+
+      // alert("Success!");
+    });
+  }
+  
+   
+   
+
+    
+
+
 
   return (
     <>
@@ -59,47 +72,21 @@ const LeaveConfigure = (props) => {
           </tr>
         </thead>
         <tbody>
-        {students.map((student, index) => (
-              <tr data-index={index}>
-                <td>{student.id}</td>
-                <td>{student.name}</td>
-                <td>{student.leaves}</td>
+        {leavesLeft.map((leave, index) => (
+              <tr data-index={index} key={index}>
+                <td>{leave.Employee_id}</td>
+                <td>{leave.Firstname+" "+leave.Lastname}</td>
+                <td>{leave.Leaves_left}</td>
                 <td>
               {" "}
-              <Button size="lg" onClick={() => setOpen(true)}>
+              <Button size="lg" onClick={() => editLeaves(leave.Employee_id,leave.Leaves_left)}>
                 <img src={addImg} alt="edit" width="18" /> Edit
               </Button>
             </td>
 
               </tr>
             ))}
-
-            
-            
-          <tr>
-            <td>103</td>
-            <td>Loki</td>
-            <td>65</td>
-            <td>
-              {" "}
-              <Button size="lg" onClick={() => setOpen(true)}>
-                <img src={addImg} alt="edit" width="18" /> Edit
-              </Button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>104</td>
-            <td>Kanag</td>
-            <td>72</td>
-            <td>
-              {" "}
-              <Button size="lg">
-                <img src={addImg} alt="edit" width="18" /> Edit
-              </Button>
-            </td>
-          </tr>
-         
+          
           
         </tbody>
       </Table>
@@ -111,11 +98,12 @@ const LeaveConfigure = (props) => {
         <Modal.Body>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Leaves Left</Form.Label>
-            <Form.Control type="text"  />
+            <Form.Control type="text"  defaultValue={leavesCount} onChange={e => setLeavesCount(e.target.value)} />
           </Form.Group>
+
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setOpen(false)}>
+          <Button variant="secondary" onClick={() => saveLeaveChanges()}>
             Save Changes
           </Button>
           <Button variant="secondary" onClick={() => setOpen(false)}>

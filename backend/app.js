@@ -15,11 +15,13 @@ var saltRounds = 10;
 // var multer = require('multer');
 var fileName = "";
 
+
 // const db = mysql.createPool({
 //   host: "localhost",
 //   user: "root",
 //   password: "",
 //   database: "hrms"
+
 
 // });
 
@@ -57,6 +59,20 @@ app.get("/api/getleave", (req, res) => {
 
     }
   });
+});
+
+  app.get("/api/getleavesleft", (req, res) => {
+
+    const stat = "SELECT Employee_id,Firstname,Lastname,Leaves_left from employee ;";
+    db.query(stat, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+  
+      }
+    });
+  
 
 
 });
@@ -186,6 +202,23 @@ app.post("/api/sendApproval", (req, res) => {
     } else {
       res.send(result);
       console.log(req.url);
+    }})
+
+});
+
+app.post("/api/saveLeaveChanges", (req, res) => {
+
+  const emp_id=req.body.emp_id;
+  const leavesLeft=req.body.leavesLeft;
+  const sta = "Update employee set Leaves_left = ? where Employee_id=?";
+
+  db.query(sta,[leavesLeft,emp_id], (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+      res.send(result);
+      console.log(leavesLeft);
     }})
 
 });
