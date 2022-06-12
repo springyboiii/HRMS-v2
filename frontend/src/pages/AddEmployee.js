@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Employee from '../components/Employee';
 import { useState } from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import Axios from 'axios';
 
 const AddEmployee = ({ addEmployeeDetails }) => {
@@ -73,7 +74,8 @@ const AddEmployee = ({ addEmployeeDetails }) => {
   return (
     <div className="addempdiv">
       <Form>
-        <Employee employee={employee} register={register} errors={errors} disabled={0} />
+        <Header/>
+        <Employee employee={employee} register={register} errors={errors} disabled={0} editEmployee={0}/>
         <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
           Click here to submit form
         </Button>

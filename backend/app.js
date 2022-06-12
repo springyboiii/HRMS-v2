@@ -11,8 +11,8 @@ var fileName = "";
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "root",
-  database: "hrms2"
+  password: "password",
+  database: "hrms3"
 
 });
 
@@ -69,13 +69,13 @@ app.get("/api/getleave", (req, res) => {
 });
 
 app.get("/api/getemps", (req, res) => {
-  const employee_id = 3;
+  const employee_id = 1;
   const sqlSelect = "select * from employee where employee_id = ?";
   db.query(sqlSelect, employee_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(result[0]['firstname']);
+      console.log(result[0]['firstname']);
       res.send(result[0]);
 
     }
@@ -86,13 +86,25 @@ app.post("/api/insertEmployee", (req, res) => {
 
   const data = req.body.employeeData
   const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-  db.query(sqlInsert, [data.firstName, data.lastName, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id], (err, result) => {
+  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id], (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
 
     }
+  })
+})
+
+app.put('/api/updateEmployee', (req,res)=>{
+  const data = req.body.employeeData
+  const sqlUpdate = "update employee set email=?, addressNo=?, street=?, city=?, salary=?, department_id=?,payGrade=?,jobTitle=?,employmentStatus=?,partTime=?,supervisor=? where employee_id = ?"
+  db.query(sqlUpdate, [data.email,data.addressNo,data.street,data.city,data.salary,data.department_id,data.payGrade,data.jobTitle,data.employmentStatus,data.partTime,data.supervisor,data.employee_id], (err,result)=>{
+      if (err) console.log(err);
+      else {
+        console.log(data.employee_id);
+        res.send({message: "User details updated"});
+      }
   })
 })
 

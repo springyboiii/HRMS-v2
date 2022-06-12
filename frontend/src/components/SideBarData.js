@@ -63,7 +63,7 @@ export const SidebarData = [
   // }
   {
     title: 'Edit Employee Details',
-    path: '/../components/SelectEmployee',
+    path: '/../components/editEmployee',
     // icon: <MdIcons.MdPageview />,
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'

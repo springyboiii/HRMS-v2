@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import SupervisorApproveLeave from '../components/SupervisorApproveLeave';
 import Footer from '../components/Footer';
 import Employee from "../components/Employee";
+import Header from "../components/Header";
 import {useForm} from "react-hook-form";
 import Axios from 'axios';
 
@@ -43,9 +44,10 @@ function Home() {
 
   return (
     <>
+    <Header/>
     <Employee employee={employee} register={register} errors={errors} disabled={1} editEmployee={false}/>
 
-
+    <Footer/>
       </>
   );
 };

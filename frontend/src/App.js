@@ -15,6 +15,7 @@ import ViewLeave from './pages/ViewLeave';
 import Login from "./pages/Login";
 import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
+import EditEmployee2 from "./components/EditEmployee2";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 import Homepage from "./components/Homepage";
@@ -116,9 +117,11 @@ function App(props) {
         <Routes>
           <Route path="/" element={<HomeDummy />} />
           <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} />
-          <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
+          {/* <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} /> */}
+          <Route path="/components/editEmployee" element={<EditEmployee2 employees={employees}/>} />
 
-          <Route path="/EditEmployeeDetails" element={<EditEmployee  />} />
+
+          {/* <Route path="/editEmployeeDetails" element={(props) => <EditEmployee{...props} />} /> */}
 
           <Route path='/home' exact element={< Home />}></Route>
           <Route path='/leaveApplication' element={< LeaveApplication handleSubmit={addLeave}/>}></Route> 
