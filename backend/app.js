@@ -1,20 +1,29 @@
-var express = require('express');
+import db from './db/connect.js';
+
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import multer from 'multer';
+
+// var express = require('express');
 var app = express();
-var mysql = require('mysql');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-var bcrypt = require("bcrypt");
+// var cors = require('cors');
+// const bodyParser = require('body-parser');
+// var bcrypt = require("bcrypt");
 var saltRounds = 10;
-var multer = require('multer');
+// var multer = require('multer');
 var fileName = "";
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "hrms2"
 
-});
+// const db = mysql.createPool({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "hrms"
+
+
+// });
 
 app.use(cors());
 app.use(express.json());
