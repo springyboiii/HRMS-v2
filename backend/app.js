@@ -129,10 +129,11 @@ app.post("/api/insert", (req, res) => {
 
   const supervisor_id = req.body.supervisor_id;
   const document = req.body.file;
+  const status=req.body.status;
 
   // console.log(startDate);
-  const stat = "INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document) values (?,?,?,?,?,?,?);";
-  db.query(stat, [duration, description, startDate, type, employee_id, supervisor_id, document], (err, result) => {
+  const stat = "INSERT INTO leave_table (duration,description,start_date,type,employee_id,supervisor_id,document,leave_status) values (?,?,?,?,?,?,?,?);";
+  db.query(stat, [duration, description, startDate, type, employee_id, supervisor_id, document,status], (err, result) => {
     if (err) {
       console.log(err);
 
@@ -192,6 +193,23 @@ app.post("/api/sendApproval", (req, res) => {
     } else {
       res.send(result);
       console.log(req.url);
+    }})
+
+});
+
+app.post("/api/saveLeaveChanges", (req, res) => {
+
+  const emp_id=req.body.emp_id;
+  const leavesLeft=req.body.leavesLeft;
+  const sta = "Update employee set Leaves_left = ? where Employee_id=?";
+
+  db.query(sta,[leavesLeft,emp_id], (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+      res.send(result);
+      console.log(leavesLeft);
     }})
 
 });

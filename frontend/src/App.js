@@ -17,6 +17,7 @@ import AddEmployee from "./pages/AddEmployee";
 import SelectEmployee from "./components/SelectEmployee";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
+import Homepage from "./components/Homepage";
 
 function App(props) {
   const [leaves, setLeave] = useState([]);
@@ -55,7 +56,7 @@ function App(props) {
   },[]);
   console.log(leaves);
 
-  const addLeave = (start_Date,duration,type,description,file) => {
+  const addLeave = (start_Date,duration,type,description,file,status) => {
     // Axios.get("http://localhost:3001/api/getleave").then((response) => {
 
     //   setLeave(...leaves,response.data);
@@ -93,6 +94,7 @@ function App(props) {
       employee_id:123,
       supervisor_id:321,
       document:file,
+      leave_status:status
     }]);
 
    
@@ -110,7 +112,7 @@ function App(props) {
   return (
     <div >
         <Router>
-          {/* <Navbar /> */}
+          
         <Routes>
           <Route path="/" element={<HomeDummy />} />
           <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} />
@@ -125,14 +127,13 @@ function App(props) {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure leavesLeft={leavesLeft} />} />
+          <Route path="/Homepage" element={<Homepage />} />
 
 
 
         </Routes>
       </Router>
-      
-        
-         
+      {/* <Homepage/> */}
       
     </div>
   );
