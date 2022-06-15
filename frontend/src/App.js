@@ -2,7 +2,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeDummy from './pages/HomeDummy';
-import LeaveConfigure from './pages/LeaveConfigure';
+import LeaveConfigure from './components/LeaveConfigure';
 import { useState,useEffect } from "react";
 import EditEmployee from "./pages/EditEmployee";
 

@@ -14,6 +14,7 @@ import ReactCardFlip from 'react-card-flip';
 import { Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
+import EditLeaveForm from "./EditLeaveForm";
 
 const LeaveConfigure2= ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
@@ -48,66 +49,25 @@ const LeaveConfigure2= ({ employees }) => {
     return yyyy + "-" + mm + "-" + dd;
   };
 
-//   useEffect(()=>{
-//     Axios.get('http://localhost:3001/api/getemps').then((response)=>{
-//       // console.log(response.data)
-//       response.data.startDate = getDateString(response.data.startDate)
-//       response.data.dob = getDateString(response.data.dob)
-//       setEmployee(response.data)
-//     })
-//   }, []);
 
-  const handleSubmitButton = (event) => {
-    event.preventDefault();
-    // <Link
-    //   to={{
-    //     pathname: "/editEmployeeDetails",
-    //     state: {employeeId: id} // your data array of objects
-    //   }}
-    // ></Link>
-    // this.props.navigation.navigate('/editEmployeeDetails', {
-    //   employeeId: id
-    // });
-    // navigate('/editEmployeeDetails',{
-    //   employeeId: id
-    // });
-    // alert(`The id you entered was: ${id}`)
-    // setShowEmployee(true);
-    // alert(showEmployee) 
-    Axios.get('http://localhost:3001/api/getemps').then((response)=>{
-      // console.log(response.data)
-      response.data.startDate = getDateString(response.data.startDate)
-      response.data.dob = getDateString(response.data.dob)
-      setEmployee(response.data)
-      // console.log(employee)
-    })   
-    setFlipped(!flipped);
-  }
+
+const handleSubmitButton = (event) => {
+  event.preventDefault();
+
+  Axios.get(`http://localhost:3001/api/getemps/${id}`).then((response)=>{
+    // console.log(response.data)
+    response.data.startDate = getDateString(response.data.startDate)
+    response.data.dob = getDateString(response.data.dob)
+    setEmployee(response.data)
+    // console.log(employee)
+  })   
+  setFlipped(!flipped);
+}
+
 
   return (
     <div>
-      {/* <Navbar />{!showEmployee ?
-        <form onSubmit={handleSubmitButton}>
-          <label htmlFor="">Enter ID
-            <input
-              type="text"
-              value={id}
-              onChange={(e) => setID(e.target.value)}
-            /></label>
-          <input type="submit" />
-        </form>
-        :
-        <div>
-          {employees.map((employee) => employee.employeeId === id && <Employee key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={true} />
-          )}
-          <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
-            Click here to submit form
-          </Button>
-        </div>
-
-      }
-
-      <Footer /> */}
+    
 
       <Header />
       <div className="row">
@@ -120,7 +80,7 @@ const LeaveConfigure2= ({ employees }) => {
                 <Card.Body>
                   <Card.Title>Select an Employee</Card.Title>
                   <form onSubmit={handleSubmitButton}>
-                    <label htmlFor="">Enter an employee ID to view details
+                    <label htmlFor="">Enter an employee ID to edit leave details
                       <input
                         type="text"
                         className="form-control"
@@ -134,10 +94,9 @@ const LeaveConfigure2= ({ employees }) => {
               </Card>
               <Card>
                 <Card.Body>
-                    {/* {employees.map((employee) => employee.employeeId === id && <Employee key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={true} />
-                    )} */}
+                   
                     <h4 className="text-center">{employee.firstname}'s Leave Information</h4>
-                    <Employee key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
+                    <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
                     <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
                       Click here to submit form
                     </Button>
