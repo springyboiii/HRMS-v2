@@ -74,7 +74,7 @@ const EditEmployee2 = ({ employees }) => {
     // alert(`The id you entered was: ${id}`)
     // setShowEmployee(true);
     // alert(showEmployee) 
-    Axios.get('http://localhost:3001/api/getemps').then((response)=>{
+    Axios.get(`http://localhost:3001/api/getemps/${id}`).then((response)=>{
       // console.log(response.data)
       response.data.startDate = getDateString(response.data.startDate)
       response.data.dob = getDateString(response.data.dob)

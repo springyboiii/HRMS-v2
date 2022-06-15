@@ -78,8 +78,8 @@ app.get("/api/getleave", (req, res) => {
 
 });
 
-app.get("/api/getemps", (req, res) => {
-  const employee_id = 1;
+app.get("/api/getemps/:id", (req, res) => {
+  const employee_id =req.params.id;
   const sqlSelect = "select * from employee where employee_id = ?";
   db.query(sqlSelect, employee_id, (err, result) => {
     if (err) {
