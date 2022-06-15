@@ -115,13 +115,14 @@ function App() {
         <Router>
           
         <Routes>
-          <Route path="/" element={<HomeDummy />} />
-          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} />
-          {/* <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} /> */}
+          {/* <Route path="/" element={<HomeDummy />} /> */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} /> 
+          <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
           <Route path="/components/editEmployee" element={<EditEmployee2 employees={employees}/>} />
 
 
-          {/* <Route path="/editEmployeeDetails" element={(props) => <EditEmployee{...props} />} /> */}
+          <Route path="/editEmployeeDetails" element={(props) => <EditEmployee{...props} />} />
 
           <Route path='/home' exact element={< Home />}></Route>
           <Route path='/leaveApplication' element={< LeaveApplication handleSubmit={addLeave}/>}></Route> 
@@ -129,14 +130,10 @@ function App() {
           <Route path='/login' element={<Login />}></Route> 
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
-          <Route path="/LeaveConfigure" element={<LeaveConfigure leavesLeft={leavesLeft} />} />
-          <Route path="/Homepage" element={<Homepage />} />
-
-
+          <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
 
         </Routes>
       </Router>
-      {/* <Homepage/> */}
       
     </div>
   );

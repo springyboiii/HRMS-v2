@@ -6,6 +6,7 @@ import { Modal, ModalBody, ModalHeader } from 'react-bootstrap';
 import * as FaIcons from 'react-icons/fa';
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
+import Login from '../pages/Login';
 
 
 const Homepage = () => {
@@ -44,56 +45,60 @@ const Homepage = () => {
             </Navbar>
 
             <Modal show={isLoginModalOpen} onHide={toggleLoginModal}>
-                <ModalHeader >Login </ModalHeader>
+                <ModalHeader >
+                    <h4 style={{
+                        textAlign: "center"
+                    }}>Login</h4>
+                </ModalHeader>
                 <ModalBody>
                     {/* put login form in here */}
-
+                    <Login />
                 </ModalBody>
             </Modal>
 
-<Container>
-            <Carousel>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/slide4.jpg"
-                        alt="First slide"
-                    />
-                    <Carousel.Caption>
-                        <h3>Employee Management System for Jupyter Apparel</h3>
-                        <p>Manage employees' leave data withuot hassle</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="slide3.jpg"
-                        alt="Second slide"
-                    />
+            <Container>
+                <Carousel>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="/slide4.jpg"
+                            alt="First slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Employee Management System for Jupyter Apparel</h3>
+                            <p>Manage employees' leave data withuot hassle</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="slide3.jpg"
+                            alt="Second slide"
+                        />
 
-                    <Carousel.Caption>
-                        <h3 style={{ color: 'black' }}>Efficient Management</h3>
-                        <p style={{ color: 'black' }}>Manage your employees data easily.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/slide1.jpeg"
-                        alt="Third slide"
-                    />
+                        <Carousel.Caption>
+                            <h3 style={{ color: 'black' }}>Efficient Management</h3>
+                            <p style={{ color: 'black' }}>Manage your employees data easily.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="/slide1.jpeg"
+                            alt="Third slide"
+                        />
 
-                    <Carousel.Caption>
-                        <h3 style={{ color: 'white' }}>View your own leave details</h3>
-                        <p>
-                            Keep track of your leaves.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            </Carousel>
+                        <Carousel.Caption>
+                            <h3 style={{ color: 'white' }}>View your own leave details</h3>
+                            <p>
+                                Keep track of your leaves.
+                            </p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>
             </Container>
 
-            <Footer/>
+            <Footer />
         </div>
     )
 }
