@@ -85,7 +85,7 @@ app.get("/api/getemps", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result[0]['firstname']);
+      // console.log(result[0]['firstname']);
       res.send(result[0]);
 
     }
@@ -114,6 +114,18 @@ app.put('/api/updateEmployee', (req,res)=>{
       else {
         console.log(data.employee_id);
         res.send({message: "User details updated"});
+      }
+  })
+})
+
+app.put('/api/updateLeaves', (req,res)=>{
+  const data = req.body.employeeData
+  const sqlUpdate = "update employee set Leaves_left = ? where employee_id = ?"
+  db.query(sqlUpdate, [data.Leaves_left,data.employee_id], (err,result)=>{
+      if (err) console.log(err);
+      else {
+        console.log(data.employee_id);
+        res.send({message: "Leave  details updated"});
       }
   })
 })
