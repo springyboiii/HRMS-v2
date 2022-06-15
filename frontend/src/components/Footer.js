@@ -100,7 +100,7 @@ export default function Footer() {
         className="text-center p-4"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
       >
-        © 2021 Copyright:All Rights Reserved
+        © 2022 Copyright:All Rights Reserved
         
       </div>
     </MDBFooter>

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
+import Header from "./Header";
 
 function SupervisorApproveLeave(props) {
   const arr = props.leaves;
@@ -37,16 +38,10 @@ function SupervisorApproveLeave(props) {
 
   return (
     <div>
-      <Navbar />
+      <Header/>
 
       <div
-        style={{
-          display: "flex",
-          margin: "auto",
-          width: 1500,
-          padding: 30,
-          textAlign: "center",
-        }}
+        className="container"
       >
         <Table striped bordered hover variant="dark">
           <thead>

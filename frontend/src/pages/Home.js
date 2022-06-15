@@ -47,6 +47,9 @@ function Home() {
   return (
     <>
     <Header/>
+                                        
+    <div className="text-center"><h3>Personal Information</h3></div>
+
     <Employee employee={employee} register={register} errors={errors} disabled={1} editEmployee={false}/>
 
     <Footer/>

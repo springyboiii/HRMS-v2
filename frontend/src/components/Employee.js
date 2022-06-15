@@ -40,9 +40,6 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
       <div>
         {/* {editEmployee &&  } */}
-        
-
-        <br></br>
 
         <div className="signcontainer">
           <div className="row">

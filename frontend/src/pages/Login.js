@@ -38,13 +38,6 @@ function Login() {
   return (
     <div>
 
-      {/* <div style={{
-        display: 'flex',
-        margin: 'auto',
-        width: 700,
-        padding: 30
-      }}> */}
-
       <Form>
         {/* <h4 style={{
             textAlign: "center",
@@ -92,7 +85,6 @@ function Login() {
         </p>
       </Form>
 
-      {/* </div> */}
     </div>
   );
 }
