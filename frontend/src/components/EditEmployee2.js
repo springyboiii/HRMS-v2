@@ -27,8 +27,10 @@ const EditEmployee2 = ({ employees }) => {
 
   const onSubmit = (data) => {
     data['employee_id'] = id
+    console.log(data);
+    console.log(employee);
     Axios.put('http://localhost:3001/api/updateEmployee', {
-      employeeData: data
+      employeeData: employee
     }).then((response)=>{
       alert(response.data.message);
     })
@@ -77,7 +79,7 @@ const EditEmployee2 = ({ employees }) => {
       response.data.startDate = getDateString(response.data.startDate)
       response.data.dob = getDateString(response.data.dob)
       setEmployee(response.data)
-      console.log(employee)
+      // console.log(employee)
     })   
     setFlipped(!flipped);
   }
