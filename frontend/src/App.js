@@ -20,10 +20,10 @@ import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 import Homepage from "./components/Homepage";
 
-function App(props) {
+function App() {
   const [leaves, setLeave] = useState([]);
   const [leavesLeft,setLeavesLeft]= useState([]);
-  const [employees, setEmployees] = useState(props.employees);
+  const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
 
   

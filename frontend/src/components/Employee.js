@@ -16,8 +16,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
   // const {register, handleSubmit, formState:{errors}} = useForm();
   // console.log(employee)
-  console.log(employee.id)
-
+  // console.log(employee);
 
   const handleChange = (value, field) => {
     // 1. Make a shallow copy of the items
