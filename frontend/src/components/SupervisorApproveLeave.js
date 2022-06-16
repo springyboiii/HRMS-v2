@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import Header from "./Header";
+import Leaves from "./Leaves";
+import { ConeStriped } from "react-bootstrap-icons";
 
 function SupervisorApproveLeave(props) {
   const arr = props.leaves;
@@ -15,18 +17,29 @@ function SupervisorApproveLeave(props) {
     return date.split("T")[0];
   };
 
-  const acceptRequest = (data) => {
+  const acceptRequest = (leaveid,emp_id) => {
+
+
+    Axios.get(`http://localhost:3001/api/getBalanceLeave/${emp_id}`).then((response)=>{
+      console.log(emp_id)
+      var Leaves_left=response.data['Leaves_left']
+      console.log(Leaves_left)
+      
     Axios.post("http://localhost:3001/api/sendApproval", {
       status: "Accepted",
-      leave_id: data,
+      leave_id: leaveid,
+      employee_id:emp_id,
+      Leaves_left:Leaves_left-1
     }).then(() => {
       window.location.reload(false);
 
       // alert("Success!");
     });
-  };
+  })
+
+};
   const declineRequest = (data) => {
-    Axios.post("http://localhost:3001/api/sendApproval", {
+    Axios.post("http://localhost:3001/api/sendRejection", {
       status: "Declined",
       leave_id: data,
     }).then(() => {
@@ -71,7 +84,7 @@ function SupervisorApproveLeave(props) {
                 <td style={{ display: "flex" }}>
                   <Button
                     variant="success"
-                    onClick={() => {acceptRequest(leave.leave_id)}}
+                    onClick={() => {acceptRequest(leave.leave_id,leave.employee_id)}}
                     size="lg"
                     type="submit"
                   >
