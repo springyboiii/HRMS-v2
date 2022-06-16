@@ -5,11 +5,30 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import multer from 'multer';
-
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 
 // var express = require('express');
 var app = express();
+app.use(cors({
+  'origin': "http://localhost:3000",
+  'methods': ['GET,POST'],
+  'credentials': true,
+}));
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(session(
+  {
+    key:"user_id",
+    secret:"kutti nayanthara",
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+      expires:60*60*24
+    }
+  }
+))
 // var mysql = require('mysql');
 // var cors = require('cors');
 // const bodyParser = require('body-parser');
@@ -26,7 +45,6 @@ var fileName = "";
 
 // });
 
-app.use(cors());
 app.use(express.json());
 // app.use(bodyParser.json());
 
@@ -157,7 +175,7 @@ app.post("/api/changePassword", (req, res) => {
 
   const email = req.body.email
   const password=req.body.password
-  console.log(email,password)
+  // console.log(email,password)
   const sqlUpdate = "UPDATE user_table SET password=? WHERE username=?"
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
@@ -220,6 +238,9 @@ app.post("/api/login", (req, res) => {
       } if (result.length > 0) {
         bcrypt.compare(credentials.password, result[0].password, (err, response) => {
           if (response) {
+            console.log(result[0].username);
+            req.session.user=result[0].username;
+            console.log(req.session.user)
             res.send(result);
           } else {
             res.send({ message: "Wrong Username/Password! Recheck your credentials please" });
@@ -234,6 +255,15 @@ app.post("/api/login", (req, res) => {
       }
     }
   );
+});
+
+app.get("/api/login",(req,res)=>{
+  if(req.session.user){
+    res.send({loggedIn:true,user:req.session.user})
+  }else{
+    res.send({loggedIn:false})
+
+  }
 })
 
 app.post("/api/sendApproval", (req, res) => {
