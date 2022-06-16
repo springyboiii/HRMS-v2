@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState, setState } from 'react';
+import { useState, setState,useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Navbar from '../components/Navbar';
 import Axios from 'axios';
-
+import { UserContext } from '../contexts/UserContext';
 
 
 
@@ -33,6 +33,10 @@ function LeaveApplication(props) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [selectedFile, setSelected] = useState(null);
+
+
+  const {Username,setUsername}=useContext(UserContext);
+  var empId;
 
 
   const handleInputChange = (e) => {
@@ -80,27 +84,33 @@ function LeaveApplication(props) {
 
 
     // console.log(name, nic, source, paysheet, income,year,tin);
+    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
+      // console.log(response.data)
+      empId=response.data.employee_id
+      Axios.post("http://localhost:3001/upload", data, {
+        // receive two    parameter endpoint url ,form data
+      }).then(
+        res => { // then print response status
+          x = res.data;
+        }
+      )
+  
+      Axios.post("http://localhost:3001/api/insert", {
+        startDate: startDate,
+        duration: duration,
+        description: description,
+        type: type,
+        employee_id: empId,
+        supervisor_id: 1002,
+        file: fileName,
+        status: "Pending"
+      }).then(() => {
+        alert('success');
+      })
+      // console.log(empId)
+    })   
 
-    Axios.post("http://localhost:3001/upload", data, {
-      // receive two    parameter endpoint url ,form data
-    }).then(
-      res => { // then print response status
-        x = res.data;
-      }
-    )
-
-    Axios.post("http://localhost:3001/api/insert", {
-      startDate: startDate,
-      duration: duration,
-      description: description,
-      type: type,
-      employee_id: 1001,
-      supervisor_id: 1002,
-      file: fileName,
-      status: "Pending"
-    }).then(() => {
-      alert('success');
-    })
+   
     props.handleSubmit(startDate, duration, type, description, fileName, "Pending");
 
     // alert(`The name you entered was: ${startDate}`);
