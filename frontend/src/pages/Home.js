@@ -24,6 +24,8 @@ function Home() {
 
   const {register, handleSubmit, formState:{errors}} = useForm();
 
+  const id=1;
+
 
   const getDateString = (dateString) => {
     var dateString = new Date(dateString);
@@ -34,7 +36,7 @@ function Home() {
   };
 
   useEffect(()=>{
-    Axios.get('http://localhost:3001/api/getemps').then((response)=>{
+    Axios.get(`http://localhost:3001/api/getemps/${id}`).then((response)=>{
       // console.log(response.data)
       response.data.startDate = getDateString(response.data.startDate)
       response.data.dob = getDateString(response.data.dob)
@@ -45,6 +47,9 @@ function Home() {
   return (
     <>
     <Header/>
+                                        
+    <div className="text-center"><h3>Personal Information</h3></div>
+
     <Employee employee={employee} register={register} errors={errors} disabled={1} editEmployee={false}/>
 
     <Footer/>

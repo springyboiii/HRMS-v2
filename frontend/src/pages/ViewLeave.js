@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 
 
@@ -52,13 +53,8 @@ function ViewLeave(props) {
 
   return (
     <div>
-      <Navbar />
-      <div style={{
-        display: 'flex',
-        margin: 'auto',
-        width: 700,
-        padding: 30
-      }}>
+      <Header/>
+      <div className='container'>
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>

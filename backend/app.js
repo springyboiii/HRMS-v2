@@ -1,20 +1,30 @@
-var express = require('express');
+import db from './db/connect.js';
+
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import multer from 'multer';
+
+
+
+// var express = require('express');
 var app = express();
-var mysql = require('mysql');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-var bcrypt = require("bcrypt");
+// var mysql = require('mysql');
+// var cors = require('cors');
+// const bodyParser = require('body-parser');
+// var bcrypt = require("bcrypt");
 var saltRounds = 10;
-var multer = require('multer');
+// var multer = require('multer');
 var fileName = "";
 
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "hrms3"
+// const db = mysql.createPool({
+//   host: "localhost",
+//   user: "root",
+//   password: "password",
+//   database: "hrms3"
 
-});
+// });
 
 app.use(cors());
 app.use(express.json());
@@ -68,14 +78,14 @@ app.get("/api/getleave", (req, res) => {
 
 });
 
-app.get("/api/getemps", (req, res) => {
-  const employee_id = 1;
+app.get("/api/getemps/:id", (req, res) => {
+  const employee_id =req.params.id;
   const sqlSelect = "select * from employee where employee_id = ?";
   db.query(sqlSelect, employee_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(result[0]['firstname']);
+      // console.log(result[0]['firstname']);
       res.send(result[0]);
 
     }
@@ -104,6 +114,18 @@ app.put('/api/updateEmployee', (req,res)=>{
       else {
         console.log(data.employee_id);
         res.send({message: "User details updated"});
+      }
+  })
+})
+
+app.put('/api/updateLeaves', (req,res)=>{
+  const data = req.body.employeeData
+  const sqlUpdate = "update employee set Leaves_left = ? where employee_id = ?"
+  db.query(sqlUpdate, [data.Leaves_left,data.employee_id], (err,result)=>{
+      if (err) console.log(err);
+      else {
+        console.log(data.employee_id);
+        res.send({message: "Leave  details updated"});
       }
   })
 })
