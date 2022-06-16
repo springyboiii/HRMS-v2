@@ -19,7 +19,7 @@ import EditEmployee2 from "./components/EditEmployee2";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 import Homepage from "./components/Homepage";
-
+import ChangePassword from "./components/ChangePassword";
 function App() {
   const [leaves, setLeave] = useState([]);
   const [leavesLeft,setLeavesLeft]= useState([]);
@@ -131,6 +131,7 @@ function App() {
           <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
 
           <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
 
         </Routes>
       </Router>
