@@ -19,6 +19,7 @@ import EditEmployee2 from "./components/EditEmployee2";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 import Homepage from "./components/Homepage";
+import Dummy from "./pages/Dummy";
 import ChangePassword from "./components/ChangePassword";
 import { UserContext } from "./contexts/UserContext";
 function App() {
@@ -134,6 +135,7 @@ function App() {
 
           <Route path="/LeaveConfigure" element={<UserContext.Provider value={{ Username, setUsername }}><LeaveConfigure /></UserContext.Provider>} />
           <Route path="/changePassword" element={<UserContext.Provider value={{ Username, setUsername }}><ChangePassword /></UserContext.Provider>} />
+          <Route path="/dummy" element={<UserContext.Provider value={{ Username, setUsername }}><Dummy /></UserContext.Provider>} />
 
         </Routes>
       </Router>

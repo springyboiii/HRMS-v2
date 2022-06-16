@@ -47,7 +47,7 @@ function Login() {
 
         alert("logged in")
         //redirect somehwere
-        navigate('/Home', { replace: true });
+        navigate('/dummy', { replace: true });
 
 
       }

@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useState, useEffect } from "react";
 
-
+import './Employee.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
@@ -18,25 +18,13 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
   // console.log(employee)
   // console.log(employee);
 
-  const handleChange = (value, field) => {
-    // 1. Make a shallow copy of the items
-    let items = [...this.employee];
-    // 2. Make a shallow copy of the item you want to mutate
-    let item = {
-      ...items[field],
-      field: value
-    };
-    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
-    items[field] = item;
-    // 5. Set the state to our new copy
-    this.setEmployee({ items });
-
-  };
-
   return (
-    <div >
+    <div>
 
       {/* {<!editEmployee && Navbar />} */}
+      {/* <div className="col-sm-2">
+        <img src="/empform5.PNG" alt="Employee form logo" class="img-thumbnail"></img>
+      </div> */}
 
       <div>
         {/* {editEmployee &&  } */}
@@ -48,7 +36,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Label>First Name</Form.Label>
                 <Form.Control type="text" name="firstname" defaultValue={employee.firstname} {...register("firstname", {
                   required: !editEmployee
-                })} disabled={editEmployee? 1 : disabled} onChange={(e) => { employee.firstname = e.target.value }}
+                })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.firstname = e.target.value }}
                 />
               </Form.Group>
               {errors.firstname && <p className='errorMsg'>First Name is required!</p>}
@@ -58,7 +46,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control type="text" name="lastname" defaultValue={employee.lastname} {...register("lastname", {
                   required: !editEmployee
-                })} disabled={editEmployee? 1 : disabled} onChange={(e) => { employee.lastname = e.target.value }}
+                })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.lastname = e.target.value }}
                 />
               </Form.Group>
               {errors.lastname && <p className='errorMsg'>Last Name is required!</p>}
@@ -72,7 +60,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Control type="email" name="email" defaultValue={employee.email} {...register("email", {
                   required: !editEmployee,
                   pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                })} disabled={disabled} onChange={(e) => { employee.email = e.target.value }}
+                })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.email = e.target.value }}
                 />
               </Form.Group>
               {errors.email && <p className='errorMsg'>Valid Email is required!</p>}
@@ -83,7 +71,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Control type="date" name='dob' defaultValue={employee.dob} {...register("dob", {
                   required: !editEmployee,
                   validate: editEmployee || (defaultValue => new Date(defaultValue) < new Date().setFullYear(new Date().getFullYear() - 18))
-                })} disabled={editEmployee? 1 : disabled} onChange={(e) => { employee.dob = e.target.value }}
+                })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.dob = e.target.value }}
                 />
               </Form.Group>
               {errors.dob && <p className='errorMsg'>Valid Date of Birth is required!</p>}
@@ -95,8 +83,8 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <Form.Group>
               <Form.Label>Gender</Form.Label>
               <br></br>
-              <input type="radio" name="gender" defaultValue="0" disabled={editEmployee? 1 : disabled} defaultChecked={!employee.gender} {...register("gender", { required: !editEmployee })} onChange={(e) => { employee.gender = e.target.value }} /> Male
-              <input type="radio" name="gender" defaultValue="1" disabled={editEmployee? 1 : disabled} defaultChecked={employee.gender} {...register("gender", { required: !editEmployee })} onChange={(e) => { employee.gender = e.target.value }} /> Female
+              <input type="radio" name="gender" defaultValue="0" disabled={editEmployee ? 1 : disabled} defaultChecked={!employee.gender} {...register("gender", { required: !editEmployee })} onChange={(e) => { employee.gender = e.target.value }} /> Male
+              <input type="radio" name="gender" defaultValue="1" disabled={editEmployee ? 1 : disabled} defaultChecked={employee.gender} {...register("gender", { required: !editEmployee })} onChange={(e) => { employee.gender = e.target.value }} /> Female
             </Form.Group>
             {errors.gender && <p className='errorMsg'>Gender is required!</p>}
           </div>
@@ -135,7 +123,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
         </div>
 
-
+      
 
         <div className="signcontainer">
           <div className="row">
@@ -146,7 +134,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                   {...register("startDate", {
                     required: !editEmployee,
                     validate: editEmployee || (defaultValue => new Date(defaultValue) < new Date())
-                  })} disabled={editEmployee? 1 : disabled} onChange={(e) => { employee.startDate = e.target.value }} />
+                  })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.startDate = e.target.value }} />
               </Form.Group>
               {errors.startDate && <p className='errorMsg'>Valid Joined date is required!</p>}
             </div>
@@ -248,7 +236,12 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
         <br></br>
       </div>
-
+      {/* <div className="col-sm-2">
+        <div class="footer-images">
+          <img src="/empform6.PNG" alt="Employee form logo" class="img-thumbnail"></img>
+          <br></br><br></br><br></br><br></br><br></br>
+        </div>
+      </div> */}
     </div>
   )
 }

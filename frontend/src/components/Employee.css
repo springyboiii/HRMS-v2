@@ -1,0 +1,13 @@
+.img-thumbnail{
+    background: none;
+    border: none;
+}
+
+.footer-images{
+    /* vertical-align:bottom;
+    border:0; */
+    margin: auto;
+    display: block;
+    position: absolute;
+    bottom: 0;
+}
