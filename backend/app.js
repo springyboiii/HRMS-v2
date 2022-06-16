@@ -153,6 +153,28 @@ app.post("/api/insertUser", (req, res) => {
 
 })
 
+app.post("/api/changePassword", (req, res) => {
+
+  const email = req.body.email
+  const password=req.body.password
+  console.log(email,password)
+  const sqlUpdate = "UPDATE user_table SET password=? WHERE username=?"
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+    }
+    db.query(sqlUpdate, [hash, email], (err, result) => {
+      if (err) {
+        console.log(err);
+        // res.send({ message: "User(Email) already exists" });
+      } else {
+        res.send(result);
+
+      }
+    })
+  })
+})
+
 app.post("/api/insert", (req, res) => {
 
   const startDate = req.body.startDate;
