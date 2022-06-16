@@ -19,14 +19,14 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
   // console.log(employee);
 
   return (
-    <div className="row">
+    <div>
 
       {/* {<!editEmployee && Navbar />} */}
-      <div className="col-sm-2">
+      {/* <div className="col-sm-2">
         <img src="/empform5.PNG" alt="Employee form logo" class="img-thumbnail"></img>
-      </div>
+      </div> */}
 
-      <div className="col-sm-4">
+      <div>
         {/* {editEmployee &&  } */}
 
         <div className="signcontainer">
@@ -60,7 +60,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Control type="email" name="email" defaultValue={employee.email} {...register("email", {
                   required: !editEmployee,
                   pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                })} disabled={disabled} onChange={(e) => { employee.email = e.target.value }}
+                })} disabled={editEmployee ? 1 : disabled} onChange={(e) => { employee.email = e.target.value }}
                 />
               </Form.Group>
               {errors.email && <p className='errorMsg'>Valid Email is required!</p>}
@@ -123,8 +123,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
         </div>
 
-      </div>
-      <div className="col-sm-4">
+      
 
         <div className="signcontainer">
           <div className="row">
@@ -237,12 +236,12 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
 
         <br></br>
       </div>
-      <div className="col-sm-2">
+      {/* <div className="col-sm-2">
         <div class="footer-images">
           <img src="/empform6.PNG" alt="Employee form logo" class="img-thumbnail"></img>
           <br></br><br></br><br></br><br></br><br></br>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

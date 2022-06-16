@@ -96,9 +96,25 @@ app.get("/api/getleave", (req, res) => {
 
 });
 
-app.get("/api/getemps/:id", (req, res) => {
+app.get("/api/getemps/:Username", (req, res) => {
+  const email =req.params.Username;
+  const sqlSelect = "select * from employee where email = ?";
+  // console.log(email);
+  db.query(sqlSelect, email, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
+
+app.get("/api/getemps2/:id", (req, res) => {
   const employee_id =req.params.id;
   const sqlSelect = "select * from employee where employee_id = ?";
+  // console.log(employee_id);
   db.query(sqlSelect, employee_id, (err, result) => {
     if (err) {
       console.log(err);
@@ -109,6 +125,21 @@ app.get("/api/getemps/:id", (req, res) => {
     }
   })
 })
+
+// app.post("/api/getEmployee", (req, res) => {
+
+//   const email = req.body.email;
+//   console.log(email);
+//   const sqlSelect = "select * from employee where email = ?;";
+//   db.query(sqlSelect, email, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     } else {      
+//       res.send(result[0]);
+
+//     }
+//   })
+// })
 
 app.post("/api/insertEmployee", (req, res) => {
 
