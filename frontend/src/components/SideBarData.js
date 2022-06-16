@@ -54,6 +54,13 @@ export const SidebarData = [
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },
+  {
+    title: 'Change Password',
+    path: '/changePassword',
+    // icon: <MdIcons.MdPageview />,
+    icon: <IoIcons.IoIosPaper />,
+    cName: 'nav-text'
+  },
   // {
   //   title: 'Edit Employee Details',
   //   path: '/EditEmployeeDetails',

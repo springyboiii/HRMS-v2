@@ -4,7 +4,7 @@ dotenv.config()
 
 
 import mysql from 'mysql';
-
+// console.log(process.env.DB_PASSWORD,"password")
 
 const db = mysql.createPool({
     host: process.env.DB_HOST,

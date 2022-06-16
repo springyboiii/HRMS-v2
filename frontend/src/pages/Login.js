@@ -6,11 +6,30 @@ import Button from 'react-bootstrap/Button';
 import { set, useForm } from "react-hook-form";
 import Axios from 'axios';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 function Login() {
+  const {username,setUsername} = useContext(UserContext);
+
   let navigate = useNavigate();
   const [IsAuthenticated, setIsAuthenticated] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
+  Axios.defaults.withCredentials=true;
+  useEffect(() => {
+    return () => {
+      Axios.get("http://localhost:3001/api/login").then((response)=>{
+        // console.log(response);
+        if(response.data.loggedIn=true){
+        // setIsAuthenticated(response.data.user[0])
+        console.log(response.data.user);
+        setUsername(response.data.user);
+        localStorage.setItem('username', JSON.stringify(response.data.user));
 
+        }
+      })
+    };
+  }, [])
   const onSubmit = (data) => {
     Axios.post("http://localhost:3001/api/login", {
 

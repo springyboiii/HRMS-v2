@@ -19,13 +19,14 @@ import EditEmployee2 from "./components/EditEmployee2";
 import Axios from 'axios';
 import SupervisorApproveLeave from "./components/SupervisorApproveLeave";
 import Homepage from "./components/Homepage";
-
+import ChangePassword from "./components/ChangePassword";
+import { UserContext } from "./contexts/UserContext";
 function App() {
   const [leaves, setLeave] = useState([]);
   const [leavesLeft,setLeavesLeft]= useState([]);
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
-
+  const [Username, setUsername] = useState("Context");
   
 
   useEffect(()=>{
@@ -55,7 +56,13 @@ function App() {
       // setLeave(response.data);
     });
   },[]);
-  console.log(leaves);
+  useEffect(() => {
+    if(localStorage.getItem('username')) {
+      setUsername(JSON.parse(localStorage.getItem('username')));
+    }
+  }, []);
+  console.log(Username)
+  // console.log(leaves);
 
   const addLeave = (start_Date,duration,type,description,file,status) => {
     // Axios.get("http://localhost:3001/api/getleave").then((response) => {
@@ -116,21 +123,22 @@ function App() {
           
         <Routes>
           {/* <Route path="/" element={<HomeDummy />} /> */}
-          <Route path="/" element={<Homepage />} />
-          <Route path="/SupervisorApproveLeave" element={<SupervisorApproveLeave leaves={pendleaves}/>} /> 
-          <Route path="/components/SelectEmployee" element={<SelectEmployee employees={employees}/>} />
-          <Route path="/components/editEmployee" element={<EditEmployee2 employees={employees}/>} />
+          <Route path="/" element={<UserContext.Provider value={{ Username, setUsername }}><Homepage /></UserContext.Provider>} />
+          <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave leaves={pendleaves} /> </UserContext.Provider>} /> 
+          <Route path="/components/SelectEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><SelectEmployee employees={employees}/></UserContext.Provider>} />
+          <Route path="/components/editEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><EditEmployee2 employees={employees}/></UserContext.Provider>} />
 
 
-          <Route path="/editEmployeeDetails" element={(props) => <EditEmployee{...props} />} />
+          <Route path="/editEmployeeDetails" element={<UserContext.Provider value={{ Username, setUsername }}>{(props) => <EditEmployee{...props} />}</UserContext.Provider>} />
 
-          <Route path='/home' exact element={< Home />}></Route>
-          <Route path='/leaveApplication' element={< LeaveApplication handleSubmit={addLeave}/>}></Route> 
-          <Route path='/viewLeave' element={<ViewLeave data={leaves}/>}></Route> 
-          <Route path='/login' element={<Login />}></Route> 
-          <Route path='/addEmployee' element={<AddEmployee addEmployeeDetails={addEmployeeDetails} />}></Route> 
+          <Route path='/home' exact element={<UserContext.Provider value={{ Username, setUsername }}>< Home /></UserContext.Provider>}></Route>
+          <Route path='/leaveApplication' element={<UserContext.Provider value={{ Username, setUsername }}>< LeaveApplication handleSubmit={addLeave}/></UserContext.Provider>}></Route> 
+          <Route path='/viewLeave' element={<UserContext.Provider value={{ Username, setUsername }}><ViewLeave data={leaves}/></UserContext.Provider>}></Route> 
+          <Route path='/login' element={<UserContext.Provider value={{ Username, setUsername }}><Login /></UserContext.Provider>}></Route> 
+          <Route path='/addEmployee' element={<UserContext.Provider value={{ Username, setUsername }}><AddEmployee addEmployeeDetails={addEmployeeDetails} /></UserContext.Provider>}></Route> 
 
-          <Route path="/LeaveConfigure" element={<LeaveConfigure />} />
+          <Route path="/LeaveConfigure" element={<UserContext.Provider value={{ Username, setUsername }}><LeaveConfigure /></UserContext.Provider>} />
+          <Route path="/changePassword" element={<UserContext.Provider value={{ Username, setUsername }}><ChangePassword /></UserContext.Provider>} />
 
         </Routes>
       </Router>
