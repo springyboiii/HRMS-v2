@@ -24,7 +24,7 @@ const Homepage = () => {
                         <Container fluid>
                             <Navbar.Brand href="#home">
                                 <img
-                                    src="/index.jpeg"
+                                    src="/logo3.png"
                                     width="30"
                                     height="30"
                                     className="d-inline-block align-top"
@@ -61,12 +61,14 @@ const Homepage = () => {
                     <Carousel.Item>
                         <img
                             className="d-block w-100"
-                            src="/slide4.jpg"
+                            src="/image3.png"
+                            width="400"
+                            height="600"
                             alt="First slide"
                         />
                         <Carousel.Caption>
-                            <h3>Employee Management System for Jupyter Apparel</h3>
-                            <p>Manage employees' leave data withuot hassle</p>
+                            <h3 style={{ color: 'black' }}>Employee Management System for Jupiter Apparel</h3>
+                            <p style={{ color: 'black' }}>Manage employees' leave data without hassle</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
