@@ -95,7 +95,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>Address Number</Form.Label>
-                <Form.Control type="text" name="addressNo" defaultValue={employee.addressNo} placeholder={employee.addressNo} {...register("addressNo", { required: !editEmployee })}
+                <Form.Control type="text" name="addressNo" defaultValue={employee.addressNo} {...register("addressNo", {required:!editEmployee})}
                   disabled={disabled} onChange={(e) => { employee.addressNo = e.target.value }}
                 />
               </Form.Group>
@@ -104,7 +104,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>Street</Form.Label>
-                <Form.Control type="text" name="street" defaultValue={employee.street} placeholder={employee.street} {...register("street", { required: !editEmployee })}
+                <Form.Control type="text" name="street" defaultValue={employee.street} {...register("street", { required: !editEmployee })}
                   disabled={disabled} onChange={(e) => { employee.street = e.target.value }}
                 />
               </Form.Group>
@@ -113,7 +113,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>City</Form.Label>
-                <Form.Control type="text" name="city" defaultValue={employee.city} placeholder={employee.city} {...register("city", { required: !editEmployee })}
+                <Form.Control type="text" name="city" defaultValue={employee.city} {...register("city", { required: !editEmployee })}
                   disabled={disabled} onChange={(e) => { employee.city = e.target.value }}
                 />
               </Form.Group>
@@ -130,7 +130,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>Joined Date</Form.Label>
-                <Form.Control type="date" name='startDate' defaultValue={employee.startDate} placeholder={employee.startDate}
+                <Form.Control type="date" name='startDate' defaultValue={employee.startDate}
                   {...register("startDate", {
                     required: !editEmployee,
                     validate: editEmployee || (defaultValue => new Date(defaultValue) < new Date())
@@ -141,7 +141,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
             <div className="col-sm">
               <Form.Group>
                 <Form.Label>Salary</Form.Label>
-                <Form.Control type="number" step="0.01" id="salary" name='salary' defaultValue={employee.salary} placeholder={employee.salary} {...register("salary", { required: !editEmployee })}
+                <Form.Control type="number" step="0.01" id="salary" name='salary' defaultValue={employee.salary} {...register("salary", { required: !editEmployee })}
                   disabled={disabled} onChange={(e) => { employee.salary = e.target.value }} />
               </Form.Group>
               {errors.salary && <p className='errorMsg'>Salary is required!</p>}
@@ -152,12 +152,13 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <Form.Group>
                 <Form.Label>Department</Form.Label>
                 <br></br>
-                <Form.Select name="department_id" value={employee.department_id} {...register("department_id", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} disabled={disabled}>
+                <select name="department_id" defaultValue={Number(employee.department_id)} {...register("department_id", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} disabled={disabled}>
+                  {console.log(employee.department_id)}
                   <option value={"default"} disabled={disabled} onChange={(e) => { employee.department_id = e.target.value }}>Choose an Option</option>
                   <option value="1">Department 1</option>
                   <option value="2">Department 2</option>
                   <option value="3">Department 3</option>
-                </Form.Select>
+                </select>
               </Form.Group>
               {errors.department_id && <p className='errorMsg'>Department details are required!</p>}
             </div>
@@ -184,9 +185,9 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 <Form.Select name="jobTitle" value={employee.jobTitle} {...register("jobTitle", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} disabled={disabled}>
                   <option value={"default"} disabled={disabled} onChange={(e) => { employee.jobTitle = e.target.value }}>Choose an Option</option>
                   <option value="1">HR Manager</option>
-                  <option value="2">Accountant</option>
-                  <option value="3">Software Engineer</option>
-                  <option value="4">QA Engineer</option>
+                  <option value="2">Admin</option>
+                  <option value="3">Managerial Employee</option>
+                  <option value="4">Software Engineer</option>
                 </Form.Select>
               </Form.Group>
               {errors.jobTitle && <p className='errorMsg'>Job title details are required!</p>}

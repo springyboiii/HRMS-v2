@@ -184,8 +184,8 @@ app.post("/api/insertEmployee", (req, res) => {
 
 app.put('/api/updateEmployee', (req,res)=>{
   const data = req.body.employeeData
-  const sqlUpdate = "update employee set email=?, addressNo=?, street=?, city=?, salary=?, department_id=?,payGrade=?,jobTitle=?,employmentStatus=?,partTime=?,supervisor=? where employee_id = ?"
-  db.query(sqlUpdate, [data.email,data.addressNo,data.street,data.city,data.salary,data.department_id,data.payGrade,data.jobTitle,data.employmentStatus,data.partTime,data.supervisor,data.employee_id], (err,result)=>{
+  const sqlUpdate = "update employee set addressNo=?, street=?, city=?, salary=?, department_id=?,payGrade=?,jobTitle=?,employmentStatus=?,partTime=?,supervisor=? where employee_id = ?"
+  db.query(sqlUpdate, [data.addressNo,data.street,data.city,data.salary,data.department_id,data.payGrade,data.jobTitle,data.employmentStatus,data.partTime,data.supervisor,data.employee_id], (err,result)=>{
       if (err) console.log(err);
       else {
         console.log(data.employee_id);
