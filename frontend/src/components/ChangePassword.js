@@ -3,17 +3,24 @@ import Header from './Header'
 import Footer from './Footer'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Axios from 'axios';
+import { UserContext } from '../contexts/UserContext';
+import { useContext } from 'react';
 const ChangePassword = () => {
-    
+    const {Username,setUsername} = useContext(UserContext);
+
   return (
     <div>
         <Header/>
+        
         <h1>Wanna change your Password?</h1>
+        <h1>{Username}</h1>
      <Formik
        initialValues={{email:"", password1: '', password2: '' }}
        validate={values => {
          const errors = {};
-         
+         if(values.email!=Username){
+            errors.email="Wrong username"
+         }else 
          if (!values.password1) {
            errors.password1 = 'Required';
          } else if (values.password1!=values.password2
