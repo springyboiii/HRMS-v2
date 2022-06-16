@@ -13,7 +13,7 @@ import session from 'express-session';
 var app = express();
 app.use(cors({
   'origin': "http://localhost:3000",
-  'methods': ['GET,POST'],
+  'methods': ['GET,POST','PUT'],
   'credentials': true,
 }));
 app.use(cookieParser())
@@ -67,10 +67,12 @@ app.get("/api/leave", (req, res) => {
 });
 
 
-app.get("/api/getleave", (req, res) => {
 
-  const stat = "SELECT * FROM leave_table;";
-  db.query(stat, (err, result) => {
+app.get("/api/getleave/:empId", (req, res) => {
+
+  const employee_id =req.params.empId;
+  const stat = "SELECT * FROM leave_table where employee_id=?";
+  db.query(stat, employee_id,(err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -169,7 +171,7 @@ app.put('/api/updateEmployee', (req,res)=>{
 
 app.put('/api/updateLeaves', (req,res)=>{
   const data = req.body.employeeData
-  const sqlUpdate = "update employee set Leaves_left = ? where employee_id = ?"
+  const sqlUpdate = "update employee set leaves_left = ? where employee_id = ?"
   db.query(sqlUpdate, [data.Leaves_left,data.employee_id], (err,result)=>{
       if (err) console.log(err);
       else {
@@ -330,6 +332,20 @@ app.post("/api/saveLeaveChanges", (req, res) => {
     }})
 
 });
+
+app.get("/api/geteId/:Username", (req, res) => {
+  const emp_user =req.params.Username;
+  const sqlSelect = "select employee_id from employee where email = ?";
+  db.query(sqlSelect, emp_user, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

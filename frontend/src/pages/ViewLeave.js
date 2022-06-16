@@ -1,19 +1,46 @@
 import React from 'react';
+import { useState, useEffect,useContext} from "react";
 import Table from 'react-bootstrap/Table';
 import Navbar from '../components/Navbar';
+import Axios from 'axios';
 
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import { UserContext } from '../contexts/UserContext';
 
 
 
 
 function ViewLeave(props) {
 
-  const arr = props.data;
+  const [leaves,setLeave]=useState([]);
+  const {Username,setUsername}=useContext(UserContext);
+  var empId;
+
+
+
+
+  
+
   var x=1;
   var type="";
+
+  useEffect(()=>{
+    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
+        console.log(response.data)
+        empId=response.data.employee_id
+        console.log(empId)
+        Axios.get(`http://localhost:3001/api/getleave/${empId}`).then((response) => {
+
+        setLeave(...leaves,response.data);
+      
+      // setLeave(response.data);
+    // })
+  });
+    });
+      
+  },[])
 
   function leaveType(type){
     switch (type){
@@ -69,7 +96,7 @@ function ViewLeave(props) {
           </thead>
           <tbody>
 
-            {arr.map((leave_arr) =>
+            {leaves.map((leave_arr) =>
             // {switch (leave_arr.type){
             //   case "1":
             //     type="Annual Leave";

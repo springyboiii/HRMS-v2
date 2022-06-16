@@ -28,9 +28,10 @@ function App() {
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
-  
+
 
   useEffect(()=>{
+    
     Axios.get("http://localhost:3001/api/leave").then((response) => {
 
       setPending(...pendleaves,response.data);
@@ -49,14 +50,8 @@ function App() {
   },[]);
 
 
-  useEffect(()=>{
-    Axios.get("http://localhost:3001/api/getleave").then((response) => {
 
-      setLeave(...leaves,response.data);
-      
-      // setLeave(response.data);
-    });
-  },[]);
+
   useEffect(() => {
     if(localStorage.getItem('username')) {
       setUsername(JSON.parse(localStorage.getItem('username')));
