@@ -8,6 +8,7 @@ import Axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 import { useContext } from 'react';
 function Login() {
   const {username,setUsername} = useContext(UserContext);
@@ -22,7 +23,8 @@ function Login() {
         // console.log(response);
         if(response.data.loggedIn=true){
         // setIsAuthenticated(response.data.user[0])
-        console.log(response.data.user);
+
+        console.log(response.data.user,response.data.payGrade,response.data.jobTitle,response.data.supervisor);
         setUsername(response.data.user);
         localStorage.setItem('username', JSON.stringify(response.data.user));
 
