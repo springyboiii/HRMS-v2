@@ -50,7 +50,11 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/api/logout", (req, res) => {
+  res.clearCookie('user_id');
 
+  res.send({message:"cookie cleared"});
+  });
 app.get("/api/leave", (req, res) => {
   const supervisor_id = "125";
   const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";
@@ -453,6 +457,21 @@ app.post("/api/saveLeaveChanges", (req, res) => {
   })
 
 });
+
+app.get("/api/getdeptemp/:dept", (req, res) => {
+  const deptNo =req.params.dept;
+  const sqlSelect = "select * from employee where department_id = ?";
+  // console.log(email);
+  db.query(sqlSelect, deptNo, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
+
+    }
+  })
+})
 
 
 
