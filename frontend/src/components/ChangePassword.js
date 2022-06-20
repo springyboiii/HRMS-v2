@@ -5,15 +5,18 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
+import './Modal.css';
+
 const ChangePassword = () => {
     const {Username,setUsername} = useContext(UserContext);
 
   return (
     <div>
         <Header/>
+        <br></br>         
         
-        <h1>Wanna change your Password?</h1>
-        <h1>{Username}</h1>
+        
+        {/* <h1>{Username}</h1> */}
      <Formik
        initialValues={{email:"", password1: '', password2: '' }}
        validate={values => {
@@ -52,16 +55,39 @@ const ChangePassword = () => {
        }}
      >
        {({ isSubmitting }) => (
-         <Form>
-             <Field type="email" name="email" />
-           <ErrorMessage name="email" component="div" />
-           <Field type="password" name="password1" />
-           <ErrorMessage name="password1" component="div" />
-           <Field type="password" name="password2" />
-           <ErrorMessage name="password2" component="div" />
-           <button type="submit" disabled={isSubmitting}>
+
+         <Form className='changePassword'>
+          <br></br>
+          <h3 >Change Password</h3>
+          <br></br>
+
+            <label htmlFor="email" >Email Address</label>
+            <br></br>
+
+             <Field  className= "passwordField" type="email" name="email" label="Username"/>
+           <ErrorMessage className='error' name="email" component="div" />
+           <br></br>  <br></br>
+
+           <label htmlFor="email">Password</label>
+           <br></br>
+
+
+           <Field className= "passwordField" type="password" name="password1" />
+           <ErrorMessage className='error' name="password1" component="div"  />
+             <br></br>            <br></br>
+
+           <label htmlFor="email">Re-enter Password</label>
+           <br></br>
+
+
+           <Field  className= "passwordField" type="password" name="password2" />
+           <ErrorMessage className='error' name="password2" component="div" />
+           <br></br>            <br></br>
+
+           <button type="submit" className='submit-btn' disabled={isSubmitting}>
              Submit
            </button>
+           <br></br><br></br>
          </Form>
        )}
      </Formik>
