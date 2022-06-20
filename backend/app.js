@@ -368,6 +368,35 @@ app.post("/api/sendApproval", (req, res) => {
 
 });
 
+app.post("/api/leaveReport", (req, res) => {
+
+  const fromdate=req.body.from;
+  const todate=req.body.to;
+  const department_id=req.body.department_id;
+  
+  const sta = "Update leave_table set leave_status = ? where leave_id=? "
+  const sta1="update employee set Leaves_left = ? where employee_id=?"
+
+  db.query(sta,[status,leave_id], (err, result) => {
+    if (err) {
+      console.log(err);
+
+    } else {
+     
+    }})
+
+  
+    db.query(sta1,[Leaves_left,employee_id], (err, result) => {
+      if (err) {
+        console.log(err);
+  
+      } else {
+        res.send(result);
+        console.log(req.url);
+      }})
+
+});
+
 app.post("/api/sendRejection", (req, res) => {
 
   const status=req.body.status;
