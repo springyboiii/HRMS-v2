@@ -374,50 +374,100 @@ app.post("/api/sendApproval", (req, res) => {
 
 });
 
-app.post("/api/leaveReport", (req, res) => {
+app.get("/api/leaveReport", (req, res) => {
 
-  const fromdate = req.body.from;
-  const todate = req.body.to;
-  const department_id = req.body.department_id;
+  const fromdate = new Date(req.query.fromdate);
+  const todate = new Date(req.query.todate);
+  const department_id = req.query.department_id;
 
-  const v1 = "create view v1 as select leave_id, start_date, duration from leave_table left outer join employee using (employee_id) where start_date>=? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
-  const v2 = "create view v2 as select leave_id, start_date, datediff(day,start_date,?) as duration from leave_table left outer join employee using (employee_id) where start_date>=? and start_date <= ? and DATEADD(dd, duration, start_date)>=? and department_id=?;";
-  const v3 = "create view v3 as select leave_id, start_date, datediff(day,?,DATEADD(dd, duration, start_date)) as duration from leave_table left outer join employee using (employee_id) where start_date<=? and DATEADD(dd, duration, start_date) >= ? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
-  const sqlselect = "select sum(duration) from v1 union all select sum(duration) from v2 union all select sum(duration) from v3;";
+  // const v1 = "create view v1 as select leave_id, start_date, duration from leave_table left outer join employee using (employee_id) where start_date>=? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
+  // const v2 = "create view v2 as select leave_id, start_date, datediff(day,start_date,?) as duration from leave_table left outer join employee using (employee_id) where start_date>=? and start_date <= ? and DATEADD(dd, duration, start_date)>=? and department_id=?;";
+  // const v3 = "create view v3 as select leave_id, start_date, datediff(day,?,DATEADD(dd, duration, start_date)) as duration from leave_table left outer join employee using (employee_id) where start_date<=? and DATEADD(dd, duration, start_date) >= ? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
+  // const sqlselect = "select sum(duration) from v1 union all select sum(duration) from v2 union all select sum(duration) from v3;";
 
-  db.query(v1, [fromdate, todate, department_id], (err, result) => {
+  const sqlSelect = "select leave_id, start_date, duration, employee_id from leave_table left outer join employee using (employee_id) where department_id=?;";
+
+  const getDateString = (dateString) => {
+    var dateString = new Date(dateString);
+    const dd = String(dateString.getDate()).padStart(2, "0");
+    const mm = String(dateString.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = dateString.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+  };
+
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  function getDifferenceInDays(date1, date2) {
+    const diffInMs = Math.abs(date2 - date1);
+    return diffInMs / (1000 * 60 * 60 * 24);
+  }  
+
+  db.query(sqlSelect, department_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
+      // console.log(result[0]['leave_id'])
+      // console.log(typeof(fromdate));
+      var count = 0;
+      for (var i = 0; i < result.length; i++) {
+        // console.log(getDateString(result[i]['start_date']))        
+        var startdate = new Date(getDateString(result[i]['start_date']));
+        var duration = result[i]['duration']
+        var enddate = addDays(startdate,duration)
+        // enddate.setDate(enddate.getDate() + duration);
+        // console.log(startdate)
+        // console.log(enddate)
+        // console.log((startdate <= fromdate) && (enddate >= todate))
+        // console.log(fromdate);
+        if (startdate>=fromdate && enddate<=todate){
+          count += duration;
+        }
+        else if (startdate >= fromdate && startdate <= todate && enddate >= todate){
+          count += getDifferenceInDays(startdate, todate)
+        }
+        else if (startdate <= fromdate && enddate >= fromdate && enddate <= todate){
+          count += getDifferenceInDays(fromdate, enddate)
+        }
+        else if (startdate <= fromdate && enddate >= todate){
+          count += getDifferenceInDays(fromdate,todate)
+        }
+         
+      } 
+      console.log(count);
+      res.send({count:count});
 
     }
   })
 
-  db.query(v2, [todate, fromdate, todate, todate, department_id], (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+  // db.query(v2, [todate, fromdate, todate, todate, department_id], (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
 
-    }
-  })
+  //   }
+  // })
 
-  db.query(v3, [fromdate, fromdate, fromdate, todate, department_id], (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+  // db.query(v3, [fromdate, fromdate, fromdate, todate, department_id], (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
 
-    }
-  })
+  //   }
+  // })
 
-  db.query(sqlselect, (err, result) => {
-    if (err) {
-      console.log(err);
+  // db.query(sqlselect, (err, result) => {
+  //   if (err) {
+  //     console.log(err);
 
-    } else {
-      res.send(result);
-      console.log(result);
-    }
-  })
+  //   } else {
+  //     res.send(result);
+  //     console.log(result);
+  //   }
+  // })
 
 });
 

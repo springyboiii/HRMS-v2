@@ -5,26 +5,30 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
-// import { useState } from 'react';
+import { useState } from 'react';
 import Axios from 'axios';
 
 const TotalLeave = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  // const [leaveReport, setLeaveReport] = useState({})
+  const [count, setCount] = useState(0);
 
   const onSubmit = (data) => {
 
-      Axios.post('http://localhost:3001/api/leaveReport', {
-        leaveReport: data
+      Axios.get(`http://localhost:3001/api/leaveReport`,{
+        params:{
+          fromdate: data.from,
+          todate: data.to,
+          department_id: data.department_id
+        }
       }).then((response) => {
         // alert("Voila user added")
-        console.log(response.data)
-        if (response.data.message) {
-          alert(response.data.message);
-          return;
-        } 
-
+        console.log(response.data.count)
+        setCount(response.data.count);
+        // if (response.data.message) {
+        //   alert(response.data.message);
+        //   return;
+        // } 
       })
         ;
 
@@ -43,7 +47,7 @@ const TotalLeave = () => {
               <Form.Label>From:</Form.Label>
               <Form.Control type="date" name='from' {...register("from", {
                 required: true,
-                validate: value => new Date(value) < new Date()
+                validate: value => new Date(value) <= new Date()
               })} 
               />
             </Form.Group>
@@ -55,7 +59,7 @@ const TotalLeave = () => {
               <Form.Label>To:</Form.Label>
               <Form.Control type="date" name='to' {...register("to", {
                 required: true,
-                validate: value => new Date(value) < new Date()
+                validate: value => new Date(value) <= new Date()
               })} 
               />
             </Form.Group>
@@ -82,6 +86,7 @@ const TotalLeave = () => {
             Generate Report
           </Button>
           </div>
+          <h2>{count}</h2>
         </div>
       
 
