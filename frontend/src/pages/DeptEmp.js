@@ -125,17 +125,35 @@ function DeptEmp(){
 
     <div>
       <Header />
+      <div className='signcontainer'>
+      <Form>
+      <Form.Group>
+            Select the Department
+            <br></br>
+
+            <Form.Select aria-label="Default select example" id='type' name='type' value={dept} onChange={(e) => { setDept(null); setDept(e.target.value); setEmp([]);}}>
+            <option></option>
+          <option value="1">Department 1</option>
+          <option value="2">Department 2</option>
+          <option value="3">Department 3</option>
+            </Form.Select>
+          </Form.Group>
+          <br></br>
+
+          <Button onClick={handleSubmit} variant="primary" type="submit">
+              Submit
+            </Button>
+      </Form>
+      </div>
      
-      <select id='type' name='type' value={dept} onChange={(e) => { setDept(null); setDept(e.target.value); setEmp([]);}}>
+      {/* <select id='type' name='type' value={dept} onChange={(e) => { setDept(null); setDept(e.target.value); setEmp([]);}}>
           <option></option>
           <option value="1">Department 1</option>
           <option value="2">Department 2</option>
           <option value="3">Department 3</option>
-         </select>
+         </select><span></span> */}
 
-         <Button onClick={handleSubmit} variant="primary" type="submit">
-              Submit
-            </Button>
+         
 
       {/* <h1>{ open ? <Results /> : null }</h1> */}
       <div className='container'>
