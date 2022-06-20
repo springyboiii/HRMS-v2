@@ -52,9 +52,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get("/api/leave", (req, res) => {
-
-  const stat = "SELECT * FROM leave_table where leave_status='Pending';";
-  db.query(stat, (err, result) => {
+  const supervisor_id= "125";
+  const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";
+  db.query(stat,supervisor_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
