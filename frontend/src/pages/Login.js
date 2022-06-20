@@ -13,7 +13,7 @@ import { UserTypeContext } from '../contexts/UserTypeContext';
 import { useContext } from 'react';
 function Login() {
   const {username,setUsername} = useContext(UserContext);
-  // const {userType,setUserType} = useContext(UserTypeContext);
+  const {UserType,setUserType} = useContext(UserTypeContext);
 
 
   let navigate = useNavigate();
@@ -32,7 +32,12 @@ function Login() {
 
         console.log(response.data.user,response.data.payGrade,response.data.jobTitle,response.data.supervisor);
         setUsername(response.data.user);
-        // setUserType(response.data.payGrade);
+        setUserType([{
+
+          payGrade: response.data.payGrade,
+          jobTitle:response.data.jobTitle,
+          supervisor: response.data.supervisor,
+        }]);
        
         localStorage.setItem('username', JSON.stringify(response.data.user));
         localStorage.setItem('payGrade', JSON.stringify(response.data.payGrade));

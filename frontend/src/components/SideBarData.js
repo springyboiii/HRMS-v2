@@ -26,45 +26,45 @@ export const SidebarData = [
     // icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },
-  {
-    title: 'Generate Reports',
-    path: '',
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+  // {
+  //   title: 'Generate Reports',
+  //   path: '',
+  //   icon: <IoIcons.IoIosPaper />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
 
-    subNav: [
-      {
-        title: 'Employee by Department',
-        path: '/GenerateReport/EmployeebyDepartment',
-        icon: <IoIcons.IoIosPaper />,
-        // icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text',
-      },
-      {
-        title: 'Total Leaves',
-        path: '/GenerateReport/TotalLeavesgivenbyDepartment',
-        icon: <IoIcons.IoIosPaper />,
-        // icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text'
-      },
-      {
-        title: 'Employee report',
-        path:'/GenerateReport/Employeereportbygivencategory' ,
-        icon: <IoIcons.IoIosPaper />,
-        // icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text'
-      },
-    ]
-  },
+  //   subNav: [
+  //     {
+  //       title: 'Employee by Department',
+  //       path: '/GenerateReport/EmployeebyDepartment',
+  //       icon: <IoIcons.IoIosPaper />,
+  //       // icon: <IoIcons.IoIosPaper />,
+  //       cName: 'nav-text',
+  //     },
+  //     {
+  //       title: 'Total Leaves',
+  //       path: '/GenerateReport/TotalLeavesgivenbyDepartment',
+  //       icon: <IoIcons.IoIosPaper />,
+  //       // icon: <IoIcons.IoIosPaper />,
+  //       cName: 'nav-text'
+  //     },
+  //     {
+  //       title: 'Employee report',
+  //       path:'/GenerateReport/Employeereportbygivencategory' ,
+  //       icon: <IoIcons.IoIosPaper />,
+  //       // icon: <IoIcons.IoIosPaper />,
+  //       cName: 'nav-text'
+  //     },
+  //   ]
+  // },
 
-  {
-    title: 'Leave Configure',
-    path: '/LeaveConfigure',
-    // icon: <MdIcons.MdPageview />,
-    icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Leave Configure',
+  //   path: '/LeaveConfigure',
+  //   // icon: <MdIcons.MdPageview />,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   cName: 'nav-text'
+  // },
   // {
   //   title: 'Log In',
   //   path: '/login',
@@ -72,20 +72,20 @@ export const SidebarData = [
   //   icon: <IoIcons.IoIosPaper />,
   //   cName: 'nav-text'
   // }, 
-  {
-    title: 'Leave Requests',
-    path: '/SupervisorApproveLeave',
-    // icon: <MdIcons.MdPageview />,
-    icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Add Employee',
-    path: '/addEmployee',
-    // icon: <MdIcons.MdPageview />,
-    icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Leave Requests',
+  //   path: '/SupervisorApproveLeave',
+  //   // icon: <MdIcons.MdPageview />,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   cName: 'nav-text'
+  // },
+  // {
+  //   title: 'Add Employee',
+  //   path: '/addEmployee',
+  //   // icon: <MdIcons.MdPageview />,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   cName: 'nav-text'
+  // },
   {
     title: 'Change Password',
     path: '/changePassword',
@@ -100,13 +100,13 @@ export const SidebarData = [
   //   icon: <IoIcons.IoIosPaper />,
   //   cName: 'nav-text'
   // }
-  {
-    title: 'Edit Employee Details',
-    path: '/../components/editEmployee',
-    // icon: <MdIcons.MdPageview />,
-    icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Edit Employee Details',
+  //   path: '/../components/editEmployee',
+  //   // icon: <MdIcons.MdPageview />,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   cName: 'nav-text'
+  // },
   
 
 ];
