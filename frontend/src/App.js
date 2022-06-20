@@ -22,12 +22,14 @@ import Homepage from "./components/Homepage";
 import Dummy from "./pages/Dummy";
 import ChangePassword from "./components/ChangePassword";
 import { UserContext } from "./contexts/UserContext";
+import Dashboard from "./pages/Dashboard";
 function App() {
   const [leaves, setLeave] = useState([]);
   const [leavesLeft,setLeavesLeft]= useState([]);
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
+
 
 
   useEffect(()=>{
@@ -120,6 +122,8 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<HomeDummy />} /> */}
           <Route path="/" element={<UserContext.Provider value={{ Username, setUsername }}><Homepage /></UserContext.Provider>} />
+          <Route path="/dashboard" element={<Dashboard />} />
+      
           <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave leaves={pendleaves} /> </UserContext.Provider>} /> 
           <Route path="/components/SelectEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><SelectEmployee employees={employees}/></UserContext.Provider>} />
           <Route path="/components/editEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><EditEmployee2 employees={employees}/></UserContext.Provider>} />

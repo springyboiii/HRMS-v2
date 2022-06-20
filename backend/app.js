@@ -317,7 +317,22 @@ app.post("/api/login", (req, res) => {
 
 app.get("/api/login",(req,res)=>{
   if(req.session.user){
-    res.send({loggedIn:true,user:req.session.user})
+    const sqlSelect="Select payGrade,jobTitle,supervisor from employee where email=?"
+    db.query(sqlSelect, req.session.user, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(result[0].payGrade);
+        // res.send(result[0]);
+        req.session.payGrade=result[0].payGrade;
+        req.session.jobTitle=result[0].jobTitle;
+        req.session.supervisor=result[0].supervisor;
+
+        res.send({loggedIn:true,user:req.session.user,payGrade:req.session.payGrade,jobTitle:req.session.jobTitle,supervisor:req.session.supervisor})
+
+      }
+    })
+    // res.send({loggedIn:true,user:req.session.user})
   }else{
     res.send({loggedIn:false})
 
