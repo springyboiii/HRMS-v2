@@ -22,6 +22,9 @@ import Homepage from "./components/Homepage";
 import Dummy from "./pages/Dummy";
 import ChangePassword from "./components/ChangePassword";
 import { UserContext } from "./contexts/UserContext";
+import DeptEmp from "./pages/DeptEmp";
+import GrpEmp from "./pages/GrpEmp";
+import TotalLeave from "./pages/totalLeave";
 import { UserTypeContext } from "./contexts/UserTypeContext";
 
 function App() {
@@ -30,7 +33,7 @@ function App() {
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
-  const {userType,setUserType} = useContext(UserTypeContext);
+  // const {userType,setUserType} = useContext(UserTypeContext);
 
 
 
@@ -60,9 +63,9 @@ function App() {
     if(localStorage.getItem('username')) {
       setUsername(JSON.parse(localStorage.getItem('username')));
     }
-    if(localStorage.getItem('payGrade')){
-      setUserType(JSON.parse(localStorage.getItem('payGrade')));
-    }
+    // if(localStorage.getItem('payGrade')){
+    //   setUserType(JSON.parse(localStorage.getItem('payGrade')));
+    // }
   }, []);
   console.log(Username)
   // console.log(leaves);
@@ -143,6 +146,10 @@ function App() {
           <Route path="/LeaveConfigure" element={<UserContext.Provider value={{ Username, setUsername }}><LeaveConfigure /></UserContext.Provider>} />
           <Route path="/changePassword" element={<UserContext.Provider value={{ Username, setUsername }}><ChangePassword /></UserContext.Provider>} />
           <Route path="/dummy" element={<UserContext.Provider value={{ Username, setUsername }}><Dummy /></UserContext.Provider>} />
+
+          <Route path="/GenerateReport/EmployeebyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><DeptEmp /></UserContext.Provider>} />
+          <Route path="/GenerateReport/TotalLeavesgivenbyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><TotalLeave /></UserContext.Provider>} />
+          <Route path="/GenerateReport/Employeereportbygivencategory" element={<UserContext.Provider value={{ Username, setUsername }}><GrpEmp /></UserContext.Provider>} />
 
         </Routes>
       </Router>
