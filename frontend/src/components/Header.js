@@ -11,7 +11,7 @@ import { SidebarData } from './SideBarData';
 import './Navbar.css';
 
 import { useState,useEffect,useContext} from 'react';
-// import { UserTypeContext } from '../contexts/UserTypeContext';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 import * as IoIcons from 'react-icons/io';
 
