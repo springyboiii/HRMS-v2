@@ -50,7 +50,11 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/api/logout", (req, res) => {
+  res.clearCookie('user_id');
 
+  res.send({message:"cookie cleared"});
+  });
 app.get("/api/leave", (req, res) => {
   const supervisor_id= "125";
   const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";

@@ -9,9 +9,11 @@ import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SideBarData';
 import './Navbar.css';
+import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 import { useState,useEffect,useContext} from 'react';
-// import { UserTypeContext } from '../contexts/UserTypeContext';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 import * as IoIcons from 'react-icons/io';
 
@@ -23,23 +25,37 @@ import * as IoIcons from 'react-icons/io';
 
 // import { useState } from 'react';
 import { Modal, ModalBody, ModalHeader } from 'react-bootstrap';
-
+import { UserContext } from '../contexts/UserContext';
 const Header = () => {
+    let navigate = useNavigate();
+
     const [sidebar, setSidebar] = useState(false);
+
+    const [level,setLevel]=useState(null);
+    const {UserType,setUserType} = useContext(UserTypeContext);
+    const {Username,setUsername} = useContext(UserContext);
+
+
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
 
 
     const showSidebar = () => setSidebar(!sidebar);
     // var level;
 
+
     // useEffect(() => {
     //     // level=localStorage.getItem('payGrade');
     //     setLevel(JSON.parse(localStorage.getItem('payGrade')));
     //     // console.log(level);
+
         
     //   }, []);
   
     // var level=localStorage.getItem('payGrade');
+
+    console.log(UserType);
+
     // console.log(userType);
 
     const toggleLogoutModal = () => {
@@ -47,8 +63,22 @@ const Header = () => {
     }
 
     const logout = () => {
-        //implement
+        localStorage.setItem('username', JSON.stringify(""));
+        setUsername("");
+        setUserType({});
+        Axios.get("http://localhost:3001/api/logout").then((response)=>{
+        // console.log(response);
+        if(response.data.message){
+        
+            alert(response.data.message)
+            navigate('/', { replace: true });
+
+        }
+        
+      })
+
     }
+
 
     return (
         <>
@@ -101,14 +131,17 @@ const Header = () => {
                                     console.log(level)
                                 }
                                  */}
-                                {/* {
-                                    level === 3 && <li className='nav-text'>
+
+                                {
+                                    UserType == 2 && <li className='nav-text'>
+
+                                
                                         <Link to='/LeaveConfigure'>
                                         <IoIcons.IoIosPaper />
                                             <span>Leave Configure</span>
                                         </Link>
                                     </li>
-                                } */}
+                                }
                             </ul>
                         </nav>
                     </Container>
