@@ -8,6 +8,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SideBarData';
+import { SidebarData2 } from './SidebarData2';
 import './Navbar.css';
 import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -54,7 +55,7 @@ const Header = () => {
   
     // var level=localStorage.getItem('payGrade');
 
-    console.log(UserType);
+    console.log(UserType[0].payGrade);
 
     // console.log(userType);
 
@@ -64,8 +65,16 @@ const Header = () => {
 
     const logout = () => {
         localStorage.setItem('username', JSON.stringify(""));
+        localStorage.setItem('payGrade', JSON.stringify(""));
+        localStorage.setItem('title', JSON.stringify(""));
+        localStorage.setItem('supervisor', JSON.stringify(""));
         setUsername("");
-        setUserType({});
+        setUserType([{
+            payGrade: null,
+            jobTitle: null,
+            supervisor: null,
+            
+          }]);
         Axios.get("http://localhost:3001/api/logout").then((response)=>{
         // console.log(response);
         if(response.data.message){
@@ -133,12 +142,75 @@ const Header = () => {
                                  */}
 
                                 {
-                                    UserType == 2 && <li className='nav-text'>
+                                    UserType[0].payGrade == 3 && <li className='nav-text'>
 
                                 
                                         <Link to='/LeaveConfigure'>
                                         <IoIcons.IoIosPaper />
                                             <span>Leave Configure</span>
+                                        </Link>
+                                    </li>
+                                }
+                                {
+                                    UserType[0].jobTitle == 1 && <li className='nav-text'>
+
+                                
+                                        <Link to='/addEmployee'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Add Employee</span>
+                                        </Link>
+                                    </li>
+                                }
+                                {
+                                    UserType[0].jobTitle == 1 && <li className='nav-text'>
+
+                                
+                                        <Link to='/../components/editEmployee'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Edit Employee Details</span>
+                                        </Link>
+                                    </li>
+                                }
+                                {
+                                    UserType[0].jobTitle == 2 && <li className='nav-text'>
+
+                                
+                                        <Link to='/addEmployee'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Add Employee</span>
+                                        </Link>
+                                    </li>
+                                }
+                                 {
+                                    UserType[0].jobTitle == 3 && <li className='nav-text'>
+
+                                
+                                        <Link to='/../components/editEmployee'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Edit Employee Details</span>
+                                        </Link>
+                                    </li>
+                                }
+                                {
+                                    UserType[0].jobTitle == 3 && SidebarData2.map((item, index) => {
+                                        return <SubMenu item={item} key={index} />;
+                                        // return (
+                                        //     <li key={index} className={item.cName}>
+                                        //         <Link to={item.path}>
+                                        //             {item.icon}
+                                        //             <span>{item.title}</span>
+                                        //         </Link>
+                                        //     </li>
+                                        // );
+                                    })
+                                }
+                                 {
+                                    UserType[0].supervisor == 1 && <li className='nav-text'>
+
+                                
+                                        <Link to='/SupervisorApproveLeave'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Leave Requests</span>
                                         </Link>
                                     </li>
                                 }

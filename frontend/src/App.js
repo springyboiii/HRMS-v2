@@ -37,7 +37,12 @@ function App() {
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
-  const [UserType,setUserType] = useState("UserTypeContext");
+  const [UserType,setUserType] = useState([{
+    payGrade: null,
+    jobTitle: null,
+    supervisor: null,
+    
+  }]);
 
 
 
@@ -68,9 +73,16 @@ function App() {
     if(localStorage.getItem('username')) {
       setUsername(JSON.parse(localStorage.getItem('username')));
     }
-    // if(localStorage.getItem('payGrade')){
-    //   setUserType(JSON.parse(localStorage.getItem('payGrade')));
-    // }
+    if(localStorage.getItem('payGrade')){
+      // setUserType([])
+      setUserType([{
+
+        payGrade: JSON.parse(localStorage.getItem('payGrade')),
+        jobTitle: JSON.parse(localStorage.getItem('title')),
+        supervisor: JSON.parse(localStorage.getItem('supervisor')),
+      }])
+      // setUserType(JSON.parse(localStorage.getItem('payGrade')));
+    }
   }, []);
   console.log(Username)
   // console.log(leaves);
