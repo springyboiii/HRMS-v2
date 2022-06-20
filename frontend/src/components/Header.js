@@ -26,20 +26,30 @@ import { Modal, ModalBody, ModalHeader } from 'react-bootstrap';
 
 const Header = () => {
     const [sidebar, setSidebar] = useState(false);
+
+    const [level,setLevel]=useState(null);
+    const {UserType,setUserType} = useContext(UserTypeContext);
+
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
 
 
     const showSidebar = () => setSidebar(!sidebar);
     // var level;
 
+
     // useEffect(() => {
     //     // level=localStorage.getItem('payGrade');
     //     setLevel(JSON.parse(localStorage.getItem('payGrade')));
     //     // console.log(level);
+
         
     //   }, []);
   
     // var level=localStorage.getItem('payGrade');
+
+    console.log(UserType);
+
     // console.log(userType);
 
     const toggleLogoutModal = () => {
@@ -49,6 +59,7 @@ const Header = () => {
     const logout = () => {
         //implement
     }
+
 
     return (
         <>
@@ -101,14 +112,17 @@ const Header = () => {
                                     console.log(level)
                                 }
                                  */}
-                                {/* {
-                                    level === 3 && <li className='nav-text'>
+
+                                {
+                                    UserType == 2 && <li className='nav-text'>
+
+                                
                                         <Link to='/LeaveConfigure'>
                                         <IoIcons.IoIosPaper />
                                             <span>Leave Configure</span>
                                         </Link>
                                     </li>
-                                } */}
+                                }
                             </ul>
                         </nav>
                     </Container>
