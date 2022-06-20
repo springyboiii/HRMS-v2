@@ -22,10 +22,14 @@ import Homepage from "./components/Homepage";
 import Dummy from "./pages/Dummy";
 import ChangePassword from "./components/ChangePassword";
 import { UserContext } from "./contexts/UserContext";
+
 import DeptEmp from "./pages/DeptEmp";
 import GrpEmp from "./pages/GrpEmp";
 import TotalLeave from "./pages/totalLeave";
 import { UserTypeContext } from "./contexts/UserTypeContext";
+
+
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [leaves, setLeave] = useState([]);
@@ -130,6 +134,8 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<HomeDummy />} /> */}
           <Route path="/" element={<UserContext.Provider value={{ Username, setUsername }}><Homepage /></UserContext.Provider>} />
+          <Route path="/dashboard" element={<Dashboard />} />
+      
           <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave leaves={pendleaves} /> </UserContext.Provider>} /> 
           <Route path="/components/SelectEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><SelectEmployee employees={employees}/></UserContext.Provider>} />
           <Route path="/components/editEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><EditEmployee2 employees={employees}/></UserContext.Provider>} />

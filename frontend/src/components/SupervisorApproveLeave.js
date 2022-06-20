@@ -17,7 +17,7 @@ function SupervisorApproveLeave(props) {
     return date.split("T")[0];
   };
 
-  const acceptRequest = (leaveid,emp_id) => {
+  const acceptRequest = (leaveid,emp_id,duration) => {
 
 
     Axios.get(`http://localhost:3001/api/getBalanceLeave/${emp_id}`).then((response)=>{
@@ -29,7 +29,7 @@ function SupervisorApproveLeave(props) {
       status: "Accepted",
       leave_id: leaveid,
       employee_id:emp_id,
-      Leaves_left:Leaves_left-1
+      Leaves_left:Leaves_left-duration
     }).then(() => {
       window.location.reload(false);
 
@@ -84,7 +84,7 @@ function SupervisorApproveLeave(props) {
                 <td style={{ display: "flex" }}>
                   <Button
                     variant="success"
-                    onClick={() => {acceptRequest(leave.leave_id,leave.employee_id)}}
+                    onClick={() => {acceptRequest(leave.leave_id,leave.employee_id,leave.duration)}}
                     size="lg"
                     type="submit"
                   >

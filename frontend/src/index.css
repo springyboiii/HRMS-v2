@@ -146,3 +146,46 @@ input[type="radio"]{
   justify-content: center;
   /* display: flex; */
 }
+
+.changePassword{
+  border: 1px solid steelblue;    align-items: center;
+  width: 30%;
+  margin-left: 550px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+  padding:5px;
+
+
+
+
+
+}
+
+.submit-btn{
+  /* background-color:#008CBA;
+  
+  padding: 5px;
+  width: 25%; */
+  background-color: #008CBA;; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.passwordField{
+  width: 70%;
+  border-radius: 3px;
+  border-width: 0.5px;
+
+
+
+}
+.error{
+  color: red;
+}
