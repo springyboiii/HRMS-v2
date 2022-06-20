@@ -26,13 +26,13 @@ export const SidebarData = [
     cName: 'nav-text'
   },
 
-  {
-    title: 'Leave Configure',
-    path: '/LeaveConfigure',
-    // icon: <MdIcons.MdPageview />,
-    icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Leave Configure',
+  //   path: '/LeaveConfigure',
+  //   // icon: <MdIcons.MdPageview />,
+  //   icon: <IoIcons.IoIosPaper />,
+  //   cName: 'nav-text'
+  // },
   {
     title: 'Log In',
     path: '/login',
