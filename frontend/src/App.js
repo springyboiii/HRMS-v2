@@ -3,7 +3,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeDummy from './pages/HomeDummy';
 import LeaveConfigure from './components/LeaveConfigure';
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
 import EditEmployee from "./pages/EditEmployee";
 
 import Home from './pages/Home';
@@ -22,12 +22,15 @@ import Homepage from "./components/Homepage";
 import Dummy from "./pages/Dummy";
 import ChangePassword from "./components/ChangePassword";
 import { UserContext } from "./contexts/UserContext";
+import { UserTypeContext } from "./contexts/UserTypeContext";
+
 function App() {
   const [leaves, setLeave] = useState([]);
   const [leavesLeft,setLeavesLeft]= useState([]);
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
+  const {userType,setUserType} = useContext(UserTypeContext);
 
 
 
@@ -56,6 +59,9 @@ function App() {
   useEffect(() => {
     if(localStorage.getItem('username')) {
       setUsername(JSON.parse(localStorage.getItem('username')));
+    }
+    if(localStorage.getItem('payGrade')){
+      setUserType(JSON.parse(localStorage.getItem('payGrade')));
     }
   }, []);
   console.log(Username)

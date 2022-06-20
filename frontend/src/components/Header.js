@@ -8,12 +8,29 @@ import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SideBarData';
 import './Navbar.css';
-import { useState } from 'react';
+import { useState,useEffect,useContext} from 'react';
+import { UserTypeContext } from '../contexts/UserTypeContext';
+
+import * as IoIcons from 'react-icons/io';
 
 const Header = () => {
     const [sidebar, setSidebar] = useState(false);
+    const [level,setLevel]=useState(null);
+    const {userType,setUserType} = useContext(UserTypeContext);
+
 
     const showSidebar = () => setSidebar(!sidebar);
+    // var level;
+
+    useEffect(() => {
+        // level=localStorage.getItem('payGrade');
+        setLevel(JSON.parse(localStorage.getItem('payGrade')));
+        // console.log(level);
+        
+      }, []);
+  
+    // var level=localStorage.getItem('payGrade');
+    console.log(userType);
 
     return (
         <>
@@ -54,6 +71,18 @@ const Header = () => {
                                         </li>
                                     );
                                 })}
+                                {/* {
+                                    console.log(level)
+                                }
+                                 */}
+                                {
+                                    level === 3 && <li className='nav-text'>
+                                        <Link to='/LeaveConfigure'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Leave Configure</span>
+                                        </Link>
+                                    </li>
+                                }
                             </ul>
                         </nav>
                     </Container>
