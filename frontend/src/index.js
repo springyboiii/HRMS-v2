@@ -6,7 +6,6 @@ import { useEffect,useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import reportWebVitals from './reportWebVitals';
-import { UserTypeContext } from './contexts/UserTypeContext';
 
 const leaves = [{
   id: 1,

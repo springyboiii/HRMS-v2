@@ -37,7 +37,8 @@ function App() {
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
-  // const {userType,setUserType} = useContext(UserTypeContext);
+  const [UserType,setUserType] = useState("UserTypeContext");
+
 
 
 
@@ -129,6 +130,9 @@ function App() {
 
   return (
     <div >
+      {console.log(UserType,"userType")}
+          <UserTypeContext.Provider value={{ UserType, setUserType }}>
+
         <Router>
           
         <Routes>
@@ -159,6 +163,8 @@ function App() {
 
         </Routes>
       </Router>
+          </UserTypeContext.Provider>
+
       
     </div>
   );
