@@ -6,7 +6,6 @@ import { useEffect,useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import reportWebVitals from './reportWebVitals';
-import { UserTypeContext } from './contexts/UserTypeContext';
 
 const leaves = [{
   id: 1,
@@ -61,7 +60,7 @@ const employees = [{
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const {userType,setUserType} = useState("Contextusertype");
+// const {userType,setUserType} = useState("Contextusertype");
 
 // useEffect(() => {
 //   // if(localStorage.getItem('username')) {
@@ -75,9 +74,9 @@ const {userType,setUserType} = useState("Contextusertype");
 
 root.render(
   <React.StrictMode>
-    <UserTypeContext.Provider value={{ userType, setUserType }}>
+    {/* <UserTypeContext.Provider value={{ userType, setUserType }}> */}
     <App data={leaves} employees={employees} />
-    </UserTypeContext.Provider>
+    {/* </UserTypeContext.Provider> */}
 
   </React.StrictMode>
 );

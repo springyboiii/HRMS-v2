@@ -16,7 +16,7 @@ import * as IoIcons from 'react-icons/io';
 const Header = () => {
     const [sidebar, setSidebar] = useState(false);
     const [level,setLevel]=useState(null);
-    const {userType,setUserType} = useContext(UserTypeContext);
+    const {UserType,setUserType} = useContext(UserTypeContext);
 
 
     const showSidebar = () => setSidebar(!sidebar);
@@ -24,13 +24,13 @@ const Header = () => {
 
     useEffect(() => {
         // level=localStorage.getItem('payGrade');
-        setLevel(JSON.parse(localStorage.getItem('payGrade')));
+        // setLevel(JSON.parse(localStorage.getItem('payGrade')));
         // console.log(level);
         
       }, []);
   
     // var level=localStorage.getItem('payGrade');
-    console.log(userType);
+    console.log(UserType);
 
     return (
         <>
@@ -76,7 +76,7 @@ const Header = () => {
                                 }
                                  */}
                                 {
-                                    level === 3 && <li className='nav-text'>
+                                    UserType == 2 && <li className='nav-text'>
                                         <Link to='/LeaveConfigure'>
                                         <IoIcons.IoIosPaper />
                                             <span>Leave Configure</span>
