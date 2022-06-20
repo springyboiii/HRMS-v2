@@ -180,7 +180,8 @@ input[type="radio"]{
 
 .passwordField{
   width: 70%;
-  border-radius: 4px;
+  border-radius: 3px;
+  border-width: 0.5px;
 
 
 
