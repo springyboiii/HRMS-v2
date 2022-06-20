@@ -50,6 +50,30 @@ app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.post("/api/GrpEmp", (req, res) => {
+
+  const dept = req.body.dept;
+  const jobtitle = req.body.jobTitle;
+
+  const payGrade = req.body.payGrade;
+
+  console.log(dept,jobtitle,payGrade)
+  const sqlSelect = "SELECT * from employee where department_id=? and jobTitle=? and payGrade=?;";
+  
+    db.query(sqlSelect, [dept,jobtitle,payGrade], (err, result) => {
+      if (err) {
+        console.log(err);
+        // res.send({ message: "error"});
+      } else {
+        res.send(result);
+        console.log(result)
+
+      }
+    })
+  
+
+})
+
 app.get("/api/logout", (req, res) => {
   res.clearCookie('user_id');
 
@@ -421,7 +445,20 @@ app.get("/api/getdeptemp/:dept", (req, res) => {
     }
   })
 })
+app.get("/api/grpemp/:dept", (req, res) => {
+  const deptNo =req.params.dept;
+  const sqlSelect = "select * from employee where department_id = ?";
+  // console.log(email);
+  db.query(sqlSelect, deptNo, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
 
+    }
+  })
+})
 
 
 app.get("/api/geteId/:Username", (req, res) => {
