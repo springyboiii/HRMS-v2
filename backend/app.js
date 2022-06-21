@@ -153,7 +153,7 @@ app.get("/api/getBalanceLeave/:empId", (req, res) => {
 
 app.get("/api/getemps/:Username", (req, res) => {
   const email = req.params.Username;
-  const sqlSelect = "select * from employee where email = ?";
+  const sqlSelect = "select * from employee left outer join supervisor using (employee_id) where email = ?";
   // console.log(email);
   db.query(sqlSelect, email, (err, result) => {
     if (err) {
@@ -168,7 +168,7 @@ app.get("/api/getemps/:Username", (req, res) => {
 
 app.get("/api/getemps2/:id", (req, res) => {
   const employee_id = req.params.id;
-  const sqlSelect = "select * from employee where employee_id = ?";
+  const sqlSelect = "select * from employee left outer join supervisor using (employee_id) where employee_id = ?";
   // console.log(employee_id);
   db.query(sqlSelect, employee_id, (err, result) => {
     if (err) {
@@ -199,8 +199,28 @@ app.get("/api/getemps2/:id", (req, res) => {
 app.post("/api/insertEmployee", (req, res) => {
 
   const data = req.body.employeeData
-  const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id], (err, result) => {
+  
+  const leaves = 0;
+  const paygrade = data.payGrade
+  if (paygrade == 1){
+    leaves = 30;
+  }
+  else if (paygrade == 2){
+    leaves = 50;
+  }
+  else if (paygrade == 3){
+    leaves = 60;
+  }
+
+  const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id,leaves_left) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id,leaves], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+    }
+  })
+  const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
+  db.query(sqlInsert2, [data.supervisor_id, data.employee_id], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -217,9 +237,17 @@ app.put('/api/updateEmployee', (req, res) => {
     if (err) console.log(err);
     else {
       console.log(data.employee_id);
-      res.send({ message: "User details updated" });
+      // res.send({ message: "User details updated" });
     }
   })
+  // const sqlUpdate2 = "update supervisor set supervisor_id=? where employee_id = ?"
+  // db.query(sqlUpdate2, [data.supervisor_id, data.employee_id], (err, result) => {
+  //   if (err) console.log(err);
+  //   else {
+  //     console.log(data.employee_id);
+  //     res.send({ message: "User details updated" });
+  //   }
+  // })
 })
 
 app.put('/api/updateLeaves', (req, res) => {
