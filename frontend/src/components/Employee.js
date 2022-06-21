@@ -183,10 +183,11 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               {errors.payGrade && <p className='errorMsg'>Pay Grade details are required!</p>}
             </div>
           </div>
-          <br></br>
+          <br></br>              
+          <Form.Group>
+
           <div className="row">
             <div className="col-sm">
-              <Form.Group>
                 <Form.Label>Job Title</Form.Label>
                 <br></br>
                 <Form.Select name="jobTitle" value={employee.jobTitle} {...register("jobTitle", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} disabled={disabled}>
@@ -196,49 +197,53 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                   <option value="3">Managerial Employee</option>
                   <option value="4">Software Engineer</option>
                 </Form.Select>
-              </Form.Group>
+              {/* </Form.Group> */}
               {errors.jobTitle && <p className='errorMsg'>Job title details are required!</p>}
             </div>
             <div className="col-sm">
-              <Form.Group>
+            {/* <Form.Group> */}
+
                 <Form.Label>Employment Status Type</Form.Label>
                 <br></br>
-                <Form.Select name="employmentStatus" value={employee.employmentStatus} {...register("employmentStatus", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} disabled={disabled}>
-                  <option value={"default"} disabled={disabled} onChange={(e) => { employee.employmentStatus = e.target.value }}>Choose an Option</option>
+                {console.log(employee.employmentStatus)}
+                <Form.Select name="employmentStatus" value={employee.employmentStatus}                 {...register("employmentStatus", { validate: editEmployee || (defaultValue => defaultValue !== 'default') })} 
+ disabled={disabled} onChange={(e) => { employee.employmentStatus = e.target.value }}>
+                  <option value={"default"} disabled={disabled} >Choose an Option</option>
                   <option value="1">Intern</option>
                   <option value="2">Contract</option>
                   <option value="3">Permanent</option>
                   <option value="3">Freelance</option>
                 </Form.Select>
-              </Form.Group>
+              {/* </Form.Group> */}
               {errors.employmentStatus && <p className='errorMsg'>Employee Status type details are required!</p>}
             </div>
           </div>
           <br></br>
           <div className="row">
             <div className="col-sm">
-              <Form.Group>
+              {/* <Form.Group> */}
                 <Form.Label>Part-time?</Form.Label>
                 <br></br>
                 <input type="radio" name="partTime" defaultValue="1" disabled={disabled} defaultChecked={employee.partTime} {...register("partTime", { required: !editEmployee })} onClick={(e) => { employee.partTime = e.target.value }} /> Yes
                 <br></br>
                 <input type="radio" name="partTime" defaultValue="0" disabled={disabled} defaultChecked={!employee.partTime} {...register("partTime", { required: !editEmployee })} onClick={(e) => { employee.partTime = e.target.value }} /> No
-              </Form.Group>
+              {/* </Form.Group> */}
               {errors.partTime && <p className='errorMsg'>Full time/Part time details are required!</p>}
             </div>
             <div className="col-sm">
-              <Form.Group>
+              {/* <Form.Group> */}
                 <Form.Label>Supervisor?</Form.Label>
                 <br></br>
                 {console.log(employee.supervisor)}
                 <input type="radio" name="supervisor" value="1" disabled={disabled} defaultChecked={employee.supervisor} {...register("supervisor", { required: !editEmployee })} onClick={(e) => { employee.supervisor = e.target.value }} /> Yes
                 <br></br>
                 <input type="radio" name="supervisor" value="0" disabled={disabled} defaultChecked={!employee.supervisor} {...register("supervisor", { required: !editEmployee })} onClick={(e) => { employee.supervisor = e.target.value }} /> No
-              </Form.Group>
+              
               {errors.supervisor && <p className='errorMsg'>Supervising details are required!</p>}
             </div>
           </div>
           <br></br>
+          </Form.Group>
         </div>
 
 

@@ -5,16 +5,17 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { set, useForm } from "react-hook-form";
 import Axios from 'axios';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { UserTypeContext } from '../contexts/UserTypeContext';
-
+// import { Toast } from 'primereact/toast';
+ 
 import { useContext } from 'react';
 function Login() {
   const {username,setUsername} = useContext(UserContext);
   const {UserType,setUserType} = useContext(UserTypeContext);
-
+  // const toast = useRef(null);
 
   let navigate = useNavigate();
   const [IsAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,6 +60,7 @@ function Login() {
       if (response.data.message) {
         setIsAuthenticated(false);
         alert(response.data.message)
+        // toast.current.show({severity: 'error', summary: 'Authentication Error', detail: response.data.message, life: 5000});
       } else {
         // this.props.setUsername(this.state.userName);
         setIsAuthenticated(true)
@@ -75,16 +77,11 @@ function Login() {
 
   return (
     <div>
-
+{/* <Toast ref={toast} /> */}
       <Form>
-        {/* <h4 style={{
-            textAlign: "center",
-            marginLeft: "200px",
-            color: "green"
-          }}>Login</h4> */}
         <div >
             <Form.Group>
-              <Form.Label>Username</Form.Label>
+              Username
               <Form.Control type="text" placeholder='Username'
                 {...register("username", {
                   required: true
@@ -94,7 +91,7 @@ function Login() {
             {errors.username && <p className='errorMsg'>Username is required!</p>}
           
             <Form.Group>
-              <Form.Label>Password</Form.Label>
+              Password
               <Form.Control type="password" placeholder='Password'
                 {...register("password", {
                   required: true
@@ -103,12 +100,12 @@ function Login() {
             </Form.Group>
             {errors.password && <p className='errorMsg'>Password is required!</p>}
 
-            <Form.Group>
+            {/* <Form.Group>
               <input className="form-check-input" type="checkbox"
                 {...register("remember")}
               />
               <Form.Label> Remember Me?</Form.Label>
-            </Form.Group>
+            </Form.Group> */}
         </div>
 
 
@@ -117,10 +114,10 @@ function Login() {
             Login
           </Button>
         </div>
-        <br></br>
+        {/* <br></br>
         <p className="forgot-password text-center">
           <a href="#"> Forgot password?</a>
-        </p>
+        </p> */}
       </Form>
 
     </div>
