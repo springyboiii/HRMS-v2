@@ -74,6 +74,15 @@ function LeaveApplication(props) {
   }
 
 
+  const disablePastDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate() + 1).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    const yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+};
+
+
 
 
   const handleSubmit = (event) => {
@@ -82,9 +91,20 @@ function LeaveApplication(props) {
     data.append('file', selectedFile)
     data.append("fileName", fileName);
 
+    if(startDate===null){
+      alert("please enter the start date")
+    }
+
+    else if (duration===null){
+      alert("please enter the duration")
+    }
+
+    else if (type===null){
+      alert("please select the type")
+    }
 
 
-    // console.log(name, nic, source, paysheet, income,year,tin);
+   else{
     Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response) => {
       // console.log(response.data)
       empId = response.data.employee_id
@@ -113,11 +133,17 @@ function LeaveApplication(props) {
       })
 
       // console.log(empId)
+    }).then(() => {
+      alert("Leave Application Submitted");
     })
+
+   }
+    // console.log(name, nic, source, paysheet, income,year,tin);
+   
 
 
     props.handleSubmit(startDate, duration, type, description, fileName, "Pending");
-    alert("Leave Application Submitted")
+    // alert("Leave Application Submitted")
 
     // alert(`The name you entered was: ${startDate}`);
 
@@ -140,7 +166,7 @@ function LeaveApplication(props) {
               <div class="col-sm">
                 <Form.Group>
                   Start Day of Absence
-                  <Form.Control type="date" required id='startDate' name='startDate' value={startDate} onChange={(e) => handleInputChange(e)}
+                  <Form.Control type="date" id='startDate' min={disablePastDate()} max="2022-12-31" name='startDate' value={startDate} onChange={(e) => handleInputChange(e)}
 
                   />
                 </Form.Group>
@@ -148,7 +174,7 @@ function LeaveApplication(props) {
               <div class="col-sm">
                 <Form.Group>
                   Number of Days Requested
-                  <Form.Control type="number" required min="1" max="100" id="duration" name='duration' value={duration} onChange={(e) => handleInputChange(e)}
+                  <Form.Control type="number"  min="1" max="30" id="duration" name='duration' value={duration} onChange={(e) => handleInputChange(e)}
 
                   />
                 </Form.Group>
@@ -164,7 +190,7 @@ function LeaveApplication(props) {
           <Form.Group>
             Type of Leave Request
 
-            <Form.Select aria-label="Default select example" id='type' name='type' value={type} onChange={(e) => handleInputChange(e)}>
+            <Form.Select aria-label="Default select example" required id='type' name='type' value={type} onChange={(e) => handleInputChange(e)}>
               <option value={"default"} >Choose an Option</option>
 
               <option value="1">Annual Leave</option>
