@@ -116,7 +116,7 @@ const EditEmployee2 = ({ employees }) => {
           <div className="container">
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
               <Card style={{ "paddingLeft": "0px", "paddingRight": "0px" }} className="shadow-lg" >
-                <Card.Img variant="top" src="/search.png" height="350" />
+                <Card.Img variant="top" src="/search3.gif" height="350" />
                 <Card.Body>
                   <Card.Title>Select an Employee</Card.Title>
                   <form onSubmit={handleSubmitButton}>
@@ -138,9 +138,11 @@ const EditEmployee2 = ({ employees }) => {
                     )} */}
                     <h4 className="text-center">{employee.firstname}'s Personal Information</h4>
                     <Employee key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={true}/>
+                    <div className="text-center">
                     <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
                       Click here to submit form
                     </Button>
+                    </div>
                 </Card.Body>
               </Card>
             </ReactCardFlip>
