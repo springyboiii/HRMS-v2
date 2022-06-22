@@ -110,6 +110,22 @@ app.get("/api/getdeptsalary", (req, res) => {
 
 });
 
+app.get("/api/getjobage", (req, res) => {
+  const date = new Date();
+  // CAST(select GETDATE() AS Date )
+  const stat = "SELECT jobTitle, AVG(DATEDIFF(?, dob)/365) as avgAge FROM employee GROUP BY jobTitle;";
+  db.query(stat,date,(err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
 
 app.get("/api/getpaysalary", (req, res) => {
   const stat = "SELECT payGrade, SUM(salary) as total_salary FROM employee GROUP BY payGrade;";
@@ -143,9 +159,9 @@ app.get("/api/getleave/:empId", (req, res) => {
   });
 });
 
-app.get("/api/getleavesleft", (req, res) => {
+app.get("/api/getPayGradeLeaves", (req, res) => {
 
-  const stat = "SELECT Employee_id,Firstname,Lastname,Leaves_left from employee ;";
+  const stat = "SELECT payGrade,leaves from paygrade_leave;";
   db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
@@ -590,19 +606,18 @@ app.post("/api/sendRejection", (req, res) => {
 
 });
 
-app.post("/api/saveLeaveChanges", (req, res) => {
+app.post("/api/savePaygradeLeaveChanges", (req, res) => {
 
-  const emp_id = req.body.emp_id;
-  const leavesLeft = req.body.leavesLeft;
-  const sta = "Update employee set Leaves_left = ? where Employee_id=?";
+  const payGrade = req.body.payGrade;
+  const leaves = req.body.leaves;
+  const sta = "Update paygrade_leave set leaves = ? where payGrade=?";
 
-  db.query(sta, [leavesLeft, emp_id], (err, result) => {
+  db.query(sta, [leaves, payGrade], (err, result) => {
     if (err) {
       console.log(err);
-
     } else {
       res.send(result);
-      console.log(leavesLeft);
+      console.log(leaves);
     }
   })
 

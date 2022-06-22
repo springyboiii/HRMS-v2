@@ -3,6 +3,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeDummy from './pages/HomeDummy';
 import LeaveConfigure from './components/LeaveConfigure';
+import PaygradeLeaveConfigure from "./pages/PaygradeLeaveConfigure";
 import { useState,useEffect,useContext } from "react";
 import EditEmployee from "./pages/EditEmployee";
 
@@ -36,7 +37,7 @@ import TitleAge from "./pages/TitleAge";
 
 function App() {
   const [leaves, setLeave] = useState([]);
-  const [leavesLeft,setLeavesLeft]= useState([]);
+  const [paygradeleaves,setPayGradeLeaves]= useState([]);
   const [employees, setEmployees] = useState([]);
   const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
@@ -61,9 +62,9 @@ function App() {
   },[]);
 
   useEffect(()=>{
-    Axios.get("http://localhost:3001/api/getleavesleft").then((response) => {
+    Axios.get("http://localhost:3001/api/getPayGradeLeaves").then((response) => {
 
-      setLeavesLeft(...leavesLeft,response.data);
+      setPayGradeLeaves(...paygradeleaves,response.data);
       
       // setLeave(response.data);
     });
@@ -169,6 +170,7 @@ function App() {
           <Route path='/addEmployee' element={<UserContext.Provider value={{ Username, setUsername }}><AddEmployee addEmployeeDetails={addEmployeeDetails} /></UserContext.Provider>}></Route> 
 
           <Route path="/LeaveConfigure" element={<UserContext.Provider value={{ Username, setUsername }}><LeaveConfigure /></UserContext.Provider>} />
+          <Route path="/paygradeleaves" element={<UserContext.Provider value={{ Username, setUsername }}><PaygradeLeaveConfigure paygradeleaves={paygradeleaves} /></UserContext.Provider>} />
           <Route path="/changePassword" element={<UserContext.Provider value={{ Username, setUsername }}><ChangePassword /></UserContext.Provider>} />
           <Route path="/dummy" element={<UserContext.Provider value={{ Username, setUsername }}><Dummy /></UserContext.Provider>} />
 

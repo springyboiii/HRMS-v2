@@ -93,6 +93,13 @@ export const SidebarData = [
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },
+  {
+    title: 'Configure Pay Grade Leaves',
+    path: '/paygradeleaves',
+    // icon: <MdIcons.MdPageview />,
+    icon: <IoIcons.IoIosPaper />,
+    cName: 'nav-text'
+  },
   // {
   //   title: 'Edit Employee Details',
   //   path: '/EditEmployeeDetails',

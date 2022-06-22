@@ -8,6 +8,14 @@ CREATE TABLE `department` (
 ) ;
 INSERT INTO `department` VALUES (1,'Sumanadasa',2),(2,'ENTC',3),(3,'Civil Auditorium',4);
 
+CREATE TABLE `paygrade_leave` (
+  `payGrade` varchar(2) NOT NULL,
+  `leaves` int NOT NULL,
+  PRIMARY KEY (`payGrade`)
+) ;
+INSERT INTO `paygrade_leave` VALUES (1,20),(2,30),(3,40);
+
+
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `employee_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -30,7 +38,8 @@ CREATE TABLE `employee` (
   `email` varchar(100) DEFAULT NULL,
   `department_id` int(11) NOT NULL,
   PRIMARY KEY (`employee_id`),
-  FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`)
+  FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
+  FOREIGN KEY (`payGrade`) REFERENCES `paygrade_leave` (`payGrade`)
 ) ;
 
 DROP TABLE IF EXISTS `employee_phone`;
