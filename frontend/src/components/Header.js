@@ -118,7 +118,7 @@ const Header = () => {
                             </Nav.Link>
                         </Nav>
 
-                        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+                        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}  style={{ zIndex: '1'}}>
                             <ul className='nav-menu-items' >
                                 <li className='navbar-toggle'>
                                     <Link to='#' className='menu-bars'>
