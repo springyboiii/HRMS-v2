@@ -57,28 +57,29 @@ app.post("/api/GrpEmp", (req, res) => {
 
   const payGrade = req.body.payGrade;
 
-  console.log(dept,jobtitle,payGrade)
+  console.log(dept, jobtitle, payGrade)
   const sqlSelect = "SELECT * from employee where department_id=? and jobTitle=? and payGrade=?;";
-  
-    db.query(sqlSelect, [dept,jobtitle,payGrade], (err, result) => {
-      if (err) {
-        console.log(err);
-        // res.send({ message: "error"});
-      } else {
-        res.send(result);
-        console.log(result)
 
-      }
-    })
-  
+  db.query(sqlSelect, [dept, jobtitle, payGrade], (err, result) => {
+    if (err) {
+      console.log(err);
+      // res.send({ message: "error"});
+    } else {
+      res.send(result);
+      console.log(result)
+
+    }
+  })
+
 
 })
 
 app.get("/api/logout", (req, res) => {
   res.clearCookie('user_id');
 
-  res.send({message:"cookie cleared"});
-  });
+  res.send({ message: "cookie cleared" });
+});
+
 app.get("/api/leave", (req, res) => {
   const supervisor_id = "125";
   const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";
@@ -93,6 +94,8 @@ app.get("/api/leave", (req, res) => {
 
 
 });
+
+
 
 
 
@@ -199,21 +202,21 @@ app.get("/api/getemps2/:id", (req, res) => {
 app.post("/api/insertEmployee", (req, res) => {
 
   const data = req.body.employeeData
-  
+
   const leaves = 0;
   const paygrade = data.payGrade
-  if (paygrade == 1){
+  if (paygrade == 1) {
     leaves = 30;
   }
-  else if (paygrade == 2){
+  else if (paygrade == 2) {
     leaves = 50;
   }
-  else if (paygrade == 3){
+  else if (paygrade == 3) {
     leaves = 60;
   }
 
   const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id,leaves_left) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id,leaves], (err, result) => {
+  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id, leaves], (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -456,7 +459,7 @@ app.get("/api/leaveReport", (req, res) => {
   function getDifferenceInDays(date1, date2) {
     const diffInMs = Math.abs(date2 - date1);
     return diffInMs / (1000 * 60 * 60 * 24);
-  }  
+  }
 
   db.query(sqlSelect, department_id, (err, result) => {
     if (err) {
@@ -469,28 +472,28 @@ app.get("/api/leaveReport", (req, res) => {
         // console.log(getDateString(result[i]['start_date']))        
         var startdate = new Date(getDateString(result[i]['start_date']));
         var duration = result[i]['duration']
-        var enddate = addDays(startdate,duration)
+        var enddate = addDays(startdate, duration)
         // enddate.setDate(enddate.getDate() + duration);
         // console.log(startdate)
         // console.log(enddate)
         // console.log((startdate <= fromdate) && (enddate >= todate))
         // console.log(fromdate);
-        if (startdate>=fromdate && enddate<=todate){
+        if (startdate >= fromdate && enddate <= todate) {
           count += duration;
         }
-        else if (startdate >= fromdate && startdate <= todate && enddate >= todate){
+        else if (startdate >= fromdate && startdate <= todate && enddate >= todate) {
           count += getDifferenceInDays(startdate, todate)
         }
-        else if (startdate <= fromdate && enddate >= fromdate && enddate <= todate){
+        else if (startdate <= fromdate && enddate >= fromdate && enddate <= todate) {
           count += getDifferenceInDays(fromdate, enddate)
         }
-        else if (startdate <= fromdate && enddate >= todate){
-          count += getDifferenceInDays(fromdate,todate)
+        else if (startdate <= fromdate && enddate >= todate) {
+          count += getDifferenceInDays(fromdate, todate)
         }
-         
-      } 
+
+      }
       console.log(count);
-      res.send({count:count});
+      res.send({ count: count });
 
     }
   })
@@ -561,7 +564,7 @@ app.post("/api/saveLeaveChanges", (req, res) => {
 });
 
 app.get("/api/getdeptemp/:dept", (req, res) => {
-  const deptNo =req.params.dept;
+  const deptNo = req.params.dept;
   const sqlSelect = "select * from employee where department_id = ?";
   // console.log(email);
   db.query(sqlSelect, deptNo, (err, result) => {
@@ -575,7 +578,7 @@ app.get("/api/getdeptemp/:dept", (req, res) => {
   })
 })
 app.get("/api/grpemp/:dept", (req, res) => {
-  const deptNo =req.params.dept;
+  const deptNo = req.params.dept;
   const sqlSelect = "select * from employee where department_id = ?";
   // console.log(email);
   db.query(sqlSelect, deptNo, (err, result) => {
@@ -594,6 +597,20 @@ app.get("/api/geteId/:Username", (req, res) => {
   const emp_user = req.params.Username;
   const sqlSelect = "select employee_id from employee where email = ?";
   db.query(sqlSelect, emp_user, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
+
+app.get("/api/supeId/:empId", (req, res) => {
+  const emp_id = req.params.empId;
+  const sqlSelect = "select supervisor_id from supervisor where employee_id = ?";
+  db.query(sqlSelect, emp_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
