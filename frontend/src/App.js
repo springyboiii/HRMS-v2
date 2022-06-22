@@ -27,9 +27,12 @@ import DeptEmp from "./pages/DeptEmp";
 import GrpEmp from "./pages/GrpEmp";
 import TotalLeave from "./pages/totalLeave";
 import { UserTypeContext } from "./contexts/UserTypeContext";
+import DeptSalary from "./pages/DeptSalary";
+import PaySalary from "./pages/PaySalary";
 
 
 import Dashboard from "./pages/Dashboard";
+import TitleAge from "./pages/TitleAge";
 
 function App() {
   const [leaves, setLeave] = useState([]);
@@ -172,6 +175,9 @@ function App() {
           <Route path="/GenerateReport/EmployeebyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><DeptEmp /></UserContext.Provider>} />
           <Route path="/GenerateReport/TotalLeavesgivenbyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><TotalLeave /></UserContext.Provider>} />
           <Route path="/GenerateReport/Employeereportbygivencategory" element={<UserContext.Provider value={{ Username, setUsername }}><GrpEmp /></UserContext.Provider>} />
+          <Route path="/GeneralReport/DepartmentTotalSalary" element={<UserContext.Provider value={{ Username, setUsername }}><DeptSalary /></UserContext.Provider>} />
+          <Route path="/GeneralReport/DepartmentPayGrade" element={<UserContext.Provider value={{ Username, setUsername }}><PaySalary /></UserContext.Provider>} />
+          <Route path="/GeneralReport/TitleAge" element={<UserContext.Provider value={{ Username, setUsername }}><TitleAge /></UserContext.Provider>} />
 
         </Routes>
       </Router>
