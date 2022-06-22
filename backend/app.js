@@ -79,6 +79,7 @@ app.get("/api/logout", (req, res) => {
 
   res.send({ message: "cookie cleared" });
 });
+
 app.get("/api/leave", (req, res) => {
   const supervisor_id = "125";
   const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";
@@ -93,6 +94,8 @@ app.get("/api/leave", (req, res) => {
 
 
 });
+
+
 
 
 
@@ -609,6 +612,20 @@ app.get("/api/geteId/:Username", (req, res) => {
   const emp_user = req.params.Username;
   const sqlSelect = "select employee_id from employee where email = ?";
   db.query(sqlSelect, emp_user, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
+
+app.get("/api/supeId/:empId", (req, res) => {
+  const emp_id = req.params.empId;
+  const sqlSelect = "select supervisor_id from supervisor where employee_id = ?";
+  db.query(sqlSelect, emp_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, setState,useContext } from 'react';
+import { useState, setState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -35,8 +35,9 @@ function LeaveApplication(props) {
   const [selectedFile, setSelected] = useState(null);
 
 
-  const {Username,setUsername}=useContext(UserContext);
+  const { Username, setUsername } = useContext(UserContext);
   var empId;
+  var supId;
 
 
   const handleInputChange = (e) => {
@@ -84,34 +85,39 @@ function LeaveApplication(props) {
 
 
     // console.log(name, nic, source, paysheet, income,year,tin);
-    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
+    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response) => {
       // console.log(response.data)
-      empId=response.data.employee_id
-      Axios.post("http://localhost:3001/upload", data, {
-        // receive two    parameter endpoint url ,form data
-      }).then(
-        res => { // then print response status
-          x = res.data;
-        }
-      )
-  
-      Axios.post("http://localhost:3001/api/insert", {
-        startDate: startDate,
-        duration: duration,
-        description: description,
-        type: type,
-        employee_id: empId,
-        supervisor_id: 1002,
-        file: fileName,
-        status: "Pending"
-      }).then(() => {
-        alert('success');
-      })
-      // console.log(empId)
-    })   
+      empId = response.data.employee_id
+      Axios.get(`http://localhost:3001/api/supeId/${empId}`).then((response) => {
+        supId = response.data.supervisor_id
+        Axios.post("http://localhost:3001/upload", data, {
+          // receive two    parameter endpoint url ,form data
+        }).then(
+          res => { // then print response status
+            x = res.data;
+          }
+        )
 
-   
+        Axios.post("http://localhost:3001/api/insert", {
+          startDate: startDate,
+          duration: duration,
+          description: description,
+          type: type,
+          employee_id: empId,
+          supervisor_id: supId,
+          file: fileName,
+          status: "Pending"
+        }).then(() => {
+          alert("Leave Application Submitted")
+        })
+      })
+
+      // console.log(empId)
+    })
+
+
     props.handleSubmit(startDate, duration, type, description, fileName, "Pending");
+    alert("Leave Application Submitted")
 
     // alert(`The name you entered was: ${startDate}`);
 
