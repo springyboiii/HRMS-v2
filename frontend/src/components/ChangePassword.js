@@ -6,92 +6,99 @@ import Axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import './Modal.css';
+import { Card } from 'react-bootstrap';
 
 const ChangePassword = () => {
-    const {Username,setUsername} = useContext(UserContext);
+  const { Username, setUsername } = useContext(UserContext);
 
   return (
     <div>
-        <Header/>
-        <br></br>         
-        
-        
-        {/* <h1>{Username}</h1> */}
-     <Formik
-       initialValues={{email:"", password1: '', password2: '' }}
-       validate={values => {
-         const errors = {};
-         if(values.email!=Username){
-            errors.email="Wrong username"
-         }else 
-         if (!values.password1) {
-           errors.password1 = 'Required';
-         } else if (values.password1!=values.password2
-         ) {
-           errors.password2 = 'Passwords don\'t match';
-         }
-         return errors;
-       }}
-       onSubmit={(values, { setSubmitting }) => {
-         setTimeout(() => {
-           alert(JSON.stringify(values, null, 2));
-           setSubmitting(false);
-           Axios.post("http://localhost:3001/api/changePassword", {
+      <Header />
+      <br></br>
+      <h3 className='text-center'>Change Password</h3>
+      <div className='container'>
+        <Card className='shadow'>
+          <div className='row container'>
+            <div className='col-md-6 container'>
+              <Card.Img variant="bottom" src="password1.jpg" fluid />
+            </div>
+            <div className='col-md-6'>
+              <div >
+                <Formik
+                  initialValues={{ email: "", password1: '', password2: '' }}
+                  validate={values => {
+                    const errors = {};
+                    if (values.email != Username) {
+                      errors.email = "Wrong username"
+                    } else
+                      if (!values.password1) {
+                        errors.password1 = 'Required';
+                      } else if (values.password1 != values.password2
+                      ) {
+                        errors.password2 = 'Passwords don\'t match';
+                      }
+                    return errors;
+                  }}
+                  onSubmit={(values, { setSubmitting }) => {
+                    setTimeout(() => {
+                      alert(JSON.stringify(values, null, 2));
+                      setSubmitting(false);
+                      Axios.post("http://localhost:3001/api/changePassword", {
 
-      email: values.email,
-      password:values.password2
+                        email: values.email,
+                        password: values.password2
 
-    }).then((response) => {
-      console.log(response.data)
-      
-
-        alert("Changed password")
-       
-
-
-      
-    })
-         }, 400);
-       }}
-     >
-       {({ isSubmitting }) => (
-
-         <Form className='changePassword'>
-          <br></br>
-          <h3 >Change Password</h3>
-          <br></br>
-
-            <label htmlFor="email" >Email Address</label>
-            <br></br>
-
-             <Field  className= "passwordField" type="email" name="email" label="Username"/>
-           <ErrorMessage className='error' name="email" component="div" />
-           <br></br>  <br></br>
-
-           <label htmlFor="email">Password</label>
-           <br></br>
+                      }).then((response) => {
+                        console.log(response.data)
 
 
-           <Field className= "passwordField" type="password" name="password1" />
-           <ErrorMessage className='error' name="password1" component="div"  />
-             <br></br>            <br></br>
-
-           <label htmlFor="email">Re-enter Password</label>
-           <br></br>
+                        alert("Changed password")
 
 
-           <Field  className= "passwordField" type="password" name="password2" />
-           <ErrorMessage className='error' name="password2" component="div" />
-           <br></br>            <br></br>
 
-           <button type="submit" className='submit-btn' disabled={isSubmitting}>
-             Submit
-           </button>
-           <br></br><br></br>
-         </Form>
-       )}
-     </Formik>
-        <Footer/>
+
+                      })
+                    }, 400);
+                  }}
+                >
+                  {({ isSubmitting }) => (
+                    <Form className='changePassword container'>
+                      <br></br>
+
+                      <label htmlFor="email" >Email Address</label>
+
+                      <Field className="passwordField form-control" type="email" name="email" label="Username" />
+                      <ErrorMessage className='error' name="email" component="div" />
+                      <br></br>
+
+                      <label htmlFor="email">Password</label>
+
+
+                      <Field className="passwordField form-control" type="password" name="password1" />
+                      <ErrorMessage className='error' name="password1" component="div" />
+                      <br></br>
+
+                      <label htmlFor="email">Re-enter Password</label>
+
+
+                      <Field className="passwordField form-control" type="password" name="password2" />
+                      <ErrorMessage className='error' name="password2" component="div" />
+                      <br></br>
+
+                      <button type="submit" className='submit-btn' disabled={isSubmitting}>
+                        Submit
+                      </button>
+                      <br></br>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          </div>
+
+        </Card>
+      </div>
+      <Footer />
     </div>
   )
 }

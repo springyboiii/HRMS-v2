@@ -59,7 +59,7 @@ const handleSubmitButton = (event) => {
     response.data.startDate = getDateString(response.data.startDate)
     response.data.dob = getDateString(response.data.dob)
     setEmployee(response.data)
-    // console.log(employee)
+    console.log(employee.firstname)
   })   
   setFlipped(!flipped);
 }
@@ -76,7 +76,7 @@ const handleSubmitButton = (event) => {
           <div className="container">
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
               <Card style={{ "paddingLeft": "0px", "paddingRight": "0px" }} className="shadow-lg" >
-                <Card.Img variant="top" src="/search.png" height="350" />
+                <Card.Img variant="top" src="/search4.gif" height="350" />
                 <Card.Body>
                   <Card.Title>Select an Employee</Card.Title>
                   <form onSubmit={handleSubmitButton}>
