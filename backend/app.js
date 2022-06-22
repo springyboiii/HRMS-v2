@@ -96,6 +96,36 @@ app.get("/api/leave", (req, res) => {
 });
 
 
+app.get("/api/getdeptsalary", (req, res) => {
+  const stat = "SELECT department_id, SUM(salary) as total_salary FROM employee GROUP BY department_id;";
+  db.query(stat,(err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
+
+app.get("/api/getpaysalary", (req, res) => {
+  const stat = "SELECT payGrade, SUM(salary) as total_salary FROM employee GROUP BY payGrade;";
+  db.query(stat,(err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
+
 
 
 
