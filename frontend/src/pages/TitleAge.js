@@ -56,7 +56,7 @@ function TitleAge() {
     <div>
       <Header />
       <div className='container'>
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="dark" style={{width:"60%", textAlign:"center", marginLeft: "200px"}}>
           <thead>
             <tr>
 
