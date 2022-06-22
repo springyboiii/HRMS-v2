@@ -21,20 +21,55 @@ export const SidebarData2 = [
         icon: <IoIcons.IoIosPaper />,
         // icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text',
+        subsubNav:[]
       },
       {
         title: 'Total Leaves',
         path: '/GenerateReport/TotalLeavesgivenbyDepartment',
         icon: <IoIcons.IoIosPaper />,
         // icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        subsubNav:[]
       },
       {
         title: 'Employee report',
         path:'/GenerateReport/Employeereportbygivencategory' ,
         icon: <IoIcons.IoIosPaper />,
         // icon: <IoIcons.IoIosPaper />,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        subsubNav:[]
+      },
+      {
+        title: 'General report',
+        path:'' ,
+        icon: <IoIcons.IoIosPaper />,
+        // icon: <IoIcons.IoIosPaper />,
+        cName: 'nav-text',
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subsubNav: [
+          {
+            title: 'Total Salary by Department',
+            path: '/GeneralReport/DepartmentTotalSalary',
+            icon: <IoIcons.IoIosPaper />,
+            // icon: <IoIcons.IoIosPaper />,
+            cName: 'nav-text',
+          },
+          {
+              title: 'Total Salary by PayGrade',
+              path: '/GeneralReport/DepartmentPayGrade',
+              icon: <IoIcons.IoIosPaper />,
+              // icon: <IoIcons.IoIosPaper />,
+              cName: 'nav-text'
+            },
+            {
+              title: 'Average Age by Jobtitle',
+              path: '/GeneralReport/TitleAge',
+              icon: <IoIcons.IoIosPaper />,
+              // icon: <IoIcons.IoIosPaper />,
+              cName: 'nav-text'
+            },
+        ]
       },
     ]
   }

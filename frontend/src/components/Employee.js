@@ -228,8 +228,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <div className="col-sm-6">
                 <Form.Label>Supervisor's ID</Form.Label>
                 <Form.Control type="text" name="supervisor_id" defaultValue={employee.supervisor_id} {...register("supervisor_id", {
-                  required: !editEmployee
-                })} disabled={disabled} onChange={(e) => { employee.supervisor_id = e.target.value }}
+                  required: false})} disabled={disabled} onChange={(e) => { employee.supervisor_id = e.target.value }}
                 />
                 {/* </Form.Group> */}
                 {errors.supervisor_id && <p className='errorMsg'>Supervisor's ID is required!</p>}

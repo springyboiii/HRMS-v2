@@ -96,6 +96,36 @@ app.get("/api/leave", (req, res) => {
 });
 
 
+app.get("/api/getdeptsalary", (req, res) => {
+  const stat = "SELECT department_id, SUM(salary) as total_salary FROM employee GROUP BY department_id;";
+  db.query(stat,(err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
+
+app.get("/api/getpaysalary", (req, res) => {
+  const stat = "SELECT payGrade, SUM(salary) as total_salary FROM employee GROUP BY payGrade;";
+  db.query(stat,(err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+
+    }
+  });
+
+
+});
+
+
 
 
 
@@ -203,7 +233,7 @@ app.post("/api/insertEmployee", (req, res) => {
 
   const data = req.body.employeeData
 
-  const leaves = 0;
+  var leaves = 0;
   const paygrade = data.payGrade
   if (paygrade == 1) {
     leaves = 30;
@@ -220,17 +250,32 @@ app.post("/api/insertEmployee", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-    }
-  })
-  const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
-  db.query(sqlInsert2, [data.supervisor_id, data.employee_id], (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+      const sqlSelect = "select employee_id from employee where email=?;";
+      db.query(sqlSelect, data.email, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          // console.log(result[0]['firstname']);
+          // res.send(result[0]);
+          const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
+          db.query(sqlInsert2, [data.supervisor_id, result[0]['employee_id']], (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send(result);
 
+            }
+          })
+
+        }
+      })
     }
   })
+
+
+
+
+
 })
 
 app.put('/api/updateEmployee', (req, res) => {
@@ -243,14 +288,14 @@ app.put('/api/updateEmployee', (req, res) => {
       // res.send({ message: "User details updated" });
     }
   })
-  // const sqlUpdate2 = "update supervisor set supervisor_id=? where employee_id = ?"
-  // db.query(sqlUpdate2, [data.supervisor_id, data.employee_id], (err, result) => {
-  //   if (err) console.log(err);
-  //   else {
-  //     console.log(data.employee_id);
-  //     res.send({ message: "User details updated" });
-  //   }
-  // })
+  const sqlUpdate2 = "update supervisor set supervisor_id=? where employee_id = ?"
+  db.query(sqlUpdate2, [data.supervisor_id, data.employee_id], (err, result) => {
+    if (err) console.log(err);
+    else {
+      console.log(data.employee_id);
+      res.send({ message: "User details updated" });
+    }
+  })
 })
 
 app.put('/api/updateLeaves', (req, res) => {

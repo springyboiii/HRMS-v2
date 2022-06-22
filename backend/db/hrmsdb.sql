@@ -23,7 +23,6 @@ CREATE TABLE `employee` (
   `supervisor` tinyint(1) NOT NULL,
   `gender` tinyint(1) NOT NULL,
   `dob` date NOT NULL,
-  `age` tinyint(4) DEFAULT NULL,
   `startDate` date NOT NULL,
   `resignedDate` date DEFAULT NULL,
   `salary` int(11) DEFAULT NULL,
@@ -63,7 +62,7 @@ CREATE TABLE `leave_table` (
   `leave_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`leave_id`),
   FOREIGN KEY (`employee_id`) REFERENCES `employee` (`employee_id`),
-  FOREIGN KEY (`supervisor_id`) REFERENCES `supervisor` (`supervisor_id`)
+  FOREIGN KEY (`supervisor_id`) REFERENCES `employee` (`employee_id`)
 ) ;
 
 DROP TABLE IF EXISTS `user_table`;
