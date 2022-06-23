@@ -152,6 +152,16 @@ const Header = () => {
                                     </li>
                                 }
                                 {
+                                    UserType[0].payGrade == 3 && <li className='nav-text'>
+
+                                
+                                        <Link to='/paygradeleaves'>
+                                        <IoIcons.IoIosPaper />
+                                            <span>Configure Pay Grade Leaves</span>
+                                        </Link>
+                                    </li>
+                                }
+                                {
                                     UserType[0].jobTitle == 1 && <li className='nav-text'>
 
                                 
