@@ -9,6 +9,7 @@ import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SideBarData';
 import { SidebarData2 } from './SidebarData2';
+import { SidebarData3 } from './SidebarData3';
 import './Navbar.css';
 import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -141,7 +142,7 @@ const Header = () => {
                                 }
                                  */}
 
-                                {
+                                {/* {
                                     UserType[0].payGrade == 3 && <li className='nav-text'>
 
                                 
@@ -160,6 +161,19 @@ const Header = () => {
                                             <span>Configure Pay Grade Leaves</span>
                                         </Link>
                                     </li>
+                                } */}
+                                {
+                                    UserType[0].payGrade == 3 && SidebarData3.map((item, index) => {
+                                        return <SubMenu item={item} key={index} />;
+                                        // return (
+                                        //     <li key={index} className={item.cName}>
+                                        //         <Link to={item.path}>
+                                        //             {item.icon}
+                                        //             <span>{item.title}</span>
+                                        //         </Link>
+                                        //     </li>
+                                        // );
+                                    })
                                 }
                                 {
                                     UserType[0].jobTitle == 1 && <li className='nav-text'>
