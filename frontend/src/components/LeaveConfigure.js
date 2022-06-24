@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Button from 'react-bootstrap/Button';
@@ -15,11 +15,13 @@ import { Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import EditLeaveForm from "./EditLeaveForm";
+import { Toast } from 'primereact/toast';
 
 const LeaveConfigure2= ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
+  const toast = useRef(null);
 
   const [employee, setEmployee] = useState({})
 
@@ -33,7 +35,9 @@ const LeaveConfigure2= ({ employees }) => {
     Axios.put('http://localhost:3001/api/updateLeaves', {
       employeeData: employee
     }).then((response)=>{
-      alert(response.data.message);
+      // alert(response.data.message);
+      toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
+
     })
     setFlipped(!flipped);
   }
@@ -70,6 +74,8 @@ const handleSubmitButton = (event) => {
     
 
       <Header />
+      <Toast ref={toast} position="top-center" />
+
       <div className="row">
         <div className="col-md-3"></div>
         <div className="col-md-6">

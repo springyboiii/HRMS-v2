@@ -14,15 +14,16 @@ import './Navbar.css';
 import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-import { useState,useEffect,useContext} from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { UserTypeContext } from '../contexts/UserTypeContext';
 
 import * as IoIcons from 'react-icons/io';
+import { Toast } from 'primereact/toast';
 
 // const Header = () => {
 //     const [sidebar, setSidebar] = useState(false);
-    // const [level,setLevel]=useState(null);
-    // const {userType,setUserType} = useContext(UserTypeContext);
+// const [level,setLevel]=useState(null);
+// const {userType,setUserType} = useContext(UserTypeContext);
 
 
 // import { useState } from 'react';
@@ -33,10 +34,10 @@ const Header = () => {
 
     const [sidebar, setSidebar] = useState(false);
 
-    const [level,setLevel]=useState(null);
-    const {UserType,setUserType} = useContext(UserTypeContext);
-    const {Username,setUsername} = useContext(UserContext);
-
+    const [level, setLevel] = useState(null);
+    const { UserType, setUserType } = useContext(UserTypeContext);
+    const { Username, setUsername } = useContext(UserContext);
+    const toast = useRef(null);
 
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
@@ -51,9 +52,9 @@ const Header = () => {
     //     setLevel(JSON.parse(localStorage.getItem('payGrade')));
     //     // console.log(level);
 
-        
+
     //   }, []);
-  
+
     // var level=localStorage.getItem('payGrade');
 
     console.log(UserType[0].payGrade);
@@ -74,24 +75,26 @@ const Header = () => {
             payGrade: null,
             jobTitle: null,
             supervisor: null,
-            
-          }]);
-        Axios.get("http://localhost:3001/api/logout").then((response)=>{
-        // console.log(response);
-        if(response.data.message){
-        
-            alert(response.data.message)
-            navigate('/', { replace: true });
 
-        }
-        
-      })
+        }]);
+        Axios.get("http://localhost:3001/api/logout").then((response) => {
+            // console.log(response);
+            if (response.data.message) {
+                toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });   //doesn't show
+                // alert(response.data.message)
+                navigate('/', { replace: true });
+
+            }
+
+        })
 
     }
 
 
     return (
         <>
+            <Toast ref={toast} position="top-center" />
+
             {[false].map((expand) => (
                 <Navbar key={expand} bg="dark" variant="dark" expand={expand} className="mb-3">
                     <Container fluid>
@@ -119,7 +122,7 @@ const Header = () => {
                             </Nav.Link>
                         </Nav>
 
-                        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}  style={{ zIndex: '1'}}>
+                        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'} style={{ zIndex: '1' }}>
                             <ul className='nav-menu-items' >
                                 <li className='navbar-toggle'>
                                     <Link to='#' className='menu-bars'>
@@ -178,9 +181,9 @@ const Header = () => {
                                 {
                                     UserType[0].jobTitle == 1 && <li className='nav-text'>
 
-                                
+
                                         <Link to='/addEmployee'>
-                                        <IoIcons.IoIosPaper />
+                                            <IoIcons.IoIosPaper />
                                             <span>Add Employee</span>
                                         </Link>
                                     </li>
@@ -188,9 +191,9 @@ const Header = () => {
                                 {
                                     UserType[0].jobTitle == 1 && <li className='nav-text'>
 
-                                
+
                                         <Link to='/../components/editEmployee'>
-                                        <IoIcons.IoIosPaper />
+                                            <IoIcons.IoIosPaper />
                                             <span>Edit Employee Details</span>
                                         </Link>
                                     </li>
@@ -198,19 +201,19 @@ const Header = () => {
                                 {
                                     UserType[0].jobTitle == 2 && <li className='nav-text'>
 
-                                
+
                                         <Link to='/addEmployee'>
-                                        <IoIcons.IoIosPaper />
+                                            <IoIcons.IoIosPaper />
                                             <span>Add Employee</span>
                                         </Link>
                                     </li>
                                 }
-                                 {
+                                {
                                     UserType[0].jobTitle == 3 && <li className='nav-text'>
 
-                                
+
                                         <Link to='/../components/editEmployee'>
-                                        <IoIcons.IoIosPaper />
+                                            <IoIcons.IoIosPaper />
                                             <span>Edit Employee Details</span>
                                         </Link>
                                     </li>
@@ -228,12 +231,12 @@ const Header = () => {
                                         // );
                                     })
                                 }
-                                 {
+                                {
                                     UserType[0].supervisor == 1 && <li className='nav-text'>
 
-                                
+
                                         <Link to='/SupervisorApproveLeave'>
-                                        <IoIcons.IoIosPaper />
+                                            <IoIcons.IoIosPaper />
                                             <span>Leave Requests</span>
                                         </Link>
                                     </li>

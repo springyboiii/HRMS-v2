@@ -1,4 +1,5 @@
 .navbar {
+    /* background-color: #000000d0; */
     background-color: #000000d0;
     height: 80px;
     display: flex;
@@ -22,6 +23,7 @@
     top: 0;
     left: -100%;
     transition: 850ms;
+    overflow-y:auto;
   }
   
   .nav-menu.active {
@@ -51,7 +53,9 @@
   }
   
   .nav-text a:hover {
-    background-color: #DC4731;
+    background-color: #252831;
+    border-left: 4px solid #632ce4;
+    cursor: pointer;
   }
   
   .nav-menu-items {

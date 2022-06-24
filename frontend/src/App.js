@@ -30,7 +30,7 @@ import TotalLeave from "./pages/totalLeave";
 import { UserTypeContext } from "./contexts/UserTypeContext";
 import DeptSalary from "./pages/DeptSalary";
 import PaySalary from "./pages/PaySalary";
-
+import { Toast } from 'primereact/toast';
 
 import Dashboard from "./pages/Dashboard";
 import TitleAge from "./pages/TitleAge";

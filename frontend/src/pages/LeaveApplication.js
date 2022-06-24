@@ -1,17 +1,14 @@
 import React from 'react';
-import { useState, setState, useContext } from 'react';
+import { useState, setState, useContext, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Navbar from '../components/Navbar';
 import Axios from 'axios';
 import { UserContext } from '../contexts/UserContext';
 import { Card, Button } from 'react-bootstrap';
-
-
-
+import { Toast } from 'primereact/toast';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-
 
 
 function LeaveApplication(props) {
@@ -33,7 +30,7 @@ function LeaveApplication(props) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [selectedFile, setSelected] = useState(null);
-
+  const toast = useRef(null);
 
   const { Username, setUsername } = useContext(UserContext);
   var empId;
@@ -92,15 +89,18 @@ function LeaveApplication(props) {
     data.append("fileName", fileName);
 
     if (startDate === null) {
-      alert("please enter the start date")
+      // alert("please enter the start date")
+      toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please enter the start date.', life: 5000 });
     }
 
     else if (duration === null) {
-      alert("please enter the duration")
+      // alert("please enter the duration")
+      toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please enter the duration.', life: 5000 });
     }
 
     else if (type === null) {
-      alert("please select the type")
+      // alert("please select the type")
+      toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please select the leave type.', life: 5000 });
     }
 
 
@@ -128,13 +128,15 @@ function LeaveApplication(props) {
             file: fileName,
             status: "Pending"
           }).then(() => {
-            alert("Leave Application Submitted")
+            // alert("Leave Application Submitted")
+            toast.current.show({ severity: 'success', summary: 'Leave Application Submitted!', life: 5000 });  
           })
         })
 
         // console.log(empId)
       }).then(() => {
-        alert("Leave Application Submitted");
+        // alert("Leave Application Submitted");
+        toast.current.show({ severity: 'success', summary: 'Leave Application Submitted!', life: 5000 });  
       })
 
     }
@@ -160,13 +162,14 @@ function LeaveApplication(props) {
       <br></br>
       <h3 className='text-center'>Leave Application Form</h3>
       <div className='container'>
+      <Toast ref={toast} position="top-center"/>
         <Card className='shadow'>
-          <div className='row'>
-            <div className='col-md-6'>
-              <Card.Img variant="bottom" src="leave.png" fluid />
+          <div className='row container'>
+            <div className='col-md-6' style={{'display': 'flex', 'justify-content': 'center'}}>
+              <Card.Img variant="bottom" src="leave1.png" fluid />
             </div>
             <div className='col-md-6'>
-              <div className='container'>
+              <div >
                 <Form>
                   <div >
                     <div class="row">

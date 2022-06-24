@@ -17,13 +17,12 @@ const Dummy = () => {
 
     <div>
       <Header/>
-      <div className='text-center'><h1>Dashboard</h1></div>
 
       <Container>
         <div className='row'>
           <div className='col-md-3 container'>
             <Card style={{ width: '18rem' }} className='shadow'>
-              <Card.Img variant="top" src="slide1.jpeg" />
+              <Card.Img variant="top" src="info.jpg" />
               <Card.Body>
                 <Card.Title>View Personal Information</Card.Title>
                 <Card.Text>
@@ -38,7 +37,7 @@ const Dummy = () => {
 
           <div className='col-md-3 container'>
             <Card style={{ width: '18rem' }} className='shadow'>
-              <Card.Img variant="top" src="slide2.jpeg" />
+              <Card.Img variant="top" src="leave2.jpg" />
               <Card.Body>
                 <Card.Title>Apply for Leave</Card.Title>
                 <Card.Text>
@@ -53,7 +52,7 @@ const Dummy = () => {
 
           <div className='col-md-3 container'>
             <Card style={{ width: '18rem' }} className='shadow'>
-              <Card.Img variant="top" src="slide4.jpg" />
+              <Card.Img variant="top" src="leave3.png" />
               <Card.Body>
                 <Card.Title>View Leave Details</Card.Title>
                 <Card.Text>
@@ -67,7 +66,7 @@ const Dummy = () => {
           </div>
           <div className='col-md-3 container'>
             <Card style={{ width: '18rem' }} className='shadow'>
-              <Card.Img variant="top" src="slide4.jpg" />
+              <Card.Img variant="top" src="pwd.jpg" />
               <Card.Body >
                 <Card.Title>Change your Password</Card.Title>
                 <Card.Text>

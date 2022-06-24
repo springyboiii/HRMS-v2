@@ -309,7 +309,7 @@ app.put('/api/updateEmployee', (req, res) => {
     if (err) console.log(err);
     else {
       console.log(data.employee_id);
-      res.send({ message: "User details updated" });
+      res.send({ message: "Employee details updated" });
     }
   })
 })
@@ -421,7 +421,7 @@ app.post("/api/login", (req, res) => {
             console.log(req.session.user)
             res.send(result);
           } else {
-            res.send({ message: "Wrong Username/Password! Recheck your credentials please" });
+            res.send({ message: "Incorrect Username/Password." });
 
           }
         })

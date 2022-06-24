@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -7,14 +7,17 @@ import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import './Modal.css';
 import { Card } from 'react-bootstrap';
+import { Toast } from 'primereact/toast';
 
 const ChangePassword = () => {
   const { Username, setUsername } = useContext(UserContext);
+  const toast = useRef(null);
 
   return (
     <div>
       <Header />
       <br></br>
+      <Toast ref={toast} position="top-center" />
       <h3 className='text-center'>Change Password</h3>
       <div className='container'>
         <Card className='shadow'>
@@ -41,7 +44,7 @@ const ChangePassword = () => {
                   }}
                   onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                      alert(JSON.stringify(values, null, 2));
+                      // alert(JSON.stringify(values, null, 2));
                       setSubmitting(false);
                       Axios.post("http://localhost:3001/api/changePassword", {
 
@@ -52,7 +55,8 @@ const ChangePassword = () => {
                         console.log(response.data)
 
 
-                        alert("Changed password")
+                        // alert("Changed password")
+                        toast.current.show({ severity: 'success', summary: 'Password Changed!', life: 5000 });
 
 
 
