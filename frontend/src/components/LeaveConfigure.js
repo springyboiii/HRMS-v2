@@ -57,8 +57,9 @@ const LeaveConfigure2= ({ employees }) => {
 
 const handleSubmitButton = (event) => {
   event.preventDefault();
+  console.log(id);
 
-  Axios.get(`http://localhost:3001/api/getemps/${id}`).then((response)=>{
+  Axios.get(`http://localhost:3001/api/getemps2/${id}`).then((response)=>{
     // console.log(response.data)
     response.data.startDate = getDateString(response.data.startDate)
     response.data.dob = getDateString(response.data.dob)
@@ -101,9 +102,9 @@ const handleSubmitButton = (event) => {
               <Card>
                 <Card.Body>
                    
-                    <h4 className="text-center">{employee.firstname}'s Leave Information</h4>
+                    <h4 className="text-center">{employee.firstname} {employee.lastname}'s Leave Information</h4><br></br>
                     <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
-                    <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
+                    <Button className="btn1" onClick={handleSubmit(onSubmit)} variant="primary" type="submit" >
                       Click here to submit form
                     </Button>
                 </Card.Body>
