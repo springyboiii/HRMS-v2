@@ -25,7 +25,7 @@ const EditLeaveForm = ({ employee, register, errors, disabled, editEmployee }) =
                 <Form.Control type="number"  id="leavesleft" name='leavesLeft' defaultValue={employee.leaves_left} placeholder={employee.leaves_left} {...register("salary", { required: !editEmployee })}
                   disabled={disabled} onChange={(e) => { employee.Leaves_left = e.target.value }} />
               </Form.Group>
-              {errors.Leaves_left && <p className='errorMsg'>Salary is required!</p>}
+              {errors.Leaves_left && <p className='errorMsg'>Leaves count is required!</p>}
             </div>
           
 
