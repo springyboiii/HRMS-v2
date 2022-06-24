@@ -39,7 +39,6 @@ const TotalLeave = () => {
 
     <div>
       <Header />
-      Total Leave
       <div className="signcontainer">
         <div className="row">
           <div className="col-sm">
@@ -80,14 +79,21 @@ const TotalLeave = () => {
                 {errors.department_id && <p className='errorMsg'>Department details are required!</p>}
               </div>
               </div>
+              <br></br>
              
               <div className='row'>
           <Button className="leave-report-btn" style={{width: "50%"}} onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
             Generate Report
           </Button>
           </div>
-          <h2>{count}</h2>
+          {/* <h2>{count}</h2> */}
         </div>
+
+        <div className='container'>
+
+        
+        {count}
+      </div>
       
 
       <Footer />
