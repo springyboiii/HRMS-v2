@@ -88,17 +88,17 @@ function LeaveApplication(props) {
     data.append('file', selectedFile)
     data.append("fileName", fileName);
 
-    if (startDate === null) {
+    if (startDate === null || startDate==="") {
       // alert("please enter the start date")
       toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please enter the start date.', life: 5000 });
     }
 
-    else if (duration === null) {
+    else if (duration === null || duration ==="" ) {
       // alert("please enter the duration")
       toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please enter the duration.', life: 5000 });
     }
 
-    else if (type === null) {
+    else if (type === null || type==="") {
       // alert("please select the type")
       toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please select the leave type.', life: 5000 });
     }
@@ -148,8 +148,17 @@ function LeaveApplication(props) {
     // alert("Leave Application Submitted")
 
     // alert(`The name you entered was: ${startDate}`);
+    
+    
 
     event.preventDefault();
+    setStartDate("");
+    setDuration("");
+    setType("");
+    setDescription("");
+    setFile("");
+    setFileName("");
+    setSelected("");
   }
 
 
