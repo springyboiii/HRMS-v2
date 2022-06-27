@@ -69,7 +69,7 @@ function TitleAge() {
           {report.map((arr, index) => (
               <tr data-index={index} key={index}>
                 <td>{getJobTitle(arr.jobTitle)}</td>
-                <td>{arr.avgAge}</td>
+                <td>{Math.round(arr.avgAge)+" years"}</td>
 
               </tr>
             ))};
