@@ -2,17 +2,10 @@ import React from 'react'
 import { Card, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Footer from '../components/Footer';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import '../components/Navbar.css';
 import Header from '../components/Header';
-import Carousel from 'react-bootstrap/Carousel';
 
 const Dummy = () => {
-  const goToPersonal = () => {
-    //redirect to personal info page
-  }
-
   return (
 
     <div>
@@ -29,7 +22,7 @@ const Dummy = () => {
                   View your personal information at a glance.
                 </Card.Text>
                 <div className='text-center'>
-                <Button variant="primary" onClick={goToPersonal()}>Personal Info</Button>
+                <Button variant="primary" href='/home'>Personal Info</Button>
                 </div>
               </Card.Body>
             </Card>
@@ -44,7 +37,7 @@ const Dummy = () => {
                   Apply for a leave through this simple form.
                 </Card.Text>
                 <div className='text-center'>
-                <Button variant="primary" >Leave Application</Button>
+                <Button variant="primary" href='/leaveApplication'>Leave Application</Button>
                 </div>
               </Card.Body>
             </Card>
@@ -59,7 +52,7 @@ const Dummy = () => {
                   Take a look at previous leaves you have taken.
                 </Card.Text>
                 <div className='text-center'>
-                <Button variant="primary" >View Leaves</Button>
+                <Button variant="primary" href='/viewLeave'>View Leaves</Button>
                 </div>
               </Card.Body>
             </Card>
@@ -73,7 +66,7 @@ const Dummy = () => {
                   Change your password to a stronger private one.
                 </Card.Text>
                 <div className='text-center'>
-                <Button variant="primary">Change Password</Button>
+                <Button variant="primary" href='/changePassword'>Change Password</Button>
                 </div>
               </Card.Body>
             </Card>

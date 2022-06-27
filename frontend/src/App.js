@@ -140,7 +140,7 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<HomeDummy />} /> */}
           <Route path="/" element={<UserContext.Provider value={{ Username, setUsername }}><Homepage /></UserContext.Provider>} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       
           <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave /> </UserContext.Provider>} /> 
           <Route path="/components/SelectEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><SelectEmployee employees={employees}/></UserContext.Provider>} />

@@ -17,7 +17,7 @@ export default function Footer() {
       <section className="">
         <div className="container text-center text-md-start mt-5">
           <div className="row mt-3">
-            <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <div className="col-md-4 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
                 <i className="fas fa-gem me-3"></i>Jupiter Apparels
               </h6>
@@ -26,33 +26,26 @@ export default function Footer() {
                 employees. Currently the branches of Jupiter are at Sri Lanka,
                 Bangladesh and Pakistan
               </p>
+              <p>Business Registration Number: 56-2738X</p>
             </div>
 
-            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            {/* <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Products</h6>
               <p>
-                <a href="#!" className="text-reset">
-                  Angular
-                </a>
+                Shirts
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  React
-                </a>
+                Tops
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Vue
-                </a>
+                Jeans
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Laravel
-                </a>
+                Shorts
               </p>
-            </div>
+            </div> */}
 
-            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <div className="col-md-4 col-lg-2 col-xl-2 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Social Media</h6>
               <p>
                 <a href="#!" className="text-reset">
@@ -61,17 +54,17 @@ export default function Footer() {
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  <Twitter/> Jupiter21
+                  <Twitter/> Jupiter22
                 </a>
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  <Instagram /> Jupiter21
+                  <Instagram /> Jupiter22
                 </a>
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  <Linkedin />Jupiter
+                  <Linkedin /> Jupiter
                 </a>
               </p>
             </div>
@@ -79,17 +72,16 @@ export default function Footer() {
             <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
               <p>
-              <House /> Colombo
+              <House /> 72A, Duplication Road, Colombo-03
               </p>
               <p>
-              <Envelope />
-                  jupiter@example.com
+              <Envelope /> jupiter@example.com
               </p>
               <p>
-              <Phone /> + 01 234 567 88
+              <Phone /> + 94 234 567 887
               </p>
               <p>
-               <Printer/> + 01 234 567 89
+               <Printer/> + 94 234 567 889
               </p>
             </div>
           </div>

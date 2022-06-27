@@ -116,7 +116,7 @@ const handleSubmitButton = (event) => {
                     <h4 className="text-center">{employee.firstname} {employee.lastname}'s Leave Information</h4><br></br>
                     <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
                     <Button className="btn1" onClick={handleSubmit(onSubmit)} variant="primary" type="submit" >
-                      Click here to submit form
+                      Configure Leaves
                     </Button>
                 </Card.Body>
               </Card>

@@ -98,25 +98,25 @@ const Header = () => {
             {[false].map((expand) => (
                 <Navbar key={expand} bg="dark" variant="dark" expand={expand} className="mb-3">
                     <Container fluid>
-                        <Nav.Link to='#' className='menu-bars'>
+                        <Nav.Link className='menu-bars'>
                             <FaIcons.FaBars onClick={showSidebar} />
                         </Nav.Link>
                         <Nav className="mx-auto">
                             <Container fluid>
-                                <Navbar.Brand href="#home">
+                                <Navbar.Brand href="/dummy">
                                     <img
                                         src="/logo3.png"
                                         width="30"
                                         height="30"
                                         className="d-inline-block align-top"
-                                        alt="React Bootstrap logo"
+                                        alt="Jupiter logo"
                                     />
                                 </Navbar.Brand>
-                                <Navbar.Brand href="#">Employee Management System</Navbar.Brand>
+                                <Navbar.Brand href="/dummy">Employee Management System</Navbar.Brand>
                             </Container>
                         </Nav>
                         <Nav className="ms-auto">
-                            <Nav.Link href="#" onClick={toggleLogoutModal}>
+                            <Nav.Link onClick={toggleLogoutModal}>
                                 {/* <span className="fa fa-sign-in fa-lg"></span> Logout */}
                                 Logout
                             </Nav.Link>
