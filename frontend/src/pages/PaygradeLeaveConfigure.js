@@ -6,22 +6,33 @@ import addImg from "../images/edit-icon-pencil-icon-sign-up-icon-vector-30669569
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState,useContext,useEffect} from "react";
 import '../components/Modal.css';
 import { ReactDOM } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Axios from "axios";
 import Header from "../components/Header";
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 
 const PaygradeLeaveConfigure = (props) => {
   const [open, setOpen] = useState(false);
   const[paygrade,setPaygrade] = useState(1);
   const[leaves,setLeaves] = useState(1);
+  const navigate = useNavigate();
+  const { UserType, setUserType } = useContext(UserTypeContext);
 
   const paygradeleaves = props.paygradeleaves;  
   console.log(paygradeleaves);
+
+
+  useEffect(()=>{
+    if (UserType[0].payGrade != 3){
+      navigate('/dummy', { replace: true });
+    }
+      
+  },[])
    
 
 
