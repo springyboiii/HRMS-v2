@@ -76,17 +76,17 @@ const SubMenu = ({ item }) => {
       {subnav &&
         item.subNav.map((item, index) => {
           return (
-            <DropdownLink to={item.path} key={index} onClick={item.subsubNav && showsubSubnav}>
+            <DropdownLink to={item.path} key={index} >
               {item.icon}
               <SidebarLabel>{item.title}</SidebarLabel>
-              <div>
+              {/* <div>
                 {item.subsubNav && subsubnav
                   ? item.iconOpened
                   : item.subsubNav
                     ? item.iconClosed
                     : null}
-              </div>
-              {subsubnav &&
+              </div> */}
+              {/* {subsubnav &&
               // item.subNav.map((item, index) => {
               //   console.log(item);
               //   if (item.subsubNav!=[]){
@@ -108,7 +108,7 @@ const SubMenu = ({ item }) => {
        
                 
               // })
-            }
+            } */}
               
             </DropdownLink>
            
