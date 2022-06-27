@@ -77,7 +77,7 @@ const PaygradeLeaveConfigure = (props) => {
                 <td>{paygradeleave.leaves}</td>
                 <td>
               {" "}
-              <Button size="lg" onClick={() => editLeaves(paygradeleave.payGrade,paygradeleave.leaves)}>
+              <Button size="sm" onClick={() => editLeaves(paygradeleave.payGrade,paygradeleave.leaves)}>
                 <img src={addImg} alt="edit" width="18" /> Edit
               </Button>
             </td>

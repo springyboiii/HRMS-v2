@@ -30,10 +30,12 @@ const AddEmployee = ({ addEmployeeDetails }) => {
           employeeData: data
         }).then((response) => {
           console.log(response)
-          alert("Voila")
+          alert(response.data.message)
+          // alert("Voila")
           setEmployee(data);
           addEmployeeDetails(data);
           setEmployee("");
+          window.location.reload(false);
         })
         alert("Employee Added")
         //redirect somehwere

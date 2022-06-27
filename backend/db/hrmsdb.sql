@@ -81,9 +81,11 @@ CREATE TABLE `user_table` (
   PRIMARY KEY (`username`)
 ) ;
 
+ALTER TABLE hrmsdb.employee ADD CONSTRAINT CHECK (salary >= 20000 and salary <= 400000);
+
 CREATE DEFINER=`root`@`localhost` TRIGGER `hrmsdb`.`paygrade_leave_AFTER_UPDATE` AFTER UPDATE ON `paygrade_leave` FOR EACH ROW
 BEGIN
-update hrms3.employee  set leaves_left= if(new.leaves+leaves_left-old.leaves>=0,new.leaves+leaves_left-old.leaves,0) where hrms3.employee.payGrade = new.payGrade;
+update hrmsdb.employee  set leaves_left= if(new.leaves+leaves_left-old.leaves>=0,new.leaves+leaves_left-old.leaves,0) where hrmsdb.employee.payGrade = new.payGrade;
 END
 
 CREATE DEFINER=`root`@`localhost` TRIGGER `hrmsdb`.`employee_BEFORE_UPDATE` BEFORE UPDATE ON `employee` FOR EACH ROW
@@ -91,8 +93,8 @@ BEGIN
 	DECLARE old_leaves INT;
     DECLARE new_leaves INT;
     IF OLD.payGrade <> new.payGrade THEN
-		select leaves into old_leaves from hrms3.paygrade_leave where payGrade = OLD.payGrade;
-        select leaves into new_leaves from hrms3.paygrade_leave where payGrade = new.payGrade;        
+		select leaves into old_leaves from hrmsdb.paygrade_leave where payGrade = OLD.payGrade;
+        select leaves into new_leaves from hrmsdb.paygrade_leave where payGrade = new.payGrade;        
         set new.leaves_left = if(new_leaves+OLD.leaves_left-old_leaves>=0,new_leaves+OLD.leaves_left-old_leaves,0);         
     END IF;
 END
