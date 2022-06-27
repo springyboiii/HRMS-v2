@@ -78,7 +78,7 @@ const Homepage = () => {
                 // alert("logged in")
                 toast.current.show({ severity: 'success', summary: 'Successfully Logged in!', life: 5000 });     //this doesn't show
                 //redirect somehwere
-                navigate('/dummy', { replace: true });
+                navigate('/dashboard', { replace: true });
 
             }
         })
@@ -94,7 +94,7 @@ const Homepage = () => {
                 <Container fluid>
                     <Nav className="mx-auto">
                         <Container fluid>
-                            <Navbar.Brand href="#home">
+                            <Navbar.Brand >
                                 <img
                                     src="/logo3.png"
                                     width="30"
@@ -103,7 +103,7 @@ const Homepage = () => {
                                     alt="React Bootstrap logo"
                                 />
                             </Navbar.Brand>
-                            <Navbar.Brand href="#">Employee Management System</Navbar.Brand>
+                            <Navbar.Brand>Employee Management System</Navbar.Brand>
                         </Container>
                     </Nav>
                     <Navbar.Collapse id="responsive-navbar-nav">
@@ -116,7 +116,7 @@ const Homepage = () => {
                 </Container>
             </Navbar>
 
-            <Toast ref={toast} position="top-ccenter"/>
+            <Toast ref={toast} position="top-center"/>
 
             <Modal show={isLoginModalOpen} onHide={toggleLoginModal}>
                 <ModalHeader >
@@ -185,7 +185,7 @@ const Homepage = () => {
                             alt="First slide"
                         />
                         <Carousel.Caption>
-                            <h3 style={{ color: 'black' }}>Employee Management System for Jupyter Apparel</h3>
+                            <h3 style={{ color: 'black' }}>Employee Management System for Jupiter Apparel</h3>
                             <p style={{ color: 'black' }}>Manage employees' leave data without hassle</p>
                         </Carousel.Caption>
                     </Carousel.Item>
