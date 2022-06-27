@@ -66,7 +66,7 @@ CREATE TABLE `leave_table` (
   `start_date` date NOT NULL,
   `type` tinyint(4) NOT NULL,
   `employee_id` int(11) NOT NULL,
-  `supervisor_id` int(11) NOT NULL,
+  `supervisor_id` int(11) DEFAULT NULL,
   `document` varchar(255) DEFAULT NULL,
   `leave_status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`leave_id`),
