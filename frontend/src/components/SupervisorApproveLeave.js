@@ -1,7 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Navbar from "../components/Navbar";
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "react-bootstrap/Button";
@@ -9,48 +9,65 @@ import Axios from "axios";
 import Header from "./Header";
 import Leaves from "./Leaves";
 import { ConeStriped } from "react-bootstrap-icons";
-import { UserTypeContext } from '../contexts/UserTypeContext';
+import { UserTypeContext } from "../contexts/UserTypeContext";
+import { UserContext } from "../contexts/UserContext";
+
 
 function SupervisorApproveLeave(props) {
-  const arr = props.leaves;
   const navigate = useNavigate();
   const { UserType, setUserType } = useContext(UserTypeContext);
+  const { Username, setUsername } = useContext(UserContext);
+  const [pendleaves,setPending]=useState([]);
+  
+  // console.log(Username)
+
 
 
   useEffect(()=>{
-    if (UserType[0].supervisor != 1){
-      navigate('/dummy', { replace: true });
-    }
- 
+    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
+        console.log(response.data)
+        var empId=response.data.employee_id
+        // console.log(empId)
+        Axios.get(`http://localhost:3001/api/leave/${empId}`).then((response) => {
+
+        setPending(...pendleaves,response.data);
+      
+      // setLeave(response.data);
+    // })
+  });
+    });
       
   },[])
-  // console.log(arr);
+
+  // const arr=pendleaves;
+ 
+
+
 
   const dateFormatter = (date) => {
     return date.split("T")[0];
   };
 
-  const acceptRequest = (leaveid,emp_id,duration) => {
+  const acceptRequest = (leaveid, emp_id, duration) => {
+    Axios.get(`http://localhost:3001/api/getBalanceLeave/${emp_id}`).then(
+      (response) => {
+        console.log(emp_id);
+        var Leaves_left = response.data["Leaves_left"];
+        console.log(Leaves_left);
 
+        Axios.post("http://localhost:3001/api/sendApproval", {
+          status: "Accepted",
+          leave_id: leaveid,
+          employee_id: emp_id,
+          Leaves_left: Leaves_left - duration,
+        }).then(() => {
+          window.location.reload(false);
 
-    Axios.get(`http://localhost:3001/api/getBalanceLeave/${emp_id}`).then((response)=>{
-      console.log(emp_id)
-      var Leaves_left=response.data['Leaves_left']
-      console.log(Leaves_left)
-      
-    Axios.post("http://localhost:3001/api/sendApproval", {
-      status: "Accepted",
-      leave_id: leaveid,
-      employee_id:emp_id,
-      Leaves_left:Leaves_left-duration
-    }).then(() => {
-      window.location.reload(false);
-
-      // alert("Success!");
-    });
-  })
-
-};
+          // alert("Success!");
+        });
+      }
+    );
+  };
   const declineRequest = (data) => {
     Axios.post("http://localhost:3001/api/sendRejection", {
       status: "Declined",
@@ -58,17 +75,14 @@ function SupervisorApproveLeave(props) {
     }).then(() => {
       // alert("Success!");
       window.location.reload(false);
-
     });
   };
 
   return (
     <div>
-      <Header/>
+      <Header />
 
-      <div
-        className="container"
-      >
+      <div className="container">
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
@@ -83,7 +97,7 @@ function SupervisorApproveLeave(props) {
             </tr>
           </thead>
           <tbody>
-            {arr.map((leave, index) => (
+            {pendleaves.map((leave, index) => (
               <tr key={index} data-index={index}>
                 <td>{leave.leave_id}</td>
                 <td>{leave.duration}</td>
@@ -97,7 +111,13 @@ function SupervisorApproveLeave(props) {
                 <td style={{ display: "flex" }}>
                   <Button
                     variant="success"
-                    onClick={() => {acceptRequest(leave.leave_id,leave.employee_id,leave.duration)}}
+                    onClick={() => {
+                      acceptRequest(
+                        leave.leave_id,
+                        leave.employee_id,
+                        leave.duration
+                      );
+                    }}
                     size="lg"
                     type="submit"
                   >
@@ -107,9 +127,9 @@ function SupervisorApproveLeave(props) {
                   <Button
                     size="lg"
                     variant="danger"
-                    onClick={() => {declineRequest(leave.leave_id)}}
-
-                    
+                    onClick={() => {
+                      declineRequest(leave.leave_id);
+                    }}
                     style={{ marginLeft: "2px" }}
                   >
                     Decline

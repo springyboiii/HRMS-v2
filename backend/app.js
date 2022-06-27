@@ -80,10 +80,11 @@ app.get("/api/logout", (req, res) => {
   res.send({ message: "cookie cleared" });
 });
 
-app.get("/api/leave", (req, res) => {
-  const supervisor_id = "125";
-  const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=?;";
-  db.query(stat, supervisor_id, (err, result) => {
+app.get("/api/leave/:empId", (req, res) => {
+
+  const employee_id = req.params.empId;
+  const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=? " ;
+  db.query(stat, employee_id, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -91,8 +92,6 @@ app.get("/api/leave", (req, res) => {
 
     }
   });
-
-
 });
 
 
@@ -214,6 +213,7 @@ app.get("/api/getemps/:Username", (req, res) => {
     }
   })
 })
+
 
 app.get("/api/getemps2/:id", (req, res) => {
   const employee_id = req.params.id;
