@@ -1,16 +1,29 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Navbar from "../components/Navbar";
-
+import { useState, useEffect,useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import Header from "./Header";
 import Leaves from "./Leaves";
 import { ConeStriped } from "react-bootstrap-icons";
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 function SupervisorApproveLeave(props) {
   const arr = props.leaves;
+  const navigate = useNavigate();
+  const { UserType, setUserType } = useContext(UserTypeContext);
+
+
+  useEffect(()=>{
+    if (UserType[0].supervisor != 1){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
   // console.log(arr);
 
   const dateFormatter = (date) => {

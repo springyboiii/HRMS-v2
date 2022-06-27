@@ -3,16 +3,28 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 import Employee from '../components/Employee';
-import { useState } from 'react';
+import { useState,useEffect,useContext} from 'react';
+import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Axios from 'axios';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 const AddEmployee = ({ addEmployeeDetails }) => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
 
   const [employee, setEmployee] = useState({})
+
+  useEffect(()=>{
+    if (UserType[0].jobTitle != 1 && UserType[0].jobTitle != 2){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
 
   const onSubmit = (data) => {
 
