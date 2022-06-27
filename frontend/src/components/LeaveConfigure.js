@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Button from 'react-bootstrap/Button';
@@ -15,11 +15,13 @@ import { Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import EditLeaveForm from "./EditLeaveForm";
+import { Toast } from 'primereact/toast';
 
 const LeaveConfigure2= ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
+  const toast = useRef(null);
 
   const [employee, setEmployee] = useState({})
 
@@ -33,7 +35,9 @@ const LeaveConfigure2= ({ employees }) => {
     Axios.put('http://localhost:3001/api/updateLeaves', {
       employeeData: employee
     }).then((response)=>{
-      alert(response.data.message);
+      // alert(response.data.message);
+      toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
+
     })
     setFlipped(!flipped);
   }
@@ -53,13 +57,14 @@ const LeaveConfigure2= ({ employees }) => {
 
 const handleSubmitButton = (event) => {
   event.preventDefault();
+  console.log(id);
 
-  Axios.get(`http://localhost:3001/api/getemps/${id}`).then((response)=>{
+  Axios.get(`http://localhost:3001/api/getemps2/${id}`).then((response)=>{
     // console.log(response.data)
     response.data.startDate = getDateString(response.data.startDate)
     response.data.dob = getDateString(response.data.dob)
     setEmployee(response.data)
-    // console.log(employee)
+    console.log(employee.firstname)
   })   
   setFlipped(!flipped);
 }
@@ -70,13 +75,15 @@ const handleSubmitButton = (event) => {
     
 
       <Header />
+      <Toast ref={toast} position="top-center" />
+
       <div className="row">
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <div className="container">
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
               <Card style={{ "paddingLeft": "0px", "paddingRight": "0px" }} className="shadow-lg" >
-                <Card.Img variant="top" src="/search.png" height="350" />
+                <Card.Img variant="top" src="/search4.gif" height="350" />
                 <Card.Body>
                   <Card.Title>Select an Employee</Card.Title>
                   <form onSubmit={handleSubmitButton}>
@@ -95,9 +102,9 @@ const handleSubmitButton = (event) => {
               <Card>
                 <Card.Body>
                    
-                    <h4 className="text-center">{employee.firstname}'s Leave Information</h4>
+                    <h4 className="text-center">{employee.firstname} {employee.lastname}'s Leave Information</h4><br></br>
                     <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
-                    <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
+                    <Button className="btn1" onClick={handleSubmit(onSubmit)} variant="primary" type="submit" >
                       Click here to submit form
                     </Button>
                 </Card.Body>

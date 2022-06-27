@@ -12,32 +12,33 @@ import { ReactDOM } from "react";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Axios from "axios";
+import Header from "../components/Header";
 
 
-const LeaveConfigure = (props) => {
+const PaygradeLeaveConfigure = (props) => {
   const [open, setOpen] = useState(false);
-  const[emp_id,setemp_id] = useState(1);
-  const[leavesCount,setLeavesCount] = useState(1);
+  const[paygrade,setPaygrade] = useState(1);
+  const[leaves,setLeaves] = useState(1);
 
-  const leavesLeft = props.leavesLeft;  
-  console.log(leavesLeft);
+  const paygradeleaves = props.paygradeleaves;  
+  console.log(paygradeleaves);
    
 
 
   const editLeaves = (data,leaves) => {
     setOpen(true);
-    setemp_id(data);
-    setLeavesCount(leaves);
+    setPaygrade(data);
+    setLeaves(leaves);
     
   };
 
   const saveLeaveChanges = () => {
     setOpen(false);
-    Axios.post("http://localhost:3001/api/saveLeaveChanges", {
-      emp_id:emp_id,
-      leavesLeft: leavesCount
+    Axios.post("http://localhost:3001/api/savePaygradeLeaveChanges", {
+      payGrade:paygrade,
+      leaves: leaves
     }).then(() => {
-      console.log(leavesCount)
+      console.log(leaves)
 
       window.location.reload(false);
 
@@ -54,32 +55,29 @@ const LeaveConfigure = (props) => {
 
   return (
     <>
-    <Navbar />
+    <Header/>
     <br></br>
       <h1 style={{
             textAlign: "center",
-            marginLeft: "200px",
-            color: "green"
+            marginLeft: "110px",
+            // color: "green"
           }}>Leave Configuration</h1><br></br>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant="dark" style={{width:"50%", textAlign:"center", marginLeft: "380px"}}>
         <thead>
           <tr>
-            <th>Employee ID</th>
-            <th>Employee Name</th>
-
-            <th>Number of Leaves Left</th>
+            <th>PayGrade</th>
+            <th>Assigned Leaves</th>
             <th> Edit</th>
           </tr>
         </thead>
         <tbody>
-        {leavesLeft.map((leave, index) => (
+        {paygradeleaves.map((paygradeleave, index) => (
               <tr data-index={index} key={index}>
-                <td>{leave.Employee_id}</td>
-                <td>{leave.Firstname+" "+leave.Lastname}</td>
-                <td>{leave.Leaves_left}</td>
+                <td>{paygradeleave.payGrade}</td>
+                <td>{paygradeleave.leaves}</td>
                 <td>
               {" "}
-              <Button size="lg" onClick={() => editLeaves(leave.Employee_id,leave.Leaves_left)}>
+              <Button size="lg" onClick={() => editLeaves(paygradeleave.payGrade,paygradeleave.leaves)}>
                 <img src={addImg} alt="edit" width="18" /> Edit
               </Button>
             </td>
@@ -97,8 +95,8 @@ const LeaveConfigure = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Leaves Left</Form.Label>
-            <Form.Control type="text"  defaultValue={leavesCount} onChange={e => setLeavesCount(e.target.value)} />
+            <Form.Label>Assigned Leaves</Form.Label>
+            <Form.Control type="text"  defaultValue={leaves} onChange={e => setLeaves(e.target.value)} />
           </Form.Group>
 
         </Modal.Body>
@@ -116,4 +114,4 @@ const LeaveConfigure = (props) => {
   );
 };
 
-export default LeaveConfigure;
+export default PaygradeLeaveConfigure;

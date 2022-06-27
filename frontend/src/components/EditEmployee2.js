@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import Employee from "./Employee";
 import Employees from "./Employees";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { TypeH1 } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 import Header from "./Header";
@@ -14,11 +14,13 @@ import ReactCardFlip from 'react-card-flip';
 import { Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
+import { Toast } from 'primereact/toast';
 
 const EditEmployee2 = ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
+  const toast = useRef(null);
 
   const [employee, setEmployee] = useState({})
 
@@ -32,7 +34,8 @@ const EditEmployee2 = ({ employees }) => {
     Axios.put('http://localhost:3001/api/updateEmployee', {
       employeeData: employee
     }).then((response)=>{
-      alert(response.data.message);
+      // alert(response.data.message);
+      toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
     })
     setFlipped(!flipped);
   }
@@ -110,13 +113,14 @@ const EditEmployee2 = ({ employees }) => {
       <Footer /> */}
 
       <Header />
+      <Toast ref={toast} position="top-center" />
       <div className="row">
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <div className="container">
             <ReactCardFlip isFlipped={flipped} flipDirection="vertical">
               <Card style={{ "paddingLeft": "0px", "paddingRight": "0px" }} className="shadow-lg" >
-                <Card.Img variant="top" src="/search.png" height="350" />
+                <Card.Img variant="top" src="/search3.gif" height="350" />
                 <Card.Body>
                   <Card.Title>Select an Employee</Card.Title>
                   <form onSubmit={handleSubmitButton}>
@@ -138,9 +142,11 @@ const EditEmployee2 = ({ employees }) => {
                     )} */}
                     <h4 className="text-center">{employee.firstname}'s Personal Information</h4>
                     <Employee key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={true}/>
+                    <div className="text-center">
                     <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
                       Click here to submit form
                     </Button>
+                    </div>
                 </Card.Body>
               </Card>
             </ReactCardFlip>

@@ -7,11 +7,21 @@ import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import Axios from 'axios';
+import Modal from "react-bootstrap/Modal";
+
 
 const TotalLeave = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false);
+  const[fromDate,setfromDate]=useState("");
+  const[toDate,settoDate]=useState("");
+  const[department,setdepartment]=useState("");
+
+
+
+
 
   const onSubmit = (data) => {
 
@@ -25,6 +35,11 @@ const TotalLeave = () => {
         // alert("Voila user added")
         console.log(response.data.count)
         setCount(response.data.count);
+        setfromDate(data.from);
+        settoDate(data.to);
+        setdepartment(data.department_id)
+        setOpen(true);
+
         // if (response.data.message) {
         //   alert(response.data.message);
         //   return;
@@ -39,7 +54,6 @@ const TotalLeave = () => {
 
     <div>
       <Header />
-      Total Leave
       <div className="signcontainer">
         <div className="row">
           <div className="col-sm">
@@ -80,16 +94,46 @@ const TotalLeave = () => {
                 {errors.department_id && <p className='errorMsg'>Department details are required!</p>}
               </div>
               </div>
+              <br></br>
              
               <div className='row'>
           <Button className="leave-report-btn" style={{width: "50%"}} onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
             Generate Report
           </Button>
           </div>
-          <h2>{count}</h2>
+          {/* <h2>{count}</h2> */}
         </div>
-      
+          <div>
+        <Modal  size ='xl' top='20%' dialogClassName='custom-dialog' show={open} >
+        <Modal.Header >
+          <Modal.Title style={{textAlign: 'center'}}>Leave Details by Department</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>   
 
+          <h6> From: {fromDate} </h6>
+          <br>
+          </br>
+          <h6> To: {toDate} </h6>
+          <br>
+          </br>
+          <h6> Department {department} </h6>
+          <br></br>
+          <h6> Total Approved Leaves: {count}</h6>
+
+
+
+
+
+
+        </Modal.Body>
+        <Modal.Footer>
+          
+          <Button variant="secondary" onClick={()  => setOpen(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
       <Footer />
     </div >
   )

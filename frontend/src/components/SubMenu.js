@@ -26,22 +26,37 @@ const SidebarLabel = styled.span`
 const DropdownLink = styled(Link)`
   background: #414757;
   height: 60px;
-  padding-left: 3rem;
+  padding-left: 2rem;
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #f5f5f5;
   font-size: 14px;
   &:hover {
-    background: #632ce4;
+    cursor: pointer;
+  }
+`;
+const DropdownLink1 = styled(Link)`
+  background: #414757;
+  height: 60px;
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 14px;
+  &:hover {
     cursor: pointer;
   }
 `;
 
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
+  const [subsubnav, setsubSubnav] = useState(false);
 
   const showSubnav = () => setSubnav(!subnav);
+
+  const showsubSubnav = () => setsubSubnav(!subsubnav);
 
   return (
     <>
@@ -54,19 +69,73 @@ const SubMenu = ({ item }) => {
           {item.subNav && subnav
             ? item.iconOpened
             : item.subNav
-            ? item.iconClosed
-            : null}
+              ? item.iconClosed
+              : null}
         </div>
       </SidebarLink>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
-            <DropdownLink to={item.path} key={index}>
+            <DropdownLink to={item.path} key={index} onClick={item.subsubNav && showsubSubnav}>
               {item.icon}
               <SidebarLabel>{item.title}</SidebarLabel>
+              <div>
+                {item.subsubNav && subsubnav
+                  ? item.iconOpened
+                  : item.subsubNav
+                    ? item.iconClosed
+                    : null}
+              </div>
+              {subsubnav &&
+              // item.subNav.map((item, index) => {
+              //   console.log(item);
+              //   if (item.subsubNav!=[]){
+                  item.subsubNav.map((item, index) => {
+                    console.log(item);
+                    return (
+                      // item.subNav.map((item, index) => {
+                    <div><DropdownLink1 to={item.path} key={index} >
+                    {item.icon}
+                    <SidebarLabel>{item.title}</SidebarLabel>
+                  </DropdownLink1></div>
+                      
+                      //  ) }
+                    );
+                    })
+      
+              //   }
+                
+       
+                
+              // })
+            }
+              
             </DropdownLink>
+           
           );
         })}
+
+      {/* {subsubnav &&
+        item.subNav.map((item, index) => {
+          console.log(item);
+          if (item.subsubNav!=[]){
+            item.subsubNav.map((item, index) => {
+              console.log(item);
+              return (
+                // item.subNav.map((item, index) => {
+                <DropdownLink to={item.path} key={index} >
+                  {item.icon}
+                  <SidebarLabel>{item.title}</SidebarLabel>
+                </DropdownLink>
+                //  ) }
+              );
+              })
+
+          }
+          
+ 
+          
+        })} */}
     </>
   );
 };
