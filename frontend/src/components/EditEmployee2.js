@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import Employee from "./Employee";
 import Employees from "./Employees";
-import { useState, useRef } from "react";
+import { useState, useRef,useContext,useEffect } from "react";
 import { TypeH1 } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 import Header from "./Header";
@@ -15,28 +15,51 @@ import { Card } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import { Toast } from 'primereact/toast';
+import { UserTypeContext } from '../contexts/UserTypeContext';
+
 
 const EditEmployee2 = ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
   const toast = useRef(null);
+  const { UserType, setUserType } = useContext(UserTypeContext);
 
   const [employee, setEmployee] = useState({})
 
   const [id, setID] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+
+  useEffect(()=>{
+    if (UserType[0].jobTitle != 1 && UserType[0].jobTitle != 3){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
+
   const onSubmit = (data) => {
     data['employee_id'] = id
     console.log(data);
     console.log(employee);
+    
     Axios.put('http://localhost:3001/api/updateEmployee', {
       employeeData: employee
     }).then((response)=>{
+      
       // alert(response.data.message);
       toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
     })
+    localStorage.setItem('payGrade', JSON.stringify(employee.payGrade));
+    localStorage.setItem('title', JSON.stringify(employee.jobTitle));
+    localStorage.setItem('supervisor', JSON.stringify(employee.supervisor));
+    setUserType([{
+
+        payGrade: JSON.parse(localStorage.getItem('payGrade')),
+        jobTitle: JSON.parse(localStorage.getItem('title')),
+        supervisor: JSON.parse(localStorage.getItem('supervisor')),
+      }]);
     setFlipped(!flipped);
   }
 

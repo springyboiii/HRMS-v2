@@ -40,37 +40,28 @@ export const SidebarData2 = [
         subsubNav:[]
       },
       {
-        title: 'General report',
-        path:'' ,
+        title: 'Total Salary by Department',
+        path: '/GeneralReport/DepartmentTotalSalary',
         icon: <IoIcons.IoIosPaper />,
         // icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text',
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
-        subsubNav: [
-          {
-            title: 'Total Salary by Department',
-            path: '/GeneralReport/DepartmentTotalSalary',
-            icon: <IoIcons.IoIosPaper />,
-            // icon: <IoIcons.IoIosPaper />,
-            cName: 'nav-text',
-          },
-          {
-              title: 'Total Salary by PayGrade',
-              path: '/GeneralReport/DepartmentPayGrade',
-              icon: <IoIcons.IoIosPaper />,
-              // icon: <IoIcons.IoIosPaper />,
-              cName: 'nav-text'
-            },
-            {
-              title: 'Average Age by Jobtitle',
-              path: '/GeneralReport/TitleAge',
-              icon: <IoIcons.IoIosPaper />,
-              // icon: <IoIcons.IoIosPaper />,
-              cName: 'nav-text'
-            },
-        ]
       },
+      {
+        title: 'Total Salary by PayGrade',
+        path: '/GeneralReport/DepartmentPayGrade',
+        icon: <IoIcons.IoIosPaper />,
+        // icon: <IoIcons.IoIosPaper />,
+        cName: 'nav-text'
+      },
+      {
+        title: 'Average Age by Jobtitle',
+        path: '/GeneralReport/TitleAge',
+        icon: <IoIcons.IoIosPaper />,
+        // icon: <IoIcons.IoIosPaper />,
+        cName: 'nav-text'
+      },
+
+      
     ]
   }
   

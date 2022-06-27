@@ -98,7 +98,7 @@ app.get("/api/leave", (req, res) => {
 
 app.get("/api/getdeptsalary", (req, res) => {
   const stat = "SELECT department_id, SUM(salary) as total_salary FROM employee GROUP BY department_id;";
-  db.query(stat,(err, result) => {
+  db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -114,7 +114,7 @@ app.get("/api/getjobage", (req, res) => {
   const date = new Date();
   // CAST(select GETDATE() AS Date )
   const stat = "SELECT jobTitle, AVG(DATEDIFF(?, dob)/365) as avgAge FROM employee GROUP BY jobTitle;";
-  db.query(stat,date,(err, result) => {
+  db.query(stat, date, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -129,7 +129,7 @@ app.get("/api/getjobage", (req, res) => {
 
 app.get("/api/getpaysalary", (req, res) => {
   const stat = "SELECT payGrade, SUM(salary) as total_salary FROM employee GROUP BY payGrade;";
-  db.query(stat,(err, result) => {
+  db.query(stat, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -250,48 +250,85 @@ app.post("/api/insertEmployee", (req, res) => {
   const data = req.body.employeeData
 
   var leaves = 0;
-  const paygrade = data.payGrade
-  if (paygrade == 1) {
-    leaves = 30;
-  }
-  else if (paygrade == 2) {
-    leaves = 50;
-  }
-  else if (paygrade == 3) {
-    leaves = 60;
-  }
 
-  const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id,leaves_left) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-  db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id, leaves], (err, result) => {
+  const sqlSelect = "select leaves from paygrade_leave where payGrade = ?";
+  // console.log(employee_id);
+  db.query(sqlSelect, data.payGrade, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      const sqlSelect = "select employee_id from employee where email=?;";
-      db.query(sqlSelect, data.email, (err, result) => {
+      // console.log(result[0]['firstname']);
+      leaves = result[0]['leaves'];
+      // console.log(leaves);
+      const sqlInsert = "insert into employee (firstname,lastname,addressNo,street,city,payGrade,employmentStatus,partTime,jobTitle,supervisor,gender,dob,startDate,salary,email,department_id,leaves_left) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+      console.log(leaves);
+      db.query(sqlInsert, [data.firstname, data.lastname, data.addressNo, data.street, data.city, data.payGrade, data.employmentStatus, data.partTime, data.jobTitle, data.supervisor, data.gender, data.dob, data.startDate, data.salary, data.email, data.department_id, leaves], (err, result) => {
         if (err) {
           console.log(err);
         } else {
-          // console.log(result[0]['firstname']);
-          // res.send(result[0]);
-          const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
-          db.query(sqlInsert2, [data.supervisor_id, result[0]['employee_id']], (err, result) => {
+          const sqlSelect = "select employee_id from employee where email=?;";
+          db.query(sqlSelect, data.email, (err, resultid) => {
             if (err) {
               console.log(err);
             } else {
-              res.send(result);
+              // console.log(result[0]['firstname']);
+              // res.send(result[0]);
+              if (data.supervisor_id !== '') {
+                const sqlSelect3 = "select count(1) from employee where employee_id=?;";
+                db.query(sqlSelect3, data.supervisor_id, (err, resultcount) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(resultcount)
+                    if (resultcount[0]['count(1)'] === 1) {
+                      const sqlSelect2 = "select supervisor from employee where employee_id=?;";
+                      db.query(sqlSelect2, data.supervisor_id, (err, result) => {
+                        if (err) {
+                          // console.log(err);
+                          res.send(err)
+                        } else {
+                          console.log(result[0]['supervisor']);
+                          // res.send(result[0]);
+                          if (result[0]['supervisor'] === 1) {
+                            const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
+                            db.query(sqlInsert2, [data.supervisor_id, resultid[0]['employee_id']], (err, result) => {
+                              if (err) {
+                                res.send(err);
+                              } else {
+                                res.send({ message: "Employee and supervisor successfully added" });
+
+                              }
+                            })
+                          }
+                          else {
+                            res.send({ message: "Employee was added, but supervisor isn't a supervisor" });
+                          }
+
+                        }
+                      })
+                    }
+                    else {
+                      res.send({ message: "Employee was added, but supervisor wasn't added" });
+                    }
+
+                  }
+                })
+
+
+
+
+
+
+              }
+
 
             }
           })
-
         }
       })
+
     }
   })
-
-
-
-
-
 })
 
 app.put('/api/updateEmployee', (req, res) => {
@@ -304,14 +341,115 @@ app.put('/api/updateEmployee', (req, res) => {
       // res.send({ message: "User details updated" });
     }
   })
-  const sqlUpdate2 = "update supervisor set supervisor_id=? where employee_id = ?"
-  db.query(sqlUpdate2, [data.supervisor_id, data.employee_id], (err, result) => {
-    if (err) console.log(err);
-    else {
-      console.log(data.employee_id);
-      res.send({ message: "Employee details updated" });
+  const sqlSelect = "select count(1) from supervisor where employee_id=?;";
+  db.query(sqlSelect, data.employee_id, (err, resultcount) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      // res.send(result[0]);
+      if (resultcount[0]['count(1)'] === 1) {
+        if (data.supervisor_id === '') {
+          const sqlDelete = "delete from supervisor where employee_id=?;";
+          db.query(sqlDelete, data.employee_id, (err, result) => {
+            if (err) console.log(err);
+            else {
+              // console.log(data.employee_id);
+              res.send({ message: "Employee details updated and Supervisor table entry deleted successfully" });
+            }
+          })
+        }
+        else {
+          const sqlSelect4 = "select count(1) from employee where employee_id=?;";
+          db.query(sqlSelect4, data.supervisor_id, (err, resultcount3) => {
+            if (err) {
+              console.log(err);
+            } else {
+              // console.log(resultcount3)
+              console.log("Hi Prathu from update")
+              if (resultcount3[0]['count(1)'] === 1) {
+                const sqlSelect5 = "select supervisor from employee where employee_id=?;";
+                db.query(sqlSelect5, data.supervisor_id, (err, result) => {
+                  if (err) {
+                    // console.log(err);
+                    res.send(err)
+                  } else {
+                    console.log(result[0]['supervisor']);
+                    // res.send(result[0]);
+                    if (result[0]['supervisor'] === 1) {
+                      const sqlUpdate2 = "update supervisor set supervisor_id=? where employee_id = ?"
+                      db.query(sqlUpdate2, [data.supervisor_id, data.employee_id], (err, result) => {
+                        if (err) console.log(err);
+                        else {
+                          console.log(data.employee_id);
+                          res.send({ message: "Employee and supervisor details updated" });
+                        }
+                      })
+                    }
+                    else {
+                      res.send({ message: "Employee details updated, but supervisor isn't a supervisor" });
+                    }
+
+                  }
+                })
+              }
+              else {
+                res.send({ message: "Employee details updated, but supervisor wasn't added" });
+              }
+
+            }
+          })
+
+
+        }
+      }
+      else {
+        const sqlSelect3 = "select count(1) from employee where employee_id=?;";
+        db.query(sqlSelect3, data.supervisor_id, (err, resultcount2) => {
+          if (err) {
+            console.log(err);
+          } else {
+            // console.log(resultcount2)
+            console.log("Hi Prathu")
+            if (resultcount2[0]['count(1)'] === 1) {
+              const sqlSelect2 = "select supervisor from employee where employee_id=?;";
+              db.query(sqlSelect2, data.supervisor_id, (err, result) => {
+                if (err) {
+                  // console.log(err);
+                  res.send(err)
+                } else {
+                  console.log(result[0]['supervisor']);
+                  // res.send(result[0]);
+                  if (result[0]['supervisor'] === 1) {
+                    const sqlInsert2 = "insert into supervisor (supervisor_id,employee_id) values (?,?);"
+                    db.query(sqlInsert2, [data.supervisor_id, data.employee_id], (err, result) => {
+                      if (err) {
+                        res.send(err);
+                      } else {
+                        res.send({ message: "Employee details updated and supervisor added successfully" });
+
+                      }
+                    })
+                  }
+                  else {
+                    res.send({ message: "Employee details updated, but supervisor isn't a supervisor" });
+                  }
+
+                }
+              })
+            }
+            else {
+              res.send({ message: "Employee details updated, but supervisor wasn't added" });
+            }
+
+          }
+        })
+      }
+
     }
   })
+
+
 })
 
 app.put('/api/updateLeaves', (req, res) => {

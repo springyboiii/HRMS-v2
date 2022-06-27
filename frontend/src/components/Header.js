@@ -103,7 +103,7 @@ const Header = () => {
                         </Nav.Link>
                         <Nav className="mx-auto">
                             <Container fluid>
-                                <Navbar.Brand href="/dashboard">
+                                <Navbar.Brand href="/dummy">
                                     <img
                                         src="/logo3.png"
                                         width="30"
@@ -112,7 +112,7 @@ const Header = () => {
                                         alt="Jupiter logo"
                                     />
                                 </Navbar.Brand>
-                                <Navbar.Brand href="/dashboard">Employee Management System</Navbar.Brand>
+                                <Navbar.Brand href="/dummy">Employee Management System</Navbar.Brand>
                             </Container>
                         </Nav>
                         <Nav className="ms-auto">

@@ -172,7 +172,7 @@ function App() {
           <Route path="/LeaveConfigure" element={<UserContext.Provider value={{ Username, setUsername }}><LeaveConfigure /></UserContext.Provider>} />
           <Route path="/paygradeleaves" element={<UserContext.Provider value={{ Username, setUsername }}><PaygradeLeaveConfigure paygradeleaves={paygradeleaves} /></UserContext.Provider>} />
           <Route path="/changePassword" element={<UserContext.Provider value={{ Username, setUsername }}><ChangePassword /></UserContext.Provider>} />
-          <Route path="/dashboard" element={<UserContext.Provider value={{ Username, setUsername }}><Dummy /></UserContext.Provider>} />
+          <Route path="/dummy" element={<UserContext.Provider value={{ Username, setUsername }}><Dummy /></UserContext.Provider>} />
 
           <Route path="/GenerateReport/EmployeebyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><DeptEmp /></UserContext.Provider>} />
           <Route path="/GenerateReport/TotalLeavesgivenbyDepartment" element={<UserContext.Provider value={{ Username, setUsername }}><TotalLeave /></UserContext.Provider>} />

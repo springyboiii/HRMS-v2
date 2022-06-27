@@ -78,7 +78,7 @@ const Homepage = () => {
                 // alert("logged in")
                 toast.current.show({ severity: 'success', summary: 'Successfully Logged in!', life: 5000 });     //this doesn't show
                 //redirect somehwere
-                navigate('/dashboard', { replace: true });
+                navigate('/dummy', { replace: true });
 
             }
         })
