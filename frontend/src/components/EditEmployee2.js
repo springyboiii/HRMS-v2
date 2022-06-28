@@ -29,10 +29,11 @@ const EditEmployee2 = ({ employees }) => {
 
   const [id, setID] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const title=JSON.parse(localStorage.getItem('title'));
 
 
   useEffect(()=>{
-    if (UserType[0].jobTitle != 1 && UserType[0].jobTitle != 3){
+    if (title != 1 && title != 3){
       navigate('/dummy', { replace: true });
     }
  

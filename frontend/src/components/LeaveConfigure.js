@@ -30,9 +30,11 @@ const LeaveConfigure2= ({ employees }) => {
 
   const [id, setID] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const level=JSON.parse(localStorage.getItem('payGrade'));
+
 
   useEffect(()=>{
-    if (UserType[0].payGrade != 3){
+    if (level != 3){
       navigate('/dummy', { replace: true });
     }
  

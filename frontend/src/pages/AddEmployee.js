@@ -19,9 +19,10 @@ const AddEmployee = ({ addEmployeeDetails }) => {
 
   const [employee, setEmployee] = useState({})
   const toast = useRef(null);
+  const title=JSON.parse(localStorage.getItem('title'));
 
   useEffect(() => {
-    if (UserType[0].jobTitle != 1 && UserType[0].jobTitle != 2) {
+    if (title != 1 && title != 2) {
       navigate('/dummy', { replace: true });
     }
 
