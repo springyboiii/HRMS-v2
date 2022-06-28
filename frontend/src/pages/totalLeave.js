@@ -22,11 +22,12 @@ const TotalLeave = () => {
   const[department,setdepartment]=useState("");
   const { UserType, setUserType } = useContext(UserTypeContext);
   const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
 
 
 
   useEffect(()=>{
-    if (UserType[0].jobTitle != 3){
+    if (title != 3){
       navigate('/dummy', { replace: true });
     }
  

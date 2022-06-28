@@ -18,6 +18,7 @@ function GrpEmp(){
   const [emp,setEmp]=useState([]);
   const { UserType, setUserType } = useContext(UserTypeContext);
   const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
 
   // const Results = () => (
   //   // <div className='container'>
@@ -53,7 +54,7 @@ function GrpEmp(){
   //   //   </div>
   // )
   useEffect(()=>{
-    if (UserType[0].jobTitle != 3){
+    if (title != 3){
       navigate('/dummy', { replace: true });
     }
  
