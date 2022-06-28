@@ -793,12 +793,15 @@ app.get("/api/grpemp/:dept", (req, res) => {
 
 app.get("/api/geteId/:Username", (req, res) => {
   const emp_user = req.params.Username;
+  // console.log(emp_user)
   const sqlSelect = "select employee_id from employee where email = ?";
   db.query(sqlSelect, emp_user, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(result[0]['firstname']);
+      console.log(emp_user)
+
+      console.log(result);
       res.send(result[0]);
 
     }

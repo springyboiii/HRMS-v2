@@ -21,14 +21,16 @@ const PaygradeLeaveConfigure = (props) => {
   const[paygrade,setPaygrade] = useState(1);
   const[leaves,setLeaves] = useState(1);
   const navigate = useNavigate();
-  const { UserType, setUserType } = useContext(UserTypeContext);
+  // const { UserType, setUserType } = useContext(UserTypeContext);
+  const payGrade =JSON.parse(localStorage.getItem('payGrade'));
+  console.log(payGrade);
+
 
   const paygradeleaves = props.paygradeleaves;  
-  console.log(paygradeleaves);
 
 
   useEffect(()=>{
-    if (UserType[0].payGrade != 3){
+    if (payGrade != 3){
       navigate('/dummy', { replace: true });
     }
       

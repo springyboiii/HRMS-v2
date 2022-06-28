@@ -15,8 +15,11 @@ import { UserContext } from "../contexts/UserContext";
 
 function SupervisorApproveLeave(props) {
   const navigate = useNavigate();
-  const { UserType, setUserType } = useContext(UserTypeContext);
-  const { Username, setUsername } = useContext(UserContext);
+  // const { UserType, setUserType } = useContext(UserTypeContext);
+  // const { Username, setUsername } = useContext(UserContext);
+  const Username= JSON.parse(localStorage.getItem('username'));
+  const supervisor =localStorage.getItem('supervisor');
+
   const [pendleaves,setPending]=useState([]);
   
   // console.log(Username)
@@ -24,12 +27,12 @@ function SupervisorApproveLeave(props) {
 
 
   useEffect(()=>{
-    if (UserType[0].supervisor != 1){
+    if (supervisor != 1){
       navigate('/dummy', { replace: true });
     }
     else{
       Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
-        console.log(response.data)
+        console.log(response)
         var empId=response.data.employee_id
         // console.log(empId)
         Axios.get(`http://localhost:3001/api/leave/${empId}`).then((response) => {
@@ -91,7 +94,7 @@ function SupervisorApproveLeave(props) {
       <Header />
 
       <div className="container">
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="dark" style={{textAlign: "center"}}>
           <thead>
             <tr>
               <th>Leave ID</th>
@@ -104,7 +107,7 @@ function SupervisorApproveLeave(props) {
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {pendleaves.map((leave, index) => (
               <tr key={index} data-index={index}>
                 <td>{leave.leave_id}</td>
@@ -126,14 +129,14 @@ function SupervisorApproveLeave(props) {
                         leave.duration
                       );
                     }}
-                    size="lg"
+                    size="sm"
                     type="submit"
                   >
                     Accept
                   </Button>
                   {""}
                   <Button
-                    size="lg"
+                    size="sm"
                     variant="danger"
                     onClick={() => {
                       declineRequest(leave.leave_id);
