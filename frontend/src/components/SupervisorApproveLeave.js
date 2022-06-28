@@ -24,7 +24,11 @@ function SupervisorApproveLeave(props) {
 
 
   useEffect(()=>{
-    Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
+    if (UserType[0].supervisor != 1){
+      navigate('/dummy', { replace: true });
+    }
+    else{
+      Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response)=>{
         console.log(response.data)
         var empId=response.data.employee_id
         // console.log(empId)
@@ -36,6 +40,10 @@ function SupervisorApproveLeave(props) {
     // })
   });
     });
+
+    }
+ 
+    
       
   },[])
 
