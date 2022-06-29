@@ -11,6 +11,7 @@ import Leaves from "./Leaves";
 import { ConeStriped } from "react-bootstrap-icons";
 import { UserTypeContext } from "../contexts/UserTypeContext";
 import { UserContext } from "../contexts/UserContext";
+import { Link } from 'react-router-dom';
 
 
 function SupervisorApproveLeave(props) {
@@ -51,7 +52,44 @@ function SupervisorApproveLeave(props) {
   },[])
 
   // const arr=pendleaves;
+
+  function leaveType(type){
+    switch (type){
+      case 1:
+        type="Annual Leave";
+        break;
+      case 2:
+        type="Sick Leave";
+        break;
+      case 3:
+        type="Maternity Leave";
+        break;
+      case 4:
+        type="Parental Leave";
+        break;
+      case 5:
+        type="Unpaid Leave";
+        break;      
+      case 6:
+        type="Other";
+        break;
+      default:
+        break;
+    }
+    return type;
+  }
+
  
+  function leaveDocument(fName){
+    if (fName!=null){
+      var path="/uploads/"+fName;
+      return (<Link to={path} target="_blank" download>{fName}</Link>)
+    }
+    else{
+      return "No document";
+    }
+    
+  }
 
 
 
@@ -99,11 +137,13 @@ function SupervisorApproveLeave(props) {
             <tr>
               <th>Leave ID</th>
 
-              <th>Duration</th>
+              <th>{"Duration (Days)"}</th>
               <th>Start Day of Absence</th>
               <th>Description</th>
               <th>Type</th>
+              <th>Document</th>
               <th>Employee ID</th>
+              <th>Name</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -115,9 +155,10 @@ function SupervisorApproveLeave(props) {
                 <td>{dateFormatter(leave.start_date)}</td>
                 <td>{leave.description}</td>
 
-                <td>{leave.type}</td>
-
+                <td>{leaveType(leave.type)}</td>
+                <td>{leaveDocument(leave.document)}</td>
                 <td>{leave.employee_id}</td>
+                <td>{leave.firstname + " " + leave.lastname}</td>
 
                 <td style={{ display: "flex" }}>
                   <Button

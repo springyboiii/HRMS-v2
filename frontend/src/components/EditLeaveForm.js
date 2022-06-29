@@ -21,7 +21,7 @@ const EditLeaveForm = ({ employee, register, errors, disabled, editEmployee }) =
           
             <div className="col-sm">
               <Form.Group>
-                <Form.Label>Leaves Left</Form.Label>
+                <Form.Label>No. of Leaves Left</Form.Label>
                 <Form.Control type="number"  id="leavesleft" name='leavesLeft' defaultValue={employee.leaves_left} placeholder={employee.leaves_left} {...register("salary", { required: !editEmployee })}
                   disabled={disabled} onChange={(e) => { employee.Leaves_left = e.target.value }} />
               </Form.Group>

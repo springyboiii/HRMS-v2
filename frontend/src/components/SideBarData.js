@@ -7,7 +7,7 @@ import * as MdIcons from "react-icons/md";
 
 export const SidebarData = [
   {
-    title: 'Home',
+    title: 'Personal Details',
     path: '/home',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
@@ -20,7 +20,7 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'View Leave Details',
+    title: 'Personal Leave Details',
     path: '/viewLeave',
     icon: <MdIcons.MdPageview />,
     // icon: <IoIcons.IoIosPaper />,

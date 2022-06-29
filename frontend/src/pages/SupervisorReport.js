@@ -176,7 +176,7 @@ function SupervisorReport(){
       <Toast ref={toast} position="top-center"/>
       <Form>
       <Form.Group>
-            Enter the Employee ID
+            Enter the Employee ID of Supervisor
             <br></br>
 
             <Form.Control type="number" min="1" id="supervisor" name='supervisor' value={sup} onChange={(e) => {  setSup(null); setSup(e.target.value); setEmp([]);  }}/>

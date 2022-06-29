@@ -53,6 +53,7 @@ const EditEmployee2 = ({ employees }) => {
       
       // alert(response.data.message);
       toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
+
     })
     if(employee.email===Username){
       localStorage.setItem('payGrade', JSON.stringify(employee.payGrade));
@@ -68,6 +69,8 @@ const EditEmployee2 = ({ employees }) => {
     }
     
     setFlipped(!flipped);
+    // setEmployee(null);
+    // window.location.reload(false);
   }
 
 
@@ -113,8 +116,16 @@ const EditEmployee2 = ({ employees }) => {
       response.data.dob = getDateString(response.data.dob)
       setEmployee(response.data)
       // console.log(employee)
+      if (response.data.message){
+        toast.current.show({ severity: 'info', summary: `${response.data.message}`, life: 5000 });
+      }
+      else{
+        setFlipped(!flipped);
+      }      
+      
     })   
-    setFlipped(!flipped);
+    
+    
   }
 
   return (
