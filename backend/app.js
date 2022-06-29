@@ -744,6 +744,51 @@ app.post("/api/sendRejection", (req, res) => {
 
 });
 
+app.get("/api/isemp/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "select employee_id from employee where employee_id = ?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
+
+    }
+  })
+})
+
+app.get("/api/issup/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "select supervisor from employee where employee_id = ?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
+
+app.get("/api/supemp/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "SELECT * from employee left outer join supervisor using (employee_id) where supervisor_id=?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
+
+    }
+  })
+})
+
 app.post("/api/savePaygradeLeaveChanges", (req, res) => {
 
   const payGrade = req.body.payGrade;

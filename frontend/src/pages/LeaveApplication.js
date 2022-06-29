@@ -103,6 +103,11 @@ function LeaveApplication(props) {
       toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please select the leave type.', life: 5000 });
     }
 
+    else if (duration > 30 ) {
+      // alert("please enter the duration")
+      toast.current.show({ severity: 'info', summary: 'Invalid Details', detail: 'Maximum amount of duration for leave can be 30 days.', life: 5000 });
+    }
+
 
     else {
       Axios.get(`http://localhost:3001/api/geteId/${Username}`).then((response) => {
@@ -184,7 +189,7 @@ function LeaveApplication(props) {
                     <div class="row">
                       <div class="col-sm">
                         <Form.Group>
-                          Start Day of Absence
+                          From
                           <Form.Control type="date" id='startDate' min={disablePastDate()} max="2022-12-31" name='startDate' value={startDate} onChange={(e) => handleInputChange(e)}
 
                           />
@@ -192,7 +197,7 @@ function LeaveApplication(props) {
                       </div>
                       <div class="col-sm">
                         <Form.Group>
-                          Number of Days Requested
+                          Duration (days)
                           <Form.Control type="number" min="1" max="30" id="duration" name='duration' value={duration} onChange={(e) => handleInputChange(e)}
 
                           />
@@ -208,6 +213,7 @@ function LeaveApplication(props) {
 
                   <Form.Group>
                     Type of Leave Request
+                    
 
                     <Form.Select aria-label="Default select example" required id='type' name='type' value={type} onChange={(e) => handleInputChange(e)}>
                       <option value={"default"} >Choose an Option</option>
@@ -224,7 +230,7 @@ function LeaveApplication(props) {
                   <Form.Group>
                     Reason for Leave
 
-                    <textarea class="form-control" id="description" rows="3" name='description' value={description} onChange={(e) => handleInputChange(e)} placeholder='Brief description about why u need to take leave'></textarea>
+                    <textarea class="form-control" id="description" rows="3" name='description' value={description} onChange={(e) => handleInputChange(e)} placeholder='Brief description about the reason for your leave'></textarea>
 
                   </Form.Group>
                   <Form.Group controlId="formFile" className="mb-3">
