@@ -32,7 +32,7 @@ const ChangePassword = () => {
                   validate={values => {
                     const errors = {};
                     if (values.email != Username) {
-                      errors.email = "Wrong username"
+                      errors.email = "Wrong email"
                     } else
                       if (!values.password1) {
                         errors.password1 = 'Required';
