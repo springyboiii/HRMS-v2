@@ -16,6 +16,7 @@ import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import { Toast } from 'primereact/toast';
 import { UserTypeContext } from '../contexts/UserTypeContext';
+import { UserContext } from '../contexts/UserContext';
 
 
 const EditEmployee2 = ({ employees }) => {
@@ -24,6 +25,7 @@ const EditEmployee2 = ({ employees }) => {
   const [flipped, setFlipped] = useState(false);
   const toast = useRef(null);
   const { UserType, setUserType } = useContext(UserTypeContext);
+  const { Username, setUsername } = useContext(UserContext);
 
   const [employee, setEmployee] = useState({})
 
@@ -52,7 +54,8 @@ const EditEmployee2 = ({ employees }) => {
       // alert(response.data.message);
       toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
     })
-    localStorage.setItem('payGrade', JSON.stringify(employee.payGrade));
+    if(employee.email===Username){
+      localStorage.setItem('payGrade', JSON.stringify(employee.payGrade));
     localStorage.setItem('title', JSON.stringify(employee.jobTitle));
     localStorage.setItem('supervisor', JSON.stringify(employee.supervisor));
     setUserType([{
@@ -61,6 +64,9 @@ const EditEmployee2 = ({ employees }) => {
         jobTitle: JSON.parse(localStorage.getItem('title')),
         supervisor: JSON.parse(localStorage.getItem('supervisor')),
       }]);
+
+    }
+    
     setFlipped(!flipped);
   }
 
