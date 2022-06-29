@@ -39,7 +39,6 @@ function App() {
   const [leaves, setLeave] = useState([]);
   const [paygradeleaves,setPayGradeLeaves]= useState([]);
   const [employees, setEmployees] = useState([]);
-  const [pendleaves,setPending]=useState([]);
   const [Username, setUsername] = useState("Context");
   const [UserType,setUserType] = useState([{
     payGrade: null,
@@ -49,18 +48,6 @@ function App() {
   }]);
 
 
-
-
-  useEffect(()=>{
-    
-    Axios.get("http://localhost:3001/api/leave").then((response) => {
-
-      setPending(...pendleaves,response.data);
-      
-      // setLeave(response.data);
-    });
-  },[]);
-
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/getPayGradeLeaves").then((response) => {
 
@@ -69,7 +56,6 @@ function App() {
       // setLeave(response.data);
     });
   },[]);
-
 
 
 
@@ -154,9 +140,9 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<HomeDummy />} /> */}
           <Route path="/" element={<UserContext.Provider value={{ Username, setUsername }}><Homepage /></UserContext.Provider>} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       
-          <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave leaves={pendleaves} /> </UserContext.Provider>} /> 
+          <Route path="/SupervisorApproveLeave" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorApproveLeave /> </UserContext.Provider>} /> 
           <Route path="/components/SelectEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><SelectEmployee employees={employees}/></UserContext.Provider>} />
           <Route path="/components/editEmployee" element={<UserContext.Provider value={{ Username, setUsername }}><EditEmployee2 employees={employees}/></UserContext.Provider>} />
 

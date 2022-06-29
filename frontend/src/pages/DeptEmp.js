@@ -1,16 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Axios from 'axios';
 import Table from 'react-bootstrap/Table';
-
+import { UserTypeContext } from '../contexts/UserTypeContext';
+import { useNavigate } from "react-router-dom";
 function DeptEmp(){
 
   const [dept, setDept] = useState(null);
   const [open,setOpen]=useState(false);
   const [emp,setEmp]=useState([]);
+
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
 
   // const Results = () => (
   //   // <div className='container'>
@@ -45,6 +50,13 @@ function DeptEmp(){
   //   //     </Table>
   //   //   </div>
   // )
+  useEffect(()=>{
+    if (title != 3){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
 
 
   const handleSubmit = (event) => {

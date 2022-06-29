@@ -17,6 +17,12 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
   // const {register, handleSubmit, formState:{errors}} = useForm();
   // console.log(employee)
   // console.log(employee);
+  var supervisor_id_val = "";
+  console.log(employee.supervisor_id)
+  if(editEmployee && employee.supervisor_id === null){
+    supervisor_id_val  = "No Supervisor Assigned";
+    console.log(employee.supervisor_id)
+  }
 
   return (
     <div>
@@ -227,7 +233,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               {/* <Form.Group> */}
               <div className="col-sm-6">
                 <Form.Label>Supervisor's ID</Form.Label>
-                <Form.Control type="text" name="supervisor_id" defaultValue={employee.supervisor_id} {...register("supervisor_id", {
+                <Form.Control type="text" name="supervisor_id" defaultValue={employee.supervisor_id} placeholder={supervisor_id_val} {...register("supervisor_id", {
                   required: false})} disabled={disabled} onChange={(e) => { employee.supervisor_id = e.target.value }}
                 />
                 {/* </Form.Group> */}
@@ -247,7 +253,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               </div>
               <div className="col-sm">
                 {/* <Form.Group> */}
-                <Form.Label>Supervisor?</Form.Label>
+                <Form.Label>Is supervisor?</Form.Label>
                 <br></br>
                 {console.log(employee.supervisor)}
                 <input type="radio" name="supervisor" value="1" disabled={disabled} defaultChecked={employee.supervisor} {...register("supervisor", { required: !editEmployee })} onClick={(e) => { employee.supervisor = e.target.value }} /> Yes

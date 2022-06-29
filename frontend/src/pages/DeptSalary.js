@@ -7,6 +7,8 @@ import Axios from 'axios';
 import Footer from '../components/Footer';
 
 import Header from '../components/Header';
+import { UserTypeContext } from '../contexts/UserTypeContext';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,6 +17,9 @@ import Header from '../components/Header';
 function DeptSalary() {
 
   const [report, setReport] = useState([]);
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
 
 
 
@@ -25,7 +30,11 @@ function DeptSalary() {
 
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/getdeptsalary`).then((response) => {
+    if (title != 3){
+      navigate('/dummy', { replace: true });
+    }
+    else{
+      Axios.get(`http://localhost:3001/api/getdeptsalary`).then((response) => {
       console.log(response.data)
       setReport(...report, response.data);
 
@@ -33,6 +42,9 @@ function DeptSalary() {
       // })
 
     });
+      
+    }
+    
 
   }, [])
 

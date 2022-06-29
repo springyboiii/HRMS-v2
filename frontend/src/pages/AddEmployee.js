@@ -3,16 +3,31 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 import Employee from '../components/Employee';
-import { useState } from 'react';
+import { Toast } from 'primereact/toast';
+import { useState, useEffect, useContext, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Axios from 'axios';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 const AddEmployee = ({ addEmployeeDetails }) => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
 
   const [employee, setEmployee] = useState({})
+  const toast = useRef(null);
+  const title=JSON.parse(localStorage.getItem('title'));
+
+  useEffect(() => {
+    if (title != 1 && title != 2) {
+      navigate('/dummy', { replace: true });
+    }
+
+
+  }, [])
 
   const onSubmit = (data) => {
 
@@ -22,7 +37,8 @@ const AddEmployee = ({ addEmployeeDetails }) => {
       // alert("Voila user added")
       console.log(response.data)
       if (response.data.message) {
-        alert(response.data.message);
+        // alert(response.data.message);
+        toast.current.show({ severity: 'info', summary: 'Employee email already exists!', life: 5000 });
         return;
       } else {
 
@@ -30,14 +46,17 @@ const AddEmployee = ({ addEmployeeDetails }) => {
           employeeData: data
         }).then((response) => {
           console.log(response)
-          alert("Voila")
+          // alert(response.data.message)
+          // alert("Voila")
+          toast.current.show({ severity: 'success', summary: 'Employee Added!', life: 5000 });
           setEmployee(data);
           addEmployeeDetails(data);
           setEmployee("");
+          window.location.reload(false);
         })
-        alert("Employee Added")
+        // alert("Employee Added")
         //redirect somehwere
-
+        toast.current.show({ severity: 'success', summary: 'Employee Added!', life: 5000 });
 
       }
 
@@ -73,12 +92,15 @@ const AddEmployee = ({ addEmployeeDetails }) => {
 
   return (
     <div className="addempdiv">
+      <Toast ref={toast} position="top-center" />
       <Form>
-        <Header/>
-        <Employee employee={employee} register={register} errors={errors} disabled={0} editEmployee={0}/>
-        <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
-          Click here to submit form
-        </Button>
+        <Header />
+        <Employee employee={employee} register={register} errors={errors} disabled={0} editEmployee={0} />
+        <div className='text-center'>
+          <Button className="btn" onClick={handleSubmit(onSubmit)} variant="primary" type="submit">
+            Click here to submit form
+          </Button>
+        </div>
       </Form>
       <Footer />
     </div>

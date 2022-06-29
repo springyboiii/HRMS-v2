@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import Employee from "./Employee";
 import Employees from "./Employees";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { TypeH1 } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
 import Header from "./Header";
@@ -16,17 +16,30 @@ import {Link} from 'react-router-dom';
 import Axios from 'axios';
 import EditLeaveForm from "./EditLeaveForm";
 import { Toast } from 'primereact/toast';
+import { UserTypeContext } from '../contexts/UserTypeContext';
 
 const LeaveConfigure2= ({ employees }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const navigate = useNavigate();
   const [flipped, setFlipped] = useState(false);
   const toast = useRef(null);
+  const { UserType, setUserType } = useContext(UserTypeContext);
+
 
   const [employee, setEmployee] = useState({})
 
   const [id, setID] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const level=JSON.parse(localStorage.getItem('payGrade'));
+
+
+  useEffect(()=>{
+    if (level != 3){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
 
   const onSubmit = (data) => {
     data['employee_id'] = id
@@ -105,7 +118,7 @@ const handleSubmitButton = (event) => {
                     <h4 className="text-center">{employee.firstname} {employee.lastname}'s Leave Information</h4><br></br>
                     <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
                     <Button className="btn1" onClick={handleSubmit(onSubmit)} variant="primary" type="submit" >
-                      Click here to submit form
+                      Configure Leaves
                     </Button>
                 </Card.Body>
               </Card>

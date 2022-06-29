@@ -5,9 +5,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState,useEffect,useContext } from 'react';
 import Axios from 'axios';
 import Modal from "react-bootstrap/Modal";
+import { UserTypeContext } from '../contexts/UserTypeContext';
+import { useNavigate } from "react-router-dom";
 
 
 const TotalLeave = () => {
@@ -18,6 +20,19 @@ const TotalLeave = () => {
   const[fromDate,setfromDate]=useState("");
   const[toDate,settoDate]=useState("");
   const[department,setdepartment]=useState("");
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
+
+
+
+  useEffect(()=>{
+    if (title != 3){
+      navigate('/dummy', { replace: true });
+    }
+ 
+      
+  },[])
 
 
 

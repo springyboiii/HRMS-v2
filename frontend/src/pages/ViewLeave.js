@@ -15,8 +15,9 @@ import { UserContext } from '../contexts/UserContext';
 function ViewLeave(props) {
 
   const [leaves,setLeave]=useState([]);
-  const {Username,setUsername}=useContext(UserContext);
+  // const {Username,setUsername}=useContext(UserContext);
   var empId;
+  const Username= JSON.parse(localStorage.getItem('username'));
 
 
 

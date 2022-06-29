@@ -7,6 +7,9 @@ import Axios from 'axios';
 import Footer from '../components/Footer';
 
 import Header from '../components/Header';
+import { UserTypeContext } from '../contexts/UserTypeContext';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -15,6 +18,9 @@ import Header from '../components/Header';
 function PaySalary() {
 
   const [payreport, setPayReport] = useState([]);
+  const { UserType, setUserType } = useContext(UserTypeContext);
+  const navigate = useNavigate();
+  const title=JSON.parse(localStorage.getItem('title'));
 
 
 
@@ -25,7 +31,11 @@ function PaySalary() {
 
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/getpaysalary`).then((response) => {
+    if (title!= 3){
+      navigate('/dummy', { replace: true });
+    }
+    else{
+      Axios.get(`http://localhost:3001/api/getpaysalary`).then((response) => {
       console.log(response.data)
       setPayReport(...payreport, response.data);
 
@@ -33,6 +43,9 @@ function PaySalary() {
       // })
 
     });
+
+    }
+    
 
   }, [])
 
