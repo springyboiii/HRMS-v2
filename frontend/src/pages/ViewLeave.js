@@ -73,7 +73,7 @@ function ViewLeave(props) {
       return (<Link to={path} target="_blank" download>{fName}</Link>)
     }
     else{
-      return null;
+      return "No document";
     }
     
   }
@@ -88,7 +88,7 @@ function ViewLeave(props) {
             <tr>
               <th>#</th>
               <th>Start Day of Absence</th>
-              <th>Duration</th>
+              <th>Duration (Days)</th>
               <th>Type of Leave</th>
               <th>Reason</th>
               <th>Document</th>
