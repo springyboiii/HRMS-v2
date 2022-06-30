@@ -245,7 +245,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               <div className='col-md-6'>
                 <br></br>
                 <br></br>
-              {!disabled && <Form.Label className='errorMsg'>Type 'No' if no supervisor sssigned.</Form.Label>}
+              {!disabled && <Form.Label className='errorMsg'>Type 'No' if no supervisor assigned.</Form.Label>}
               </div>
             </div>
             <div className="row">
