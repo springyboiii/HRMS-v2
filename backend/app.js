@@ -83,7 +83,7 @@ app.get("/api/logout", (req, res) => {
 app.get("/api/leave/:empId", (req, res) => {
 
   const employee_id = req.params.empId;
-  const stat = "SELECT * FROM leave_table where leave_status='Pending' and supervisor_id=? " ;
+  const stat = "SELECT * FROM leave_table left outer join employee using (employee_id) where leave_status='Pending' and supervisor_id=? ";
   db.query(stat, employee_id, (err, result) => {
     if (err) {
       console.log(err);
@@ -217,17 +217,31 @@ app.get("/api/getemps/:Username", (req, res) => {
 
 app.get("/api/getemps2/:id", (req, res) => {
   const employee_id = req.params.id;
-  const sqlSelect = "select * from employee left outer join supervisor using (employee_id) where employee_id = ?";
-  // console.log(employee_id);
-  db.query(sqlSelect, employee_id, (err, result) => {
+  const sqlSelect1 = "select count(1) from employee where employee_id=?;";
+  db.query(sqlSelect1, employee_id, (err, resultcount) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(result[0]['firstname']);
-      res.send(result[0]);
+      if (resultcount[0]['count(1)'] === 1) {
+        const sqlSelect = "select * from employee left outer join supervisor using (employee_id) where employee_id = ?";
+        // console.log(employee_id);
+        db.query(sqlSelect, employee_id, (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            // console.log(result[0]['firstname']);
+            res.send(result[0]);
+
+          }
+        })
+      }
+      else{
+        res.send({message:"Employee ID is invalid"})
+      }
 
     }
   })
+
 })
 
 // app.post("/api/getEmployee", (req, res) => {
@@ -349,7 +363,7 @@ app.put('/api/updateEmployee', (req, res) => {
       // console.log(result[0]['firstname']);
       // res.send(result[0]);
       if (resultcount[0]['count(1)'] === 1) {
-        if (data.supervisor_id === '') {
+        if (data.supervisor_id === 'No') {
           const sqlDelete = "delete from supervisor where employee_id=?;";
           db.query(sqlDelete, data.employee_id, (err, result) => {
             if (err) console.log(err);
@@ -359,7 +373,8 @@ app.put('/api/updateEmployee', (req, res) => {
             }
           })
         }
-        else {
+        else if (data.supervisor_id !== null) {
+          console.log(data.supervisor_id + "Hello..")
           const sqlSelect4 = "select count(1) from employee where employee_id=?;";
           db.query(sqlSelect4, data.supervisor_id, (err, resultcount3) => {
             if (err) {
@@ -382,19 +397,19 @@ app.put('/api/updateEmployee', (req, res) => {
                         if (err) console.log(err);
                         else {
                           console.log(data.employee_id);
-                          res.send({ message: "Employee and supervisor details updated" });
+                          res.send({ message: "Employee details updated" });
                         }
                       })
                     }
                     else {
-                      res.send({ message: "Employee details updated, but supervisor isn't a supervisor" });
+                      res.send({ message: "Employee details updated, but supervisor ID is incorrect" });
                     }
 
                   }
                 })
               }
               else {
-                res.send({ message: "Employee details updated, but supervisor wasn't added" });
+                res.send({ message: "Employee details updated, but supervisor ID is invalid" });
               }
 
             }
@@ -403,7 +418,8 @@ app.put('/api/updateEmployee', (req, res) => {
 
         }
       }
-      else {
+      else if (data.supervisor_id !== null) {
+        console.log("Hello!!!!" + data.supervisor_id)
         const sqlSelect3 = "select count(1) from employee where employee_id=?;";
         db.query(sqlSelect3, data.supervisor_id, (err, resultcount2) => {
           if (err) {
@@ -432,14 +448,14 @@ app.put('/api/updateEmployee', (req, res) => {
                     })
                   }
                   else {
-                    res.send({ message: "Employee details updated, but supervisor isn't a supervisor" });
+                    res.send({ message: "Employee details updated, but supervisor ID is incorrect" });
                   }
 
                 }
               })
             }
             else {
-              res.send({ message: "Employee details updated, but supervisor wasn't added" });
+              res.send({ message: "Employee details updated, but supervisor ID is invalid" });
             }
 
           }
@@ -743,6 +759,51 @@ app.post("/api/sendRejection", (req, res) => {
   })
 
 });
+
+app.get("/api/isemp/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "select employee_id from employee where employee_id = ?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
+
+    }
+  })
+})
+
+app.get("/api/issup/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "select supervisor from employee where employee_id = ?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result[0]);
+
+    }
+  })
+})
+
+app.get("/api/supemp/:sup", (req, res) => {
+  const supervisor_id = req.params.sup;
+  const sqlSelect = "SELECT * from employee left outer join supervisor using (employee_id) where supervisor_id=?";
+  // console.log(employee_id);
+  db.query(sqlSelect, supervisor_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // console.log(result[0]['firstname']);
+      res.send(result);
+
+    }
+  })
+})
 
 app.post("/api/savePaygradeLeaveChanges", (req, res) => {
 

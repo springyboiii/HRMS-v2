@@ -98,3 +98,10 @@ BEGIN
         set new.leaves_left = if(new_leaves+OLD.leaves_left-old_leaves>=0,new_leaves+OLD.leaves_left-old_leaves,0);         
     END IF;
 END
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `hrmsdb`.`employee_AFTER_UPDATE` AFTER UPDATE ON `employee` FOR EACH ROW
+BEGIN
+	IF OLD.supervisor <> new.supervisor AND new.supervisor = 0 THEN
+		delete from hrmsdb.supervisor where supervisor_id = new.employee_id;     
+    END IF;
+END

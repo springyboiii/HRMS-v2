@@ -19,7 +19,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
   // console.log(employee);
   var supervisor_id_val = "";
   console.log(employee.supervisor_id)
-  if(editEmployee && employee.supervisor_id === null){
+  if(employee.supervisor_id === null){
     supervisor_id_val  = "No Supervisor Assigned";
     console.log(employee.supervisor_id)
   }
@@ -233,7 +233,7 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
               {/* <Form.Group> */}
               <div className="col-sm-6">
                 <Form.Label>Supervisor's ID</Form.Label>
-                <Form.Control type="text" name="supervisor_id" defaultValue={employee.supervisor_id} placeholder={supervisor_id_val} {...register("supervisor_id", {
+                <Form.Control type="text" name="supervisor_id" defaultValue={supervisor_id_val} {...register("supervisor_id", {
                   required: false})} disabled={disabled} onChange={(e) => { employee.supervisor_id = e.target.value }}
                 />
                 {/* </Form.Group> */}

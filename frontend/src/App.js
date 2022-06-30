@@ -34,6 +34,7 @@ import { Toast } from 'primereact/toast';
 
 import Dashboard from "./pages/Dashboard";
 import TitleAge from "./pages/TitleAge";
+import SupervisorReport from "./pages/SupervisorReport";
 
 function App() {
   const [leaves, setLeave] = useState([]);
@@ -166,6 +167,7 @@ function App() {
           <Route path="/GeneralReport/DepartmentTotalSalary" element={<UserContext.Provider value={{ Username, setUsername }}><DeptSalary /></UserContext.Provider>} />
           <Route path="/GeneralReport/DepartmentPayGrade" element={<UserContext.Provider value={{ Username, setUsername }}><PaySalary /></UserContext.Provider>} />
           <Route path="/GeneralReport/TitleAge" element={<UserContext.Provider value={{ Username, setUsername }}><TitleAge /></UserContext.Provider>} />
+          <Route path="/SupervisorReport" element={<UserContext.Provider value={{ Username, setUsername }}><SupervisorReport /></UserContext.Provider>} />
 
         </Routes>
       </Router>

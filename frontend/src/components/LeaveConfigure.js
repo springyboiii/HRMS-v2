@@ -78,8 +78,14 @@ const handleSubmitButton = (event) => {
     response.data.dob = getDateString(response.data.dob)
     setEmployee(response.data)
     console.log(employee.firstname)
+    if (response.data.message){
+      toast.current.show({ severity: 'info', summary: `${response.data.message}`, life: 5000 });
+    }
+    else{
+      setFlipped(!flipped);
+    }      
   })   
-  setFlipped(!flipped);
+ 
 }
 
 
@@ -115,7 +121,7 @@ const handleSubmitButton = (event) => {
               <Card>
                 <Card.Body>
                    
-                    <h4 className="text-center">{employee.firstname} {employee.lastname}'s Leave Information</h4><br></br>
+                    <h4 className="text-center">{employee.firstname} {employee.lastname}</h4><br></br>
                     <EditLeaveForm key={employee.id} employee={employee} register={register} errors={errors} disabled={0} editEmployee={false} editLeaves={true}/>
                     <Button className="btn1" onClick={handleSubmit(onSubmit)} variant="primary" type="submit" >
                       Configure Leaves

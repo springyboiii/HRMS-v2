@@ -16,7 +16,7 @@ export const SidebarData3 = [
 
         subNav: [
             {
-                title: 'Leave Configure',
+                title: 'Configure Leaves',
                 path: '/LeaveConfigure',
                 // icon: <MdIcons.MdPageview />,
                 icon: <IoIcons.IoIosPaper />,
