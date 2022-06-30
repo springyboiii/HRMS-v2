@@ -23,6 +23,9 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
     supervisor_id_val  = "No Supervisor Assigned";
     console.log(employee.supervisor_id)
   }
+  else{
+    supervisor_id_val = employee.supervisor_id;
+  }
 
   return (
     <div>
@@ -238,6 +241,11 @@ const Employee = ({ employee, register, errors, disabled, editEmployee }) => {
                 />
                 {/* </Form.Group> */}
                 {errors.supervisor_id && <p className='errorMsg'>Supervisor's ID is required!</p>}
+              </div>
+              <div className='col-md-6'>
+                <br></br>
+                <br></br>
+              {!disabled && <Form.Label className='errorMsg'>Type 'No' if no supervisor sssigned.</Form.Label>}
               </div>
             </div>
             <div className="row">
