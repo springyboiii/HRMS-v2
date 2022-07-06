@@ -61,10 +61,10 @@ function DeptEmp(){
 
   const handleSubmit = (event) => {
     Axios.get(`http://localhost:3001/api/getdeptemp/${dept}`).then((response)=>{
-      console.log(response.data)
+      console.log(response.data[0])
       // setEmp(...emp,[]);
       console.log(emp);
-      setEmp(...emp,response.data)
+      setEmp(...emp,response.data[0])
       console.log(emp)
       setOpen(true)
       // emp=response.data
