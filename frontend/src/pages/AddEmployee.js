@@ -56,7 +56,7 @@ const AddEmployee = ({ addEmployeeDetails }) => {
         })
         // alert("Employee Added")
         //redirect somehwere
-        toast.current.show({ severity: 'success', summary: 'Employee Added!', life: 5000 });
+        // toast.current.show({ severity: 'success', summary: 'Employee Added!', life: 5000 });
 
       }
 

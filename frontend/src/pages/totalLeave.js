@@ -133,7 +133,7 @@ const TotalLeave = () => {
           </br>
           <h6> Department {department} </h6>
           <br></br>
-          <h6> Total Approved Leaves: {count}</h6>
+          <h6> Total Approved Leave Days: {count}</h6>
 
 
 

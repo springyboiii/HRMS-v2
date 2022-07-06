@@ -45,9 +45,14 @@ CREATE TABLE `employee` (
 INSERT INTO `user_table` (`username`, `password`) VALUES
 ('managerone@gmail.com', '$2b$10$jAdWB80x0Mh3w0xCxRDpAuozFsHzBhLfT5or6bNOAVZFkzJeCfpsG');
 
-INSERT INTO `employee` (`employee_id`, `firstname`, `lastname`, `addressNo`, `street`, `city`, `payGrade`, `employmentStatus`, `partTime`, `jobTitle`, `supervisor`, `gender`, `dob`, `startDate`, `salary`, `leaves_left`, `email`, `department_id`) VALUES
-(1, 'Manager', 'One', '60', 'flower road', 'Kandy', '3', '3', 0, '3', 1, 1, '1985-06-29', '2022-03-10', 200000, 50, 'managerone@gmail.com', 1);
+INSERT INTO `employee` (`firstname`, `lastname`, `addressNo`, `street`, `city`, `payGrade`, `employmentStatus`, `partTime`, `jobTitle`, `supervisor`, `gender`, `dob`, `startDate`, `salary`, `leaves_left`, `email`, `department_id`) VALUES
+('Manager', 'One', '60', 'flower road', 'Kandy', '3', '3', 0, '3', 1, 1, '1985-06-29', '2022-03-10', 200000, 55, 'managerone@gmail.com', 1);
 
+INSERT INTO `user_table` (`username`, `password`) VALUES
+('hrone@gmail.com', '$2b$10$jAdWB80x0Mh3w0xCxRDpAuozFsHzBhLfT5or6bNOAVZFkzJeCfpsG');
+
+INSERT INTO `employee` (`firstname`, `lastname`, `addressNo`, `street`, `city`, `payGrade`, `employmentStatus`, `partTime`, `jobTitle`, `supervisor`, `gender`, `dob`, `startDate`, `salary`, `leaves_left`, `email`, `department_id`) VALUES
+('Hr', 'One', '24', 'station road', 'Colombo', '3', '3', 0, '1', 1, 0, '1990-03-12', '2021-03-15', 250000, 55, 'hrone@gmail.com', 1);
 
 DROP TABLE IF EXISTS `supervisor`;
 CREATE TABLE `supervisor` (
@@ -80,6 +85,16 @@ CREATE TABLE `user_table` (
   PRIMARY KEY (`username`)
 ) ;
 
+CONSTRAINT CHK_Person CHECK (Age>=18 AND City='Sandnes')
+ALTER TABLE t1 ADD CHECK (c1 > 0),
+    ->                ADD CONSTRAINT c1_min_chk CHECK (c1 > 0),
+    ->                ADD CHECK (c2 > 0) NOT ENFORCED,
+    ->                ADD CONSTRAINT c2_min_chk CHECK (c2 > 0) NOT ENFORCED;
+
+
+ALTER TABLE employee ADD constraint Empsalary CHECK (`salary` >= 20000 AND `salary` <= 400000);
+ 
+
 DELIMITER //
 CREATE PROCEDURE deptemp (IN dept INTEGER)
 BEGIN
@@ -109,5 +124,8 @@ BEGIN
 		delete from supervisor where supervisor_id = new.employee_id;     
     END IF;
 END//;
+
+create index emp_email_index on employee(email);
+create index leave_emp_id_index on leave_table(employee_id);
 
 

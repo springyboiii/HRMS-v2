@@ -50,7 +50,7 @@ const EditEmployee2 = ({ employees }) => {
     Axios.put('http://localhost:3001/api/updateEmployee', {
       employeeData: employee
     }).then((response)=>{
-      
+      console.log("Nishaa Gopi")
       // alert(response.data.message);
       toast.current.show({ severity: 'success', summary: `${response.data.message}`, life: 5000 });
 
