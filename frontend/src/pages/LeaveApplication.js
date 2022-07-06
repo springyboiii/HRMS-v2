@@ -103,9 +103,9 @@ function LeaveApplication(props) {
       toast.current.show({ severity: 'info', summary: 'Incomplete Details', detail: 'please select the leave type.', life: 5000 });
     }
 
-    else if (duration > 30 ) {
+    else if (duration > 100 ) {
       // alert("please enter the duration")
-      toast.current.show({ severity: 'info', summary: 'Invalid Details', detail: 'Maximum amount of duration for leave can be 30 days.', life: 5000 });
+      toast.current.show({ severity: 'info', summary: 'Invalid Details', detail: 'Maximum amount of duration for leave can be 100 days.', life: 5000 });
     }
 
 
@@ -198,7 +198,7 @@ function LeaveApplication(props) {
                       <div class="col-sm">
                         <Form.Group>
                           Duration (days)
-                          <Form.Control type="number" min="1" max="30" id="duration" name='duration' value={duration} onChange={(e) => handleInputChange(e)}
+                          <Form.Control type="number" min="1" max="100" id="duration" name='duration' value={duration} onChange={(e) => handleInputChange(e)}
 
                           />
                         </Form.Group>
