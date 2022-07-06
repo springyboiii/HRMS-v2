@@ -1,7 +1,30 @@
-DELIMITER $$
+DELIMITER //
 CREATE PROCEDURE deptemp (IN dept INTEGER)
 BEGIN
   select * from employee where department_id = dept;
-END$$
-DELIMITER ;
+END//;
+
+delimiter // 
+create trigger paygrade_leave_after_update after update on paygrade_leave for each row begin update employee set leaves_left=if(new.leaves+leaves_left-old.leaves>=0,new.leaves+leaves_left-old.leaves,0) where employee.payGrade=new.payGrade;
+end//;
+
+delimiter //
+CREATE TRIGGER employee_BEFORE_UPDATE BEFORE UPDATE ON employee FOR EACH ROW
+BEGIN
+	DECLARE old_leaves INT;
+    DECLARE new_leaves INT;
+    IF OLD.payGrade <> new.payGrade THEN
+		select leaves into old_leaves from paygrade_leave where payGrade = OLD.payGrade;
+        select leaves into new_leaves from paygrade_leave where payGrade = new.payGrade;        
+        set new.leaves_left = if(new_leaves+OLD.leaves_left-old_leaves>=0,new_leaves+OLD.leaves_left-old_leaves,0);         
+    END IF;
+END//;
+
+delimiter //
+CREATE TRIGGER employee_AFTER_UPDATE AFTER UPDATE ON employee FOR EACH ROW
+BEGIN
+	IF OLD.supervisor <> new.supervisor AND new.supervisor = 0 THEN
+		delete from supervisor where supervisor_id = new.employee_id;     
+    END IF;
+END//;
 
