@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE PROCEDURE deptemp (IN dept INTEGER)
+BEGIN
+  select * from employee where department_id = dept;
+END$$
+DELIMITER ;
+
