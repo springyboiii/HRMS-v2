@@ -655,7 +655,7 @@ app.get("/api/leaveReport", (req, res) => {
   // const v3 = "create view v3 as select leave_id, start_date, datediff(day,?,DATEADD(dd, duration, start_date)) as duration from leave_table left outer join employee using (employee_id) where start_date<=? and DATEADD(dd, duration, start_date) >= ? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
   // const sqlselect = "select sum(duration) from v1 union all select sum(duration) from v2 union all select sum(duration) from v3;";
 
-  const sqlSelect = "select leave_id, start_date, duration, employee_id from leave_table left outer join employee using (employee_id) where department_id=?;";
+  const sqlSelect = "select leave_id, start_date, duration, employee_id from leave_table left outer join employee using (employee_id) where department_id=? and leave_status='Accepted';";
 
   const getDateString = (dateString) => {
     var dateString = new Date(dateString);

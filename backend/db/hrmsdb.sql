@@ -37,8 +37,8 @@ CREATE TABLE `employee` (
   `email` varchar(100) DEFAULT NULL,
   `department_id` int(11) NOT NULL,
   PRIMARY KEY (`employee_id`),
-  FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`),
-  FOREIGN KEY (`payGrade`) REFERENCES `paygrade_leave` (`payGrade`),
+  FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) on update cascade,
+  FOREIGN KEY (`payGrade`) REFERENCES `paygrade_leave` (`payGrade`) on update cascade,
   CHECK (`salary` >= 20000 AND `salary` <= 400000) 
 ) ;
 
