@@ -655,7 +655,7 @@ app.get("/api/leaveReport", (req, res) => {
   // const v3 = "create view v3 as select leave_id, start_date, datediff(day,?,DATEADD(dd, duration, start_date)) as duration from leave_table left outer join employee using (employee_id) where start_date<=? and DATEADD(dd, duration, start_date) >= ? and DATEADD(dd, duration, start_date)<=? and department_id=?;";
   // const sqlselect = "select sum(duration) from v1 union all select sum(duration) from v2 union all select sum(duration) from v3;";
 
-  const sqlSelect = "select leave_id, start_date, duration, employee_id from leave_table left outer join employee using (employee_id) where department_id=? and leave_status='Accepted';";
+  const sqlSelect = "select leave_id, start_date, duration, employee_id from leave_table inner join employee using (employee_id) where department_id=? and leave_status='Accepted';";
 
   const getDateString = (dateString) => {
     var dateString = new Date(dateString);
@@ -792,7 +792,7 @@ app.get("/api/issup/:sup", (req, res) => {
 
 app.get("/api/supemp/:sup", (req, res) => {
   const supervisor_id = req.params.sup;
-  const sqlSelect = "SELECT * from employee left outer join supervisor using (employee_id) where supervisor_id=?";
+  const sqlSelect = "SELECT * from employee inner join supervisor using (employee_id) where supervisor_id=?";
   // console.log(employee_id);
   db.query(sqlSelect, supervisor_id, (err, result) => {
     if (err) {
